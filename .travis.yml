@@ -1,0 +1,14 @@
+language: ruby
+sudo: false
+cache: bundler
+dist: trusty
+
+jdk:
+  - oraclejdk8
+rvm:
+  - 2.3
+  - 2.4
+script:
+  - bundle exec rake
+services:
+  - redis-server
