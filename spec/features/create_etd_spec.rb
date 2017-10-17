@@ -6,28 +6,32 @@ include Warden::Test::Helpers
 # NOTE: If you generated more than one work, you have to set "js: true"
 RSpec.feature 'Create a Etd', js: false do
   context 'a logged in user' do
+    let(:title) { 'Comet in Moominland' }
+
     let(:user_attributes) do
       { email: 'test@example.com' }
     end
+
     let(:user) do
       User.new(user_attributes) { |u| u.save(validate: false) }
     end
 
-    before do
-      AdminSet.find_or_create_default_admin_set_id
-      login_as user
-    end
+    before { login_as user }
 
     scenario do
       visit '/dashboard'
-      click_link "Works"
-      click_link "Add new work"
+      click_link 'Works'
+      click_link 'Add new work'
 
-      # If you generate more than one work uncomment these lines
-      # choose "payload_concern", option: "Etd"
-      # click_button "Create work"
+      expect(page).to have_content 'Add New Etd'
 
-      expect(page).to have_content "Add New Etd"
+      fill_in 'Title', with: title
+      click_link 'Files'
+
+      attach_file('files[]', File.absolute_path(file_fixture('pdf-sample.pdf')))
+      find('#with_files_submit').click
+
+      expect(page).to have_content title
     end
   end
 end

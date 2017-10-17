@@ -1,2 +1,9 @@
 inherit_gem:
   bixby: bixby_default.yml
+
+RSpec/MultipleExpectations:
+  Exclude:
+    - 'spec/features/**/*'
+RSpec/ExampleLength:
+  Exclude:
+    - 'spec/features/**/*'
