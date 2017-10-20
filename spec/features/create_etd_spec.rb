@@ -3,15 +3,14 @@
 require 'rails_helper'
 include Warden::Test::Helpers
 
-# NOTE: If you generated more than one work, you have to set "js: true"
 RSpec.feature 'Create a Etd', js: false do
-  context 'a logged in user' do
+  context 'as a logged in user' do
     let(:title) { 'Comet in Moominland' }
     let(:user)  { FactoryGirl.create(:user) }
 
     before { login_as user }
 
-    scenario do
+    scenario 'creating' do
       visit '/dashboard'
       click_link 'Works'
       click_link 'Add new work'
@@ -25,6 +24,20 @@ RSpec.feature 'Create a Etd', js: false do
       find('#with_files_submit').click
 
       expect(page).to have_content title
+    end
+
+    scenario 'editing' do
+      etd = FactoryGirl.create(:etd, user: user)
+
+      visit "concern/etds/#{etd.id}"
+      click_link 'Edit'
+
+      new_title = 'Finn Family Moomintroll'
+
+      fill_in 'Title', with: new_title
+      find('#with_files_submit').click
+
+      expect(page).to have_content new_title
     end
   end
 end
