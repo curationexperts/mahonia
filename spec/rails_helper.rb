@@ -44,6 +44,8 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  config.include FactoryGirl::Syntax::Methods
+
   config.before(:suite) do
     ActiveFedora::Cleaner.clean!
     DatabaseCleaner.clean_with(:truncation)

@@ -7,14 +7,7 @@ include Warden::Test::Helpers
 RSpec.feature 'Create a Etd', js: false do
   context 'a logged in user' do
     let(:title) { 'Comet in Moominland' }
-
-    let(:user_attributes) do
-      { email: 'test@example.com' }
-    end
-
-    let(:user) do
-      User.new(user_attributes) { |u| u.save(validate: false) }
-    end
+    let(:user)  { FactoryGirl.create(:user) }
 
     before { login_as user }
 
