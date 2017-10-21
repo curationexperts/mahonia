@@ -47,6 +47,7 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 
   config.before(:suite) do
+    ActiveJob::Base.queue_adapter = :test
     ActiveFedora::Cleaner.clean!
     DatabaseCleaner.clean_with(:truncation)
     AdminSet.find_or_create_default_admin_set_id
@@ -54,4 +55,22 @@ RSpec.configure do |config|
 
   config.include(ControllerLevelHelpers, type: :view)
   config.before(type: :view) { initialize_controller_helpers(view) }
+
+  # Use this example group when you want to perform jobs inline during testing.
+  #
+  # Limit to specific job classes with:
+  #
+  #   ActiveJob::Base.queue_adapter.filter = [JobClass]
+  config.before(perform_enqueued: true) do
+    ActiveJob::Base.queue_adapter.perform_enqueued_jobs    = true
+    ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs = true
+  end
+
+  config.after(perform_enqueued: true) do
+    ActiveJob::Base.queue_adapter.enqueued_jobs  = []
+    ActiveJob::Base.queue_adapter.performed_jobs = []
+
+    ActiveJob::Base.queue_adapter.perform_enqueued_jobs    = false
+    ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs = false
+  end
 end
