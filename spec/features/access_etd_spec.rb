@@ -12,7 +12,9 @@ RSpec.feature 'Access an Etd', js: false do
     fill_in 'Search Hyrax', with: etd.first_title
     click_button 'Go'
 
-    expect(page).to have_css("li#document_#{etd.id}")
+    within(:css, "li#document_#{etd.id}") do
+      expect(page).to have_content etd.first_title
+    end
   end
 
   context 'with ingested file', :perform_enqueued do
