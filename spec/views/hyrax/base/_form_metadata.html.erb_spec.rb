@@ -24,8 +24,18 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
   end
 
   describe 'form fields' do
-    it 'has a title' do
-      expect(page).to have_content('Title')
+    it 'has titles' do
+      expect(page)
+        .to have_multivalued_field('title',
+                                   model_class: work.class,
+                                   label:       'Title')
+    end
+
+    it 'has keywords' do
+      expect(page)
+        .to have_multivalued_field('keyword',
+                                   model_class: work.class,
+                                   label:       'Keyword')
     end
   end
 end

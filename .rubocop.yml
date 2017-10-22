@@ -1,6 +1,12 @@
 inherit_gem:
   bixby: bixby_default.yml
 
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*' # rubocop rspec ignores, but misses the .erb_spec.rb pattern
+    - '**/*.gemspec' # these would normally be inherited from bixby
+    - 'config/**/*'
+    - '**/*/catalog_controller.rb'
 RSpec/MultipleExpectations:
   Exclude:
     - 'spec/features/**/*'
