@@ -27,8 +27,10 @@ RSpec.describe Etd do
 
   describe '#title' do
     it 'validates presence' do
-      expect { FactoryGirl.create(:etd, title: []) }
-        .to raise_error ActiveFedora::RecordInvalid
+      etd = FactoryGirl.build(:etd, title: [])
+      expect { etd.valid? }
+        .to change { etd.errors.details }
+        .to include(title: [{ error: :blank }])
     end
   end
 end
