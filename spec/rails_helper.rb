@@ -51,4 +51,7 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
     AdminSet.find_or_create_default_admin_set_id
   end
+
+  config.include(ControllerLevelHelpers, type: :view)
+  config.before(type: :view) { initialize_controller_helpers(view) }
 end
