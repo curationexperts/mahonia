@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Etd do
-  subject(:etd) { FactoryGirl.create(:etd) }
+  subject(:etd) { FactoryGirl.build(:etd) }
 
   it_behaves_like 'a model with basic metadata'
 
   describe 'an attached pdf' do
     let(:actor)  { Hyrax::Actors::FileSetActor.new(FileSet.create, user) }
-    let(:upload) { FactoryGirl.create(:pdf_upload) }
-    let(:user)   { FactoryGirl.create(:user) }
+    let(:upload) { FactoryGirl.build(:pdf_upload) }
+    let(:user)   { FactoryGirl.build(:user) }
 
     before do
       actor.create_metadata({})
@@ -27,8 +27,10 @@ RSpec.describe Etd do
 
   describe '#title' do
     it 'validates presence' do
-      expect { FactoryGirl.create(:etd, title: []) }
-        .to raise_error ActiveFedora::RecordInvalid
+      etd = FactoryGirl.build(:etd, title: [])
+      expect { etd.valid? }
+        .to change { etd.errors.details }
+        .to include(title: [{ error: :blank }])
     end
   end
 end
