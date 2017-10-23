@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'catalog/_index_list_default', type: :view do
   let(:attributes) do
-    { keyword:       ['moomin', 'snorkmaiden'],
+    { creator:       ['Tove Jansson'],
+      keyword:       ['moomin', 'snorkmaiden'],
       resource_type: ['Moomin'] }
   end
 
@@ -27,7 +28,8 @@ RSpec.describe 'catalog/_index_list_default', type: :view do
 
   it 'displays desired fields' do
     expect(rendered)
-      .to include('<span class="attribute-label h4">Keyword:</span>', 'keyword',
+      .to include('<span class="attribute-label h4">Creator:</span>', 'creator',
+                  '<span class="attribute-label h4">Keyword:</span>', 'keyword',
                   '<span class="attribute-label h4">Resource Type:</span>', 'resource_type')
   end
 end
