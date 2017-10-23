@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'catalog/_index_list_default', type: :view do
-  let(:attributes) { { keyword: ['moomin', 'snorkmaiden'] } }
+  let(:attributes) do
+    { keyword:       ['moomin', 'snorkmaiden'],
+      resource_type: ['Moomin'] }
+  end
+
   let!(:document)  { SolrDocument.new(etd.to_solr) }
   let!(:etd)       { FactoryGirl.build(:etd, **attributes) }
   let!(:presenter) { instance_double('Blacklight::IndexPresenter') }
@@ -16,12 +20,14 @@ RSpec.describe 'catalog/_index_list_default', type: :view do
     render 'catalog/index_list_default', document: document
   end
 
-  # title appears in a different partial
-  it 'does not display the title in the metadata' do
-    expect(rendered).not_to include 'Title:'
+  # title appears in a different partial, not in the metadata listing
+  it 'does not display undesired fields' do
+    expect(rendered).not_to include 'title'
   end
 
-  it 'displays keywords' do
-    expect(rendered).to include '<span class="attribute-label h4">Keyword:</span>'
+  it 'displays desired fields' do
+    expect(rendered)
+      .to include('<span class="attribute-label h4">Keyword:</span>', 'keyword',
+                  '<span class="attribute-label h4">Resource Type:</span>', 'resource_type')
   end
 end
