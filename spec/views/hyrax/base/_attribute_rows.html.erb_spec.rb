@@ -12,12 +12,15 @@ RSpec.describe 'hyrax/base/_attribute_rows.html.erb', type: :view do
   let(:work)          { FactoryGirl.build(:etd, **attributes) }
 
   let(:attributes) do
-    { creator: ['Tove Jansson', 'Lars Jansson'],
-      keyword: ['moominland', 'moomintroll'],
-      source:  ['Too-Ticky'] }
+    { creator:     ['Tove Jansson', 'Lars Jansson'],
+      keyword:     ['moominland', 'moomintroll'],
+      source:      ['Too-Ticky'],
+      rights_note: ['For the exclusive viewing of Little My.',
+                    'Moomin: do not read this.'] }
   end
 
   it { is_expected.to have_show_field(:creator).with_values(*attributes[:creator]).and_label('Creator') }
   it { is_expected.to have_show_field(:keyword).with_values(*attributes[:keyword]).and_label('Keyword') }
   it { is_expected.to have_show_field(:source).with_values(*attributes[:source]).and_label('Source') }
+  it { is_expected.not_to have_show_field(:rights_note) }
 end
