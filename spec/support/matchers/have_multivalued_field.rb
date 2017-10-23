@@ -21,20 +21,39 @@ RSpec::Matchers.define :have_multivalued_field do |name|
       @label_match = @label_text =~ /\s*#{label}\s*/
     end
 
-    @field && @multiple && (!label || @label_match)
+    @options_missing = []
+
+    if @options
+      @option_values =
+        @field.css('option').map { |opt| opt.attributes['value'].try(:value) }
+      @options_missing = (@options - @option_values)
+    end
+
+    @field && @multiple && (!label || @label_match) && @options_missing.empty?
   end
 
   chain :on_model,   :model_class
+  chain :and_label,  :label
   chain :with_label, :label
+
+  chain :and_options do |*options|
+    @options = options
+  end
+
+  chain :with_options do |*options|
+    @options = options
+  end
 
   failure_message do |rendered_form|
     msg = "expected #{rendered_form} to have multivlaued field #{name}"
-    msg += " for class #{model_class}"         if     model_class
-    msg += " with label #{label}"              if     label
-    msg += "\n\tNo field found: #{@selector}." unless @field
-    msg += "\n\tField not multivalued."        unless @multiple
-    msg += "\n\tLabel was #{@label_text}."     unless @label_match
-    msg += "\n\t#{@field}."                    if     @field
+    msg += " for class #{model_class}"          if     model_class
+    msg += " with label #{label}"               if     label
+    msg += " with options #{@options}"          if     @options
+    msg += "\n\tNo field found: #{@selector}."  unless @field
+    msg += "\n\tField not multivalued."         unless @multiple
+    msg += "\n\tLabel was #{@label_text}."      unless @label_match
+    msg += "\n\tOptions were #{@option_values}" unless @options_missing.empty?
+    msg += "\n\t#{@field}."                     if     @field
     msg
   end
 end
