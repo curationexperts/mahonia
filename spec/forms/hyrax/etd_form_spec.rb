@@ -11,4 +11,8 @@ RSpec.describe Hyrax::EtdForm do
       expect(form.required_fields).to include :title
     end
   end
+
+  describe '#terms' do
+    it { expect(form.terms).to include :rights_note }
+  end
 end
