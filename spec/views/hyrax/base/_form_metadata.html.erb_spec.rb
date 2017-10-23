@@ -26,16 +26,23 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
   describe 'form fields' do
     it 'has titles' do
       expect(page)
-        .to have_multivalued_field('title')
+        .to have_multivalued_field(:title)
         .on_model(work.class)
         .with_label 'Title'
     end
 
     it 'has keywords' do
       expect(page)
-        .to have_multivalued_field('keyword')
+        .to have_multivalued_field(:keyword)
         .on_model(work.class)
         .with_label 'Keyword'
+    end
+
+    it 'has resource_types' do
+      expect(page)
+        .to have_multivalued_field(:resource_type)
+        .on_model(work.class)
+        .with_label 'Resource type'
     end
   end
 end
