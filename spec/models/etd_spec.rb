@@ -24,4 +24,11 @@ RSpec.describe Etd do
       expect(etd.thumbnail).to eq actor.file_set
     end
   end
+
+  describe '#title' do
+    it 'validates presence' do
+      expect { FactoryGirl.create(:etd, title: []) }
+        .to raise_error ActiveFedora::RecordInvalid
+    end
+  end
 end
