@@ -1,25 +1,40 @@
-RSpec::Matchers.define :have_multivalued_field do |name, opts|
+RSpec::Matchers.define :have_multivalued_field do |name|
   match do |rendered_form|
-    selector = name
-    selector = "#{opts[:model_class].to_s.downcase}_#{selector}" if
-      opts[:model_class]
+    raise 'Specify a model with `.on_model(Klass)` to use this matcher.' unless
+      model_class
 
-    # we're only interested in the first instance of the input field, several
-    # will exist if values are already present
-    field = rendered_form.find_css("input.#{selector}").first
+    @selector = "#{model_class.to_s.downcase}_#{name}"
+    @field    = rendered_form.find_css("##{@selector}").first
 
-    expect(field.attributes['class'].value).to include 'multi_value'
+    expect(@field).not_to be_nil
 
-    if opts[:label]
-      label = rendered_form.find_css("label[for=\"#{selector}\"]")
-      expect(label.text).to start_with opts[:label]
+    @multiple = case @field.node_name
+                when 'input'
+                  @field.attributes['class'].value.include? 'multi_value'
+                when 'select'
+                  @field.attributes['multiple']
+                end
+
+    if label
+      @label_text =
+        rendered_form.find_css("label[for=\"#{@selector}\"]").try(:text)
+      @label_match = @label_text =~ /\s*#{label}\s*/
     end
+
+    @field && @multiple && (!label || @label_match)
   end
+
+  chain :on_model,   :model_class
+  chain :with_label, :label
 
   failure_message do |rendered_form|
     msg = "expected #{rendered_form} to have multivlaued field #{name}"
-    msg += " for class #{opts[:model_class]}" if opts[:model_class]
-    msg += " and label #{opts[:label]}"       if opts[:label]
+    msg += " for class #{model_class}"         if     model_class
+    msg += " with label #{label}"              if     label
+    msg += "\n\tNo field found: #{@selector}." unless @field
+    msg += "\n\tField not multivalued."        unless @multiple
+    msg += "\n\tLabel was #{@label_text}."     unless @label_match
+    msg += "\n\t#{@field}."                    if     @field
     msg
   end
 end
