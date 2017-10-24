@@ -66,5 +66,12 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
         .on_model(work.class)
         .with_label 'Source'
     end
+
+    it 'has subjects' do
+      expect(page)
+        .to have_multivalued_field(:subject)
+        .on_model(work.class)
+        .with_label 'Subject'
+    end
   end
 end

@@ -13,11 +13,12 @@ RSpec.describe Hyrax::EtdPresenter, type: :presenter do
       resource_type: ['letter from moominpapa'],
       source:        ['Too-Ticky'],
       rights_note:   ['For the exclusive viewing of Little My.',
-                      'Moomin: do not read this.'] }
+                      'Moomin: do not read this.'],
+      subject:       ['Moomintrolls', 'Snorks'] }
   end
 
   describe '#export_as_ttl' do
-    let(:expected_fields) { [:creator, :title, :resource_type, :rights_note, :source] }
+    let(:expected_fields) { [:creator, :title, :resource_type, :rights_note, :source, :subject] }
     let(:properties)      { etd.class.properties }
 
     it 'has expected predicates' do
