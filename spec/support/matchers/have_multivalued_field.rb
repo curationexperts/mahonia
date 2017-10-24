@@ -1,4 +1,4 @@
-RSpec::Matchers.define :have_multivalued_field do |name|
+RSpec::Matchers.define :have_form_field do |name|
   match do |rendered_form|
     raise 'Specify a model with `.on_model(Klass)` to use this matcher.' unless
       model_class
@@ -6,7 +6,7 @@ RSpec::Matchers.define :have_multivalued_field do |name|
     @selector = "#{model_class.to_s.downcase}_#{name}"
     @field    = rendered_form.find_css("##{@selector}").first
 
-    expect(@field).not_to be_nil
+    return false unless @field
 
     @multiple = case @field.node_name
                 when 'input'
@@ -29,12 +29,19 @@ RSpec::Matchers.define :have_multivalued_field do |name|
       @options_missing = (@options - @option_values)
     end
 
-    @field && @multiple && (!label || @label_match) && @options_missing.empty?
+    @field &&
+      (@multiple || @single) &&
+      (!label || @label_match) &&
+      @options_missing.empty?
   end
 
   chain :on_model,   :model_class
   chain :and_label,  :label
   chain :with_label, :label
+
+  chain :as_single_valued do
+    @single = true
+  end
 
   chain :and_options do |*options|
     @options = options
@@ -57,3 +64,5 @@ RSpec::Matchers.define :have_multivalued_field do |name|
     msg
   end
 end
+
+RSpec::Matchers.alias_matcher :have_multivalued_field, :have_form_field
