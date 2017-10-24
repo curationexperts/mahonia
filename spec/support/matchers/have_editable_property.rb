@@ -7,20 +7,25 @@ RSpec::Matchers.define :have_editable_property do |property, predicate|
     values = ['Comet in Moominland', 'Moomin Midwinter']
     values = values.first if @single
 
+    # find the matching property or set @missing_property to true and fail
     config = model.class.properties.fetch(property.to_s) do
       @missing_property = true
       return false
     end
 
+    # fail if setting the property doesn't change the values
     expect { model.public_send("#{property}=", values) }
       .to change { Array(model.public_send(property)) }
       .to contain_exactly(*values)
 
+    # if we haven't failed yet, succeed unless we are verifying the predicate
     return true unless predicate
 
+    # fail if the configured predicate is wrong
     @actual_predicate = config.predicate
     return false unless @actual_predicate == predicate
 
+    # fail if the rdf doesn't have the correct statements
     Array(values).each do |value|
       expect(model.resource.statements)
         .to include(RDF::Statement(model.rdf_subject, predicate, value))

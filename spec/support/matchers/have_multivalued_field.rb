@@ -30,7 +30,7 @@ RSpec::Matchers.define :have_form_field do |name|
     end
 
     @field &&
-      (@multiple || @single) &&
+      (@single ^ @multiple) &&
       (!label || @label_match) &&
       @options_missing.empty?
   end
@@ -52,12 +52,14 @@ RSpec::Matchers.define :have_form_field do |name|
   end
 
   failure_message do |rendered_form|
-    msg = "expected #{rendered_form} to have multivlaued field #{name}"
+    msg = "expected #{rendered_form} to have field #{name}"
+    msg += ' as ' + (@single ? 'single valued' : 'multivalued')
     msg += " for class #{model_class}"          if     model_class
     msg += " with label #{label}"               if     label
     msg += " with options #{@options}"          if     @options
     msg += "\n\tNo field found: #{@selector}."  unless @field
-    msg += "\n\tField not multivalued."         unless @multiple
+    msg += "\n\tField not multivalued."         unless @single || @multiple
+    msg += "\n\tField not single valued."       if     @single && @multiple
     msg += "\n\tLabel was #{@label_text}."      unless @label_match
     msg += "\n\tOptions were #{@option_values}" unless @options_missing.empty?
     msg += "\n\t#{@field}."                     if     @field
