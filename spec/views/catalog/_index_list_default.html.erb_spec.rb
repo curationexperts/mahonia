@@ -32,6 +32,6 @@ RSpec.describe 'catalog/_index_list_default', type: :view do
   end
 
   it 'displays desired fields' do
-    is_expected.to list_index_fields('Creator', 'Keyword', 'Resource Type', 'Subject')
+    is_expected.to list_index_fields('Creator', 'Keyword', 'Document Type', 'Subject')
   end
 end

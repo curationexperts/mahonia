@@ -1,3 +1,7 @@
 en:
   blacklight:
     application_name: 'Blacklight'
+    search:
+      fields:
+        show:
+          resource_type: "Document type"

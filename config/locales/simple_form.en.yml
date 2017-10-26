@@ -1,0 +1,5 @@
+en:
+  simple_form:
+    labels:
+      defaults:
+        resource_type: "Document type"
