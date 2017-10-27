@@ -53,6 +53,13 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
         .and_options('article', 'capstone', 'dissertation', 'portfolio', 'thesis')
     end
 
+    it 'has rights notes' do
+      expect(page)
+        .to have_multivalued_field(:rights_note)
+        .on_model(work.class)
+        .with_label('Rights note')
+    end
+
     it 'has sources' do
       expect(page)
         .to have_multivalued_field(:source)

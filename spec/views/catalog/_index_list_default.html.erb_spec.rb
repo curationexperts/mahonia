@@ -6,8 +6,9 @@ RSpec.describe 'catalog/_index_list_default', type: :view do
   let(:attributes) do
     { creator:       ['Tove Jansson'],
       keyword:       ['moomin', 'snorkmaiden'],
-      resource_type: ['Moomin'],
-      source:        ['Too-Ticky'] }
+      resource_type: ['letter from moominpapa'],
+      source:        ['Too-Ticky'],
+      rights_note:   ['for moomin access only'] }
   end
 
   let!(:document)  { SolrDocument.new(etd.to_solr) }
@@ -26,7 +27,7 @@ RSpec.describe 'catalog/_index_list_default', type: :view do
 
   # title appears in a different partial, not in the metadata listing
   it 'does not display undesired fields' do
-    is_expected.not_to list_index_fields('Title', 'Source')
+    is_expected.not_to list_index_fields('Title', 'Source', 'Rights Note')
   end
 
   it 'displays desired fields' do
