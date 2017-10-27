@@ -1,9 +1,26 @@
 RSpec.shared_examples 'a model with core metadata' do
   subject(:model) { described_class.new }
 
-  describe '#date_modified'
-  describe '#date_uploaded'
-  describe '#depositor'
+  it do
+    is_expected
+      .to have_editable_property(:date_modified)
+      .with_predicate(RDF::Vocab::DC.modified)
+      .as_single_valued
+  end
+
+  it do
+    is_expected
+      .to have_editable_property(:date_uploaded)
+      .with_predicate(RDF::Vocab::DC.dateSubmitted)
+      .as_single_valued
+  end
+
+  it do
+    is_expected
+      .to have_editable_property(:depositor)
+      .with_predicate(RDF::Vocab::MARCRelators.dpt)
+      .as_single_valued
+  end
 
   describe '#first_title' do
     it 'is nil when empty' do
@@ -25,7 +42,27 @@ RSpec.shared_examples 'a model with basic metadata' do
 
   it_behaves_like 'a model with core metadata'
 
-  it 'has singular properties' # label, relative_path, import_url
+  it do
+    is_expected
+      .to have_editable_property(:label)
+      .with_predicate('info:fedora/fedora-system:def/model#downloadFilename')
+      .as_single_valued
+  end
+
+  it do
+    is_expected
+      .to have_editable_property(:relative_path)
+      .with_predicate('http://scholarsphere.psu.edu/ns#relativePath')
+      .as_single_valued
+  end
+
+  it do
+    is_expected
+      .to have_editable_property(:import_url)
+      .with_predicate('http://scholarsphere.psu.edu/ns#importUrl')
+      .as_single_valued
+  end
+
   it { is_expected.to have_editable_property(:bibliographic_citation, RDF::Vocab::DC.bibliographicCitation) }
   it { is_expected.to have_editable_property(:contributor, RDF::Vocab::DC11.contributor) }
   it { is_expected.to have_editable_property(:creator, RDF::Vocab::DC11.creator) }
