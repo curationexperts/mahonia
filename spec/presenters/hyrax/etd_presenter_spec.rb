@@ -12,6 +12,7 @@ RSpec.describe Hyrax::EtdPresenter, type: :presenter do
       creator:       ['Tove Jansson'],
       identifier:    ['Moomin_123'],
       date_label:    ['Winter in Moomin Valley'],
+      language:      ['en-US'],
       resource_type: ['letter from moominpapa'],
       source:        ['Too-Ticky'],
       rights_note:   ['For the exclusive viewing of Little My.',

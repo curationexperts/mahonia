@@ -59,6 +59,13 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
         .with_label 'Keyword'
     end
 
+    it 'has language' do
+      expect(page)
+        .to have_multivalued_field(:language)
+        .on_model(work.class)
+        .with_label 'Language'
+    end
+
     it 'has resource_types' do
       expect(page)
         .to have_multivalued_field(:resource_type)

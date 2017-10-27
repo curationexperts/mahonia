@@ -41,7 +41,6 @@ RSpec.describe CatalogController, type: :controller do
        'publisher',
        'date_created',
        'subject',
-       'language',
        'resource_type',
        'format',
        'identifier',
