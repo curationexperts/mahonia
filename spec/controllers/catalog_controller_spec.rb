@@ -47,8 +47,7 @@ RSpec.describe CatalogController, type: :controller do
        'identifier',
        'based_near',
        'keyword',
-       'depositor',
-       'rights']
+       'depositor']
     end
 
     it { expect(search_fields).to contain_exactly(*expected_search_fields) }

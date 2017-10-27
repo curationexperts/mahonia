@@ -20,7 +20,10 @@ RSpec.feature 'Create a Etd', js: false do
       fill_in 'Title', with: title
       click_link 'Files'
 
-      attach_file('files[]', File.absolute_path(file_fixture('pdf-sample.pdf')))
+      within('#addfiles') do
+        attach_file('files[]', File.absolute_path(file_fixture('pdf-sample.pdf')))
+      end
+
       find('#with_files_submit').click
 
       expect(page).to have_content title
