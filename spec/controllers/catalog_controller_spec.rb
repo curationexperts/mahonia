@@ -23,7 +23,8 @@ RSpec.describe CatalogController, type: :controller do
        'publisher',
        'file_format',
        'member_of_collections',
-       'generic_type']
+       'generic_type',
+       'rights_statement']
     end
 
     it 'has exactly expected facets' do

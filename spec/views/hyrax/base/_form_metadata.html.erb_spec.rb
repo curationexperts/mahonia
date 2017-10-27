@@ -24,6 +24,20 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
   end
 
   describe 'form fields' do
+    let(:rights_uris) do
+      ['http://rightsstatements.org/vocab/InC/1.0/',
+       'http://rightsstatements.org/vocab/InC-OW-EU/1.0/',
+       'http://rightsstatements.org/vocab/InC-NC/1.0/',
+       'http://rightsstatements.org/vocab/InC-RUU/1.0/',
+       'http://rightsstatements.org/vocab/NoC-CR/1.0/',
+       'http://rightsstatements.org/vocab/NoC-NC/1.0/',
+       'http://rightsstatements.org/vocab/NoC-OKLR/1.0/',
+       'http://rightsstatements.org/vocab/NoC-US/1.0/',
+       'http://rightsstatements.org/vocab/CNE/1.0/',
+       'http://rightsstatements.org/vocab/UND/1.0/',
+       'http://rightsstatements.org/vocab/NKC/1.0/']
+    end
+
     it 'has titles' do
       expect(page)
         .to have_multivalued_field(:title)
@@ -102,6 +116,14 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
         .to have_multivalued_field(:rights_note)
         .on_model(work.class)
         .with_label('Rights note')
+    end
+
+    it 'has rights_statements' do
+      expect(page).to have_form_field(:rights_statement)
+        .on_model(work.class)
+        .as_single_valued
+        .with_label('Rights')
+        .and_options(*rights_uris)
     end
 
     it 'has sources' do

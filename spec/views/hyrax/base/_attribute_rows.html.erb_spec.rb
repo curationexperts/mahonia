@@ -19,6 +19,7 @@ RSpec.describe 'hyrax/base/_attribute_rows.html.erb', type: :view do
   it { is_expected.to have_show_field(:language).with_values(*work.language).and_label('Language') }
   it { is_expected.to have_show_field(:orcid_id).with_values(*work.orcid_id).and_label('ORCID') }
   it { is_expected.to have_show_field(:resource_type).with_values(*work.resource_type).and_label('Document type') }
+  it { is_expected.to have_show_field(:rights_statement).with_values('No Known Copyright').and_label('Rights') }
   it { is_expected.to have_show_field(:source).with_values(*work.source).and_label('Source') }
   it { is_expected.to have_show_field(:subject).with_values(*work.subject).and_label('Subject') }
 
