@@ -1,10 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe 'catalog/_index_list_default', type: :view do
+  subject(:page) { Capybara::Node::Simple.new(rendered) }
+
   let(:attributes) do
     { creator:       ['Tove Jansson'],
       keyword:       ['moomin', 'snorkmaiden'],
-      resource_type: ['Moomin'] }
+      resource_type: ['Moomin'],
+      source:        ['Too-Ticky'] }
   end
 
   let!(:document)  { SolrDocument.new(etd.to_solr) }
@@ -23,13 +26,10 @@ RSpec.describe 'catalog/_index_list_default', type: :view do
 
   # title appears in a different partial, not in the metadata listing
   it 'does not display undesired fields' do
-    expect(rendered).not_to include 'title'
+    is_expected.not_to list_index_fields('Title', 'Source')
   end
 
   it 'displays desired fields' do
-    expect(rendered)
-      .to include('<span class="attribute-label h4">Creator:</span>', 'creator',
-                  '<span class="attribute-label h4">Keyword:</span>', 'keyword',
-                  '<span class="attribute-label h4">Resource Type:</span>', 'resource_type')
+    is_expected.to list_index_fields('Creator', 'Keyword', 'Resource Type')
   end
 end

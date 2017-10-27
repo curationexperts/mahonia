@@ -13,9 +13,11 @@ RSpec.describe 'hyrax/base/_attribute_rows.html.erb', type: :view do
 
   let(:attributes) do
     { creator: ['Tove Jansson', 'Lars Jansson'],
-      keyword: ['moominland', 'moomintroll'] }
+      keyword: ['moominland', 'moomintroll'],
+      source:  ['Too-Ticky'] }
   end
 
   it { is_expected.to have_show_field(:creator).with_values(*attributes[:creator]).and_label('Creator') }
   it { is_expected.to have_show_field(:keyword).with_values(*attributes[:keyword]).and_label('Keyword') }
+  it { is_expected.to have_show_field(:source).with_values(*attributes[:source]).and_label('Source') }
 end

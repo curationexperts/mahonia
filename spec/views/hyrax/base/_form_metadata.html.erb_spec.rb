@@ -52,5 +52,12 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
         .with_label('Resource type')
         .and_options('article', 'capstone', 'dissertation', 'portfolio', 'thesis')
     end
+
+    it 'has sources' do
+      expect(page)
+        .to have_multivalued_field(:source)
+        .on_model(work.class)
+        .with_label 'Source'
+    end
   end
 end
