@@ -2,7 +2,7 @@
 lock "~> 3.10.0"
 
 set :application, "mahonia"
-set :repo_url, "git@github.com:curationexperts/mahonia.git"
+set :repo_url, "https://github.com/curationexperts/mahonia.git"
 
 set :deploy_to, '/opt/mahonia'
 
