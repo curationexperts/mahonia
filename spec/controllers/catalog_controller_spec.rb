@@ -19,6 +19,7 @@ RSpec.describe CatalogController, type: :controller do
        'keyword',
        'subject',
        'language',
+       'license',
        'based_near_label',
        'publisher',
        'file_format',

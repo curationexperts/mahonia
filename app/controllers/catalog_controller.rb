@@ -52,6 +52,7 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name("file_format", :facetable), limit: 5
     config.add_facet_field solr_name('member_of_collections', :symbol), limit: 5, label: 'Collections'
     config.add_facet_field solr_name("rights_statement", :facetable), limit: 5, label: 'Rights'
+    config.add_facet_field solr_name("license", :facetable), limit: 5
 
     # ETD facet fields
     config.add_facet_field solr_name('degree', :facetable), limit: 5
@@ -108,6 +109,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("format", :stored_searchable)
     config.add_show_field solr_name("identifier", :stored_searchable)
     config.add_show_field solr_name("rights_statement", :stored_searchable), helper_method: :rights_statement_links
+    config.add_show_field solr_name("license", :stored_searchable)
 
     # ETD show fields
     config.add_show_field solr_name('date_label',  :stored_searchable)

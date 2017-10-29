@@ -24,6 +24,17 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
   end
 
   describe 'form fields' do
+    let(:license_uris) do
+      ['https://creativecommons.org/licenses/by/4.0/',
+       'https://creativecommons.org/licenses/by-sa/4.0/',
+       'https://creativecommons.org/licenses/by-nd/4.0/',
+       'https://creativecommons.org/licenses/by-nc/4.0/',
+       'https://creativecommons.org/licenses/by-nc-nd/4.0/',
+       'https://creativecommons.org/licenses/by-nc-sa/4.0/',
+       'http://creativecommons.org/publicdomain/zero/1.0/',
+       'http://creativecommons.org/publicdomain/mark/1.0/']
+    end
+
     let(:rights_uris) do
       ['http://rightsstatements.org/vocab/InC/1.0/',
        'http://rightsstatements.org/vocab/InC-OW-EU/1.0/',
@@ -94,6 +105,14 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
         .to have_multivalued_field(:language)
         .on_model(work.class)
         .with_label 'Language'
+    end
+
+    it 'has licenses' do
+      expect(page).to have_form_field(:license)
+        .as_single_valued
+        .on_model(work.class)
+        .with_label('License')
+        .and_options(*license_uris)
     end
 
     it 'has orcid id' do
