@@ -1,6 +1,6 @@
 RSpec::Matchers.define :have_show_field do |name|
   match do |rendered_view|
-    @displayed_fields = page.find_css("li.#{name}")
+    @displayed_fields = rendered_view.find_css("li.#{name}")
 
     @exists         = !@displayed_fields.empty?
     @extra_actual   = []
@@ -14,8 +14,7 @@ RSpec::Matchers.define :have_show_field do |name|
       @extra_expected  = @values - displayed_values
     end
 
-    byebug if label == 'License'
-    @label_exists = rendered_view.find(:xpath, "//th[contains(., \"#{label}\")]") if @label
+    @label_exists = rendered_view.all(:xpath, "//th[.//text()=\"#{@label}\"]").any? if @label
 
     @exists && @extra_actual.empty? && @extra_expected.empty? && (!@label || @label_exists)
   end
