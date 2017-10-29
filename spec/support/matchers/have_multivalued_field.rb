@@ -18,9 +18,9 @@ RSpec::Matchers.define :have_form_field do |name|
                 end
 
     if label
-      @label_text =
-        rendered_form.find_css("label[for=\"#{@selector}\"]").try(:text)
-      @label_match = @label_text =~ /\s*#{label}\s*/
+      label_node   = rendered_form.find_css("label[for=\"#{@selector}\"]")
+      @label_text  = label_node && label_node.xpath('text()').first.text
+      @label_match = @label_text =~ /\s*#{label}\s*$/
     end
 
     if @options
