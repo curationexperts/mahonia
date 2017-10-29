@@ -5,6 +5,7 @@ RSpec.describe 'catalog/_index_list_default', type: :view do
 
   let(:attributes) do
     { creator:       ['Tove Jansson'],
+      identifier:    ['Moomin_123'],
       keyword:       ['moomin', 'snorkmaiden'],
       resource_type: ['letter from moominpapa'],
       source:        ['Too-Ticky'],
@@ -28,7 +29,7 @@ RSpec.describe 'catalog/_index_list_default', type: :view do
 
   # title appears in a different partial, not in the metadata listing
   it 'does not display undesired fields' do
-    is_expected.not_to list_index_fields('Title', 'Source', 'Rights Note')
+    is_expected.not_to list_index_fields('Identifier', 'Title', 'Source', 'Rights Note')
   end
 
   it 'displays desired fields' do

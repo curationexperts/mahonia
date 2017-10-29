@@ -38,6 +38,13 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
         .with_label 'Creator'
     end
 
+    it 'has identifier' do
+      expect(page)
+        .to have_form_field(:identifier)
+        .on_model(work.class)
+        .with_label 'Identifier'
+    end
+
     it 'has keywords' do
       expect(page)
         .to have_multivalued_field(:keyword)
