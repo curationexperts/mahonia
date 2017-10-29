@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   mount Blacklight::Engine => '/'
 
+  # Mount sidekiq web ui and require authentication by an admin user
+  require 'sidekiq/web'
+  authenticate :user, ->(u) { u.admin? } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   concern :searchable, Blacklight::Routes::Searchable.new
 
   resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
