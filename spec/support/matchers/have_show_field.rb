@@ -6,12 +6,15 @@ RSpec::Matchers.define :have_show_field do |name|
     @extra_actual   = []
     @extra_expected = []
 
+    return false unless @exists
+
     if @values
       displayed_values = @displayed_fields.map(&:text)
       @extra_actual    = displayed_values - @values
       @extra_expected  = @values - displayed_values
     end
 
+    byebug if label == 'License'
     @label_exists = rendered_view.find(:xpath, "//th[contains(., \"#{label}\")]") if @label
 
     @exists && @extra_actual.empty? && @extra_expected.empty? && (!@label || @label_exists)
