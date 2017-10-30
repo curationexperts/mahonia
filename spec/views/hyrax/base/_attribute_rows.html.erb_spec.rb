@@ -19,6 +19,7 @@ RSpec.describe 'hyrax/base/_attribute_rows.html.erb', type: :view do
       rights_note:   ['For the exclusive viewing of Little My.',
                       'Moomin: do not read this.'],
       subject:       ['Moomins', 'Snorks'],
+      language: ['en-US'],
       resource_type: ['letter from moominpapa'] }
   end
 
@@ -29,4 +30,5 @@ RSpec.describe 'hyrax/base/_attribute_rows.html.erb', type: :view do
   it { is_expected.to have_show_field(:subject).with_values(*attributes[:subject]).and_label('Subject') }
   it { is_expected.to have_show_field(:resource_type).with_values(*attributes[:resource_type]).and_label('Document type') }
   it { is_expected.not_to have_show_field(:rights_note) }
+  it { is_expected.to have_show_field(:language).with_values(*attributes[:language]).and_label('Language') }
 end
