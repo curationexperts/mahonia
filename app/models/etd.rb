@@ -1,5 +1,3 @@
-# Generated via
-#  `rails generate hyrax:work Etd`
 class Etd < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
 
@@ -11,6 +9,7 @@ class Etd < ActiveFedora::Base
   self.human_readable_type = 'Etd'
 
   apply_schema Schemas::CoreMetadata
+  apply_schema Schemas::EtdMetadata
 
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
