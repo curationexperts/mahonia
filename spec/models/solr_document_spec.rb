@@ -48,4 +48,19 @@ RSpec.describe SolrDocument do
       end
     end
   end
+
+  describe '#school' do
+    it 'is nil when empty' do
+      expect(solr_document.school).to be_nil
+    end
+
+    context 'with labels' do
+      let(:schools) { ['School of Dentistry'] }
+      let(:etd)     { FactoryGirl.build(:etd, school: schools) }
+
+      it 'matches the model labels' do
+        expect(solr_document.school).to contain_exactly(*schools)
+      end
+    end
+  end
 end

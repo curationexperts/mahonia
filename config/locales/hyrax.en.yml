@@ -13,6 +13,7 @@ en:
           subject_sim: Subject
           degree_sim: Degree Name
           rights_statement_sim: Rights
+          school_sim: School
         index:
           based_near_tesim: Location
           contributor_tesim: Contributor
@@ -30,6 +31,7 @@ en:
           subject_tesim: Subject
           degree_tesim: Degree Name
           rights_statement_tesim: Rights
+          school_tesim: School
         show:
           based_near_tesim: Location
           contributor_tesim: Contributor
@@ -50,6 +52,7 @@ en:
           orcid_id: ORCID
           resource_type: Document type
           rights_statement: Rights
+          school: School
   simple_form:
     labels:
       defaults:

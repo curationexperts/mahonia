@@ -1,10 +1,10 @@
 module Hyrax
   class EtdForm < Hyrax::Forms::WorkForm
-    SINGLE_VALUE = [:degree].freeze
+    SINGLE_VALUE = [:degree, :school].freeze
 
     self.model_class = ::Etd
     self.terms += [:degree, :date_label, :institution, :orcid_id,
-                   :resource_type, :rights_note]
+                   :resource_type, :rights_note, :school]
 
     ##
     # @return [Boolean]

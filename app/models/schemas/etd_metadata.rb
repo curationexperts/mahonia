@@ -3,5 +3,6 @@ module Schemas
     property :degree,      predicate: RDF::URI.intern('http://vivoweb.org/ontology/core#AcademicDegree')
     property :institution, predicate: RDF::Vocab::MARCRelators.dgg
     property :orcid_id,    predicate: RDF::URI.intern('http://vivoweb.org/ontology/core#orcidId')
+    property :school,      predicate: RDF::URI.intern('http://vivoweb.org/ontology/core#School')
   end
 end

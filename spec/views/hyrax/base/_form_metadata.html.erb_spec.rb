@@ -78,6 +78,13 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
                       'M.P.H.', 'M.S.', 'M.S.N.', 'Ph.D.')
     end
 
+    it 'has school' do
+      expect(page).to have_form_field(:school)
+        .as_single_valued.on_model(work.class)
+        .with_label('School')
+        .with_options('School of Dentistry', 'School of Medicine', 'School of Nursing', 'School of Public Health')
+    end
+
     it 'has identifier' do
       expect(page)
         .to have_form_field(:identifier)

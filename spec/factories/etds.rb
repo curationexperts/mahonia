@@ -33,6 +33,7 @@ FactoryGirl.define do
       language         ['Finnish', 'Swedish']
       license          [RDF::URI('https://creativecommons.org/licenses/by-sa/4.0/')]
       orcid_id         ['0000-0001-2345-6789', '0000-0002-1825-0097']
+      school           ['Department of Hattifattener Studies']
       source           ['Too-Ticky', 'Snufkin']
       subject          ['Moomins', 'Snorks']
       resource_type    ['thesis']
