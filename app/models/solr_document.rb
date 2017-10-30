@@ -24,4 +24,8 @@ class SolrDocument
   # Do content negotiation for AF models.
 
   use_extension(Hydra::ContentNegotiation)
+
+  def date_label
+    self[Solrizer.solr_name('date_label')]
+  end
 end

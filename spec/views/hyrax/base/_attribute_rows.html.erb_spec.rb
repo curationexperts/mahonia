@@ -7,12 +7,13 @@ RSpec.describe 'hyrax/base/_attribute_rows.html.erb', type: :view do
   end
 
   let(:ability)       { double }
-  let(:presenter)     { Hyrax::WorkShowPresenter.new(solr_document, ability) }
+  let(:presenter)     { Hyrax::EtdPresenter.new(solr_document, ability) }
   let(:solr_document) { SolrDocument.new(work.to_solr) }
   let(:work)          { FactoryGirl.build(:etd, **attributes) }
 
   let(:attributes) do
     { creator:       ['Tove Jansson', 'Lars Jansson'],
+      date_label:    ['Winter in Moomin Valley'],
       keyword:       ['moominland', 'moomintroll'],
       source:        ['Too-Ticky'],
       rights_note:   ['For the exclusive viewing of Little My.',
@@ -22,6 +23,7 @@ RSpec.describe 'hyrax/base/_attribute_rows.html.erb', type: :view do
   end
 
   it { is_expected.to have_show_field(:creator).with_values(*attributes[:creator]).and_label('Creator') }
+  it { is_expected.to have_show_field(:date_label).with_values(*attributes[:date_label]).and_label('Date label') }
   it { is_expected.to have_show_field(:keyword).with_values(*attributes[:keyword]).and_label('Keyword') }
   it { is_expected.to have_show_field(:source).with_values(*attributes[:source]).and_label('Source') }
   it { is_expected.to have_show_field(:subject).with_values(*attributes[:subject]).and_label('Subject') }

@@ -6,6 +6,7 @@ RSpec.describe 'catalog/_index_list_default', type: :view do
   let(:attributes) do
     { creator:       ['Tove Jansson'],
       identifier:    ['Moomin_123'],
+      date_label:    ['Winter in Moomin Valley'],
       keyword:       ['moomin', 'snorkmaiden'],
       resource_type: ['letter from moominpapa'],
       source:        ['Too-Ticky'],
@@ -33,6 +34,6 @@ RSpec.describe 'catalog/_index_list_default', type: :view do
   end
 
   it 'displays desired fields' do
-    is_expected.to list_index_fields('Creator', 'Keyword', 'Document Type', 'Subject')
+    is_expected.to list_index_fields('Creator', 'Date Label', 'Keyword', 'Document Type', 'Subject')
   end
 end

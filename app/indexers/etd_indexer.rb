@@ -1,18 +1,22 @@
-# Generated via
-#  `rails generate hyrax:work Etd`
 class EtdIndexer < Hyrax::WorkIndexer
-  # This indexes the default metadata. You can remove it if you want to
-  # provide your own metadata and indexing.
-  include Hyrax::IndexesBasicMetadata
+  ##
+  # Use the custom indexing service.
+  #
+  # This obviates inclusion of both `Hyrax::IndexesBasicMetadata` and
+  # `Hyrax::IndexesLinkedMetadata`, which both override this method (and
+  # conflict with one another in the process).
+  def rdf_service
+    IndexingService
+  end
 
-  # Fetch remote labels for based_near. You can remove this if you don't want
-  # this behavior
-  include Hyrax::IndexesLinkedMetadata
-
-  # Uncomment this block if you want to add custom indexing behavior:
-  # def generate_solr_document
-  #  super.tap do |solr_doc|
-  #    solr_doc['my_custom_field_ssim'] = object.my_custom_property
-  #  end
-  # end
+  ##
+  # A custom indexing service based on Hyrax::DeepIndexingService
+  #
+  # This adds the specialized Etd fields
+  class IndexingService < Hyrax::DeepIndexingService
+    def self.stored_and_facetable_fields
+      @stored_and_facetable_fields ||=
+        (Hyrax::DeepIndexingService.stored_and_facetable_fields.dup << :date_label)
+    end
+  end
 end
