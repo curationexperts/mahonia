@@ -33,6 +33,10 @@ class SolrDocument
     self[Solrizer.solr_name('degree')]
   end
 
+  def department
+    self[Solrizer.solr_name('department')]
+  end
+
   def institution
     self[Solrizer.solr_name('institution')]
   end

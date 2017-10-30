@@ -78,11 +78,14 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
                       'M.P.H.', 'M.S.', 'M.S.N.', 'Ph.D.')
     end
 
-    it 'has school' do
-      expect(page).to have_form_field(:school)
-        .as_single_valued.on_model(work.class)
-        .with_label('School')
-        .with_options('School of Dentistry', 'School of Medicine', 'School of Nursing', 'School of Public Health')
+    # just test a few department options to make sure the department loads;
+    # this is a long list and the test will likely change when typeahead exists.
+    it 'has department' do
+      expect(page).to have_form_field(:department)
+        .as_single_valued
+        .on_model(work.class)
+        .with_label('Department')
+        .and_options('Department of Adult Health and Illness', 'Department of Anatomy')
     end
 
     it 'has identifier' do
@@ -150,6 +153,14 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
         .as_single_valued
         .with_label('Rights')
         .and_options(*rights_uris)
+    end
+
+    it 'has school' do
+      expect(page).to have_form_field(:school)
+        .as_single_valued.on_model(work.class)
+        .with_label('School')
+        .with_options('School of Dentistry', 'School of Medicine',
+                      'School of Nursing', 'School of Public Health')
     end
 
     it 'has sources' do
