@@ -5,6 +5,7 @@ RSpec.describe Etd do
 
   it_behaves_like 'a model with basic metadata'
   it_behaves_like 'a model with ohsu core metadata'
+  it_behaves_like 'a model with ohsu ETD metadata'
 
   describe 'an attached pdf' do
     let(:actor)  { Hyrax::Actors::FileSetActor.new(FileSet.create, user) }

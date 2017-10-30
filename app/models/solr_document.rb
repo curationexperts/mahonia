@@ -28,4 +28,8 @@ class SolrDocument
   def date_label
     self[Solrizer.solr_name('date_label')]
   end
+
+  def degree
+    self[Solrizer.solr_name('degree')]
+  end
 end

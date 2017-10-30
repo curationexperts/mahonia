@@ -6,6 +6,8 @@ RSpec::Matchers.define :have_form_field do |name|
     @selector = "#{model_class.to_s.downcase}_#{name}"
     @field    = rendered_form.find_css("##{@selector}").first
 
+    @options_missing = []
+
     return false unless @field
 
     @multiple = case @field.node_name
@@ -20,8 +22,6 @@ RSpec::Matchers.define :have_form_field do |name|
         rendered_form.find_css("label[for=\"#{@selector}\"]").try(:text)
       @label_match = @label_text =~ /\s*#{label}\s*/
     end
-
-    @options_missing = []
 
     if @options
       @option_values =
@@ -60,7 +60,7 @@ RSpec::Matchers.define :have_form_field do |name|
     msg += "\n\tNo field found: #{@selector}."  unless @field
     msg += "\n\tField not multivalued."         unless @single || @multiple
     msg += "\n\tField not single valued."       if     @single && @multiple
-    msg += "\n\tLabel was #{@label_text}."      unless @label_match
+    msg += "\n\tLabel was #{@label_text}."      unless @label_match && @field
     msg += "\n\tOptions were #{@option_values}" unless @options_missing.empty?
     msg += "\n\t#{@field}."                     if     @field
     msg

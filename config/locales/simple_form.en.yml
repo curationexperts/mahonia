@@ -2,4 +2,5 @@ en:
   simple_form:
     labels:
       defaults:
-        resource_type: "Document type"
+        degree:        Degree Name
+        resource_type: Document Type

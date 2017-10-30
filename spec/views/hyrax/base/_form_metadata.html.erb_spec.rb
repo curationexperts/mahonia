@@ -45,6 +45,14 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
         .with_label 'Date label'
     end
 
+    it 'has degree' do
+      expect(page).to have_form_field(:degree)
+        .as_single_valued.on_model(work.class)
+        .with_label('Degree Name')
+        .with_options('D.N.P.', 'M.A.', 'M.B.I.', 'M.M.I.', 'M.N.', 'M.N.A.',
+                      'M.P.H.', 'M.S.', 'M.S.N.', 'Ph.D.')
+    end
+
     it 'has identifier' do
       expect(page)
         .to have_form_field(:identifier)
@@ -70,7 +78,7 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
       expect(page)
         .to have_multivalued_field(:resource_type)
         .on_model(work.class)
-        .with_label('Document type')
+        .with_label('Document Type')
         .and_options('article', 'capstone', 'dissertation', 'portfolio', 'thesis')
     end
 

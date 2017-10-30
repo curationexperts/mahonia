@@ -14,9 +14,6 @@ class EtdIndexer < Hyrax::WorkIndexer
   #
   # This adds the specialized Etd fields
   class IndexingService < Hyrax::DeepIndexingService
-    def self.stored_and_facetable_fields
-      @stored_and_facetable_fields ||=
-        (Hyrax::DeepIndexingService.stored_and_facetable_fields.dup << :date_label)
-    end
+    self.stored_and_facetable_fields += [:date_label, :degree]
   end
 end

@@ -1,0 +1,5 @@
+<% degrees = Hyrax::QaSelectService.new('degree') %>
+<%= f.input :degree,
+    collection: degrees.select_active_options,
+    include_blank: true,
+    input_html: { class: 'form-control' } %>

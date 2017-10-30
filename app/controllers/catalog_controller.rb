@@ -52,6 +52,9 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name("file_format", :facetable), limit: 5
     config.add_facet_field solr_name('member_of_collections', :symbol), limit: 5, label: 'Collections'
 
+    # ETD facet fields
+    config.add_facet_field solr_name('degree', :facetable), limit: 5
+
     # The generic_type isn't displayed on the facet list
     # It's used to give a label to the filter that comes from the user profile
     config.add_facet_field solr_name("generic_type", :facetable), if: false
@@ -83,6 +86,7 @@ class CatalogController < ApplicationController
 
     # ETD index fields
     config.add_index_field solr_name('date_label', :stored_searchable), label: 'Date Label'
+    config.add_index_field solr_name('degree', :stored_searchable)
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -104,6 +108,7 @@ class CatalogController < ApplicationController
 
     # ETD show fields
     config.add_show_field solr_name('date_label', :stored_searchable)
+    config.add_show_field solr_name('degree', :stored_searchable)
 
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields

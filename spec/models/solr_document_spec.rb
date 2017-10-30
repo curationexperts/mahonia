@@ -5,7 +5,7 @@ RSpec.describe SolrDocument do
   let(:etd)               { FactoryGirl.build(:etd) }
 
   describe '#date_label' do
-    it 'matches the model labels' do
+    it 'is nil when empty' do
       expect(solr_document.date_label).to be_nil
     end
 
@@ -14,7 +14,22 @@ RSpec.describe SolrDocument do
       let(:etd)         { FactoryGirl.build(:etd, date_label: date_labels) }
 
       it 'matches the model labels' do
-        expect(solr_document.date_label).to eq date_labels
+        expect(solr_document.date_label).to contain_exactly(*date_labels)
+      end
+    end
+  end
+
+  describe '#degree' do
+    it 'is nil when empty' do
+      expect(solr_document.degree).to be_nil
+    end
+
+    context 'with labels' do
+      let(:degrees) { ['M.Phil.'] }
+      let(:etd)     { FactoryGirl.build(:etd, degree: degrees) }
+
+      it 'matches the model labels' do
+        expect(solr_document.degree).to contain_exactly(*degrees)
       end
     end
   end
