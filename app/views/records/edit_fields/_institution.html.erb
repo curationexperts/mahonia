@@ -1,0 +1,5 @@
+<% institutions = Hyrax::QaSelectService.new('institution') %>
+<%= f.input :institution,
+    collection: institutions.select_active_options,
+    include_blank: true,
+    input_html: { class: 'form-control' } %>

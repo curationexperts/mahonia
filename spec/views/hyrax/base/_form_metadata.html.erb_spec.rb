@@ -60,6 +60,14 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
         .with_label 'Identifier'
     end
 
+    it 'has institution' do
+      expect(page)
+        .to have_form_field(:institution)
+        .as_single_valued.on_model(work.class)
+        .with_label('Institution')
+        .with_options('OHSU')
+    end
+
     it 'has keywords' do
       expect(page)
         .to have_multivalued_field(:keyword)
