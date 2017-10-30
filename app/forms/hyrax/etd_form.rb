@@ -3,7 +3,8 @@ module Hyrax
     SINGLE_VALUE = [:degree].freeze
 
     self.model_class = ::Etd
-    self.terms += [:degree, :date_label, :resource_type, :rights_note]
+    self.terms += [:degree, :date_label, :institution, :resource_type,
+                   :rights_note]
 
     ##
     # @return [Boolean]

@@ -15,6 +15,7 @@ RSpec.describe CatalogController, type: :controller do
        'creator',
        'contributor',
        'degree',
+       'institution',
        'keyword',
        'subject',
        'language',
