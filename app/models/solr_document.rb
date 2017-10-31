@@ -36,4 +36,8 @@ class SolrDocument
   def institution
     self[Solrizer.solr_name('institution')]
   end
+
+  def orcid_id
+    self[Solrizer.solr_name('orcid_id')]
+  end
 end

@@ -13,6 +13,7 @@ RSpec.describe Hyrax::EtdPresenter, type: :presenter do
       degree:        ['M.Phil.'],
       identifier:    ['Moomin_123'],
       institution:   ['Moomin Valley Historical Society'],
+      orcid_id:      ['0000-0001-2345-6789'],
       date_label:    ['Winter in Moomin Valley'],
       language:      ['en-US'],
       resource_type: ['letter from moominpapa'],
@@ -24,8 +25,8 @@ RSpec.describe Hyrax::EtdPresenter, type: :presenter do
 
   describe '#export_as_ttl' do
     let(:expected_fields) do
-      [:creator, :date_label, :degree, :identifier, :institution, :title,
-       :resource_type, :rights_note, :source, :subject]
+      [:creator, :date_label, :degree, :identifier, :institution, :orcid_id,
+       :title, :resource_type, :rights_note, :source, :subject]
     end
 
     let(:properties) { etd.class.properties }

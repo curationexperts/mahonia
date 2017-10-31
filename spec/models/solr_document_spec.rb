@@ -33,4 +33,19 @@ RSpec.describe SolrDocument do
       end
     end
   end
+
+  describe '#orcid_id' do
+    it 'is nil when empty' do
+      expect(solr_document.degree).to be_nil
+    end
+
+    context 'with orcids' do
+      let(:orcids) { ['0000-0001-2345-6789'] }
+      let(:etd)    { FactoryGirl.build(:etd, orcid_id: orcids) }
+
+      it 'matches the model orcids' do
+        expect(solr_document.orcid_id).to contain_exactly(*orcids)
+      end
+    end
+  end
 end

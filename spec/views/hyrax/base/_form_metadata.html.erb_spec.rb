@@ -82,6 +82,13 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
         .with_label 'Language'
     end
 
+    it 'has orcid id' do
+      expect(page)
+        .to have_form_field(:orcid_id)
+        .on_model(work.class)
+        .with_label('ORCID')
+    end
+
     it 'has resource_types' do
       expect(page)
         .to have_multivalued_field(:resource_type)

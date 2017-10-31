@@ -17,6 +17,7 @@ RSpec.describe 'hyrax/base/_attribute_rows.html.erb', type: :view do
       degree:        ['M.Phil.'],
       keyword:       ['moominland', 'moomintroll'],
       institution:   ['Moomin Valley Historical Society'],
+      orcid_id:      ['0000-0001-2345-6789'],
       source:        ['Too-Ticky'],
       rights_note:   ['For the exclusive viewing of Little My.',
                       'Moomin: do not read this.'],
@@ -30,6 +31,7 @@ RSpec.describe 'hyrax/base/_attribute_rows.html.erb', type: :view do
   it { is_expected.to have_show_field(:degree).with_values(*attributes[:degree]).and_label('Degree Name') }
   it { is_expected.to have_show_field(:institution).with_values(*attributes[:institution]).and_label('Institution') }
   it { is_expected.to have_show_field(:keyword).with_values(*attributes[:keyword]).and_label('Keyword') }
+  it { is_expected.to have_show_field(:orcid_id).with_values(*attributes[:orcid_id]).and_label('ORCID') }
   it { is_expected.to have_show_field(:source).with_values(*attributes[:source]).and_label('Source') }
   it { is_expected.to have_show_field(:subject).with_values(*attributes[:subject]).and_label('Subject') }
   it { is_expected.to have_show_field(:resource_type).with_values(*attributes[:resource_type]).and_label('Document type') }
