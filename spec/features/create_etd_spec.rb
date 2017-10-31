@@ -30,17 +30,19 @@ RSpec.feature 'Create a Etd', js: false do
     end
 
     scenario 'editing' do
-      etd = FactoryGirl.create(:etd, user: user)
+      etd = FactoryGirl.create(:moomins_thesis, user: user)
 
       visit "concern/etds/#{etd.id}"
       click_link 'Edit'
 
-      new_title = 'Finn Family Moomintroll'
+      new_title   = 'Finn Family Moomintroll'
+      new_keyword = 'moomin'
 
-      fill_in 'Title', with: new_title
+      fill_in 'Title',   with: new_title
+      fill_in 'Keyword', with: new_keyword
       find('#with_files_submit').click
 
-      expect(page).to have_content new_title
+      expect(page).to have_content(new_title, new_keyword)
     end
   end
 end

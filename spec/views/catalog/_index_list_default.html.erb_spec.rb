@@ -1,23 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'catalog/_index_list_default', type: :view do
-  subject(:page) { Capybara::Node::Simple.new(rendered) }
-
-  let(:attributes) do
-    { creator:       ['Tove Jansson'],
-      degree:        ['M.Phil.'],
-      identifier:    ['Moomin_123'],
-      date_label:    ['Winter in Moomin Valley'],
-      keyword:       ['moomin', 'snorkmaiden'],
-      resource_type: ['letter from moominpapa'],
-      source:        ['Too-Ticky'],
-      rights_note:   ['for moomin access only'],
-      subject:       ['Moomins', 'Snorks'],
-      language:      ['en-US'] }
-  end
-
+  subject(:page)   { Capybara::Node::Simple.new(rendered) }
   let!(:document)  { SolrDocument.new(etd.to_solr) }
-  let!(:etd)       { FactoryGirl.build(:etd, **attributes) }
+  let!(:etd)       { FactoryGirl.build(:moomins_thesis) }
   let!(:presenter) { instance_double('Blacklight::IndexPresenter') }
 
   before do
