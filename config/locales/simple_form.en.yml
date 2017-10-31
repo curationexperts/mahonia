@@ -1,8 +1,0 @@
-en:
-  simple_form:
-    labels:
-      defaults:
-        degree:           Degree Name
-        orcid_id:         ORCID
-        resource_type:    Document Type
-        rights_statement: Rights

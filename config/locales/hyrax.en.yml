@@ -12,6 +12,7 @@ en:
           publisher_sim: Publisher
           subject_sim: Subject
           degree_sim: Degree Name
+          rights_statement_sim: Rights
         index:
           based_near_tesim: Location
           contributor_tesim: Contributor
@@ -28,6 +29,7 @@ en:
           rights_tesim: Rights
           subject_tesim: Subject
           degree_tesim: Degree Name
+          rights_statement_tesim: Rights
         show:
           based_near_tesim: Location
           contributor_tesim: Contributor
@@ -46,6 +48,15 @@ en:
           title_tesim: Title
           degree: Degree Name
           orcid_id: ORCID
+          resource_type: Document type
+          rights_statement: Rights
+  simple_form:
+    labels:
+      defaults:
+        degree:           Degree Name
+        resource_type:    Document Type
+        orcid_id:         ORCID
+        rights_statement: Rights
   hyrax:
     product_name:           "Hyrax"
     product_twitter_handle: "@SamveraRepo"
