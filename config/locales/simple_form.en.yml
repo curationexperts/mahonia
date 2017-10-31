@@ -3,4 +3,5 @@ en:
     labels:
       defaults:
         degree:        Degree Name
+        orcid_id:      ORCID
         resource_type: Document Type

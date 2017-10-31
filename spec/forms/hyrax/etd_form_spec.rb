@@ -13,6 +13,11 @@ RSpec.describe Hyrax::EtdForm do
   end
 
   describe '#terms' do
+    it { expect(form.terms).to include :date_label }
+    it { expect(form.terms).to include :degree }
+    it { expect(form.terms).to include :institution }
+    it { expect(form.terms).to include :orcid_id }
+    it { expect(form.terms).to include :resource_type }
     it { expect(form.terms).to include :rights_note }
   end
 end
