@@ -40,4 +40,8 @@ class SolrDocument
   def orcid_id
     self[Solrizer.solr_name('orcid_id')]
   end
+
+  def school
+    self[Solrizer.solr_name('school')]
+  end
 end
