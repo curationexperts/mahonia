@@ -18,7 +18,9 @@ RSpec.describe 'catalog/_index_list_default', type: :view do
 
   # title appears in a different partial, not in the metadata listing
   it 'does not display undesired fields' do
-    is_expected.not_to list_index_fields('Title', 'Language', 'Source', 'Identifier', 'Rights Note')
+    is_expected.not_to list_index_fields('Title', 'Language', 'Source',
+                                         'Identifier', 'Rights Note', 'Rights',
+                                         'License')
   end
 
   it 'displays desired fields' do
