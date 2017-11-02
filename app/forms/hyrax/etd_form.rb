@@ -1,9 +1,9 @@
 module Hyrax
   class EtdForm < Hyrax::Forms::WorkForm
-    SINGLE_VALUE = [:degree, :school].freeze
+    SINGLE_VALUE = [:degree, :school, :department].freeze
 
     self.model_class = ::Etd
-    self.terms += [:degree, :date_label, :institution, :orcid_id,
+    self.terms += [:degree, :date_label, :department, :institution, :orcid_id,
                    :resource_type, :rights_note, :school]
 
     ##

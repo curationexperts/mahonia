@@ -1,0 +1,5 @@
+<% departments = Hyrax::QaSelectService.new('department') %>
+<%= f.input :department,
+    collection: departments.select_active_options,
+    include_blank: true,
+    input_html: { class: 'form-control' } %>

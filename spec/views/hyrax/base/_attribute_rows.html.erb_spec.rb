@@ -14,6 +14,7 @@ RSpec.describe 'hyrax/base/_attribute_rows.html.erb', type: :view do
   it { is_expected.to have_show_field(:creator).with_values(*work.creator).and_label('Creator') }
   it { is_expected.to have_show_field(:date_label).with_values(*work.date_label).and_label('Date label') }
   it { is_expected.to have_show_field(:degree).with_values(*work.degree).and_label('Degree Name') }
+  it { is_expected.to have_show_field(:department).with_values(*work.department).and_label('Department') }
   it { is_expected.to have_show_field(:school).with_values(*work.school).and_label('School') }
   it { is_expected.to have_show_field(:institution).with_values(*work.institution).and_label('Institution') }
   it { is_expected.to have_show_field(:keyword).with_values(*work.keyword).and_label('Keyword') }

@@ -55,7 +55,8 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name("license", :facetable), limit: 5
 
     # ETD facet fields
-    config.add_facet_field solr_name('degree', :facetable), limit: 5
+    config.add_facet_field solr_name('degree',      :facetable), limit: 5
+    config.add_facet_field solr_name('department',  :facetable), limit: 5
     config.add_facet_field solr_name('institution', :facetable), limit: 5
     config.add_facet_field solr_name('school', :facetable), limit: 5
 
@@ -116,6 +117,7 @@ class CatalogController < ApplicationController
     # ETD show fields
     config.add_show_field solr_name('date_label',  :stored_searchable)
     config.add_show_field solr_name('degree',      :stored_searchable)
+    config.add_show_field solr_name('department',  :stored_searchable)
     config.add_show_field solr_name('institution', :stored_searchable)
     config.add_show_field solr_name('orcid_id',    :stored_searchable)
     config.add_show_field solr_name('school', :stored_searchable)

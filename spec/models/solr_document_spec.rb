@@ -34,6 +34,21 @@ RSpec.describe SolrDocument do
     end
   end
 
+  describe '#department' do
+    it 'is nil when empty' do
+      expect(solr_document.department).to be_nil
+    end
+
+    context 'with labels' do
+      let(:departments) { ['Coin Collecting'] }
+      let(:etd)         { FactoryGirl.build(:etd, department: departments) }
+
+      it 'matches the model labels' do
+        expect(solr_document.department).to contain_exactly(*departments)
+      end
+    end
+  end
+
   describe '#orcid_id' do
     it 'is nil when empty' do
       expect(solr_document.degree).to be_nil
