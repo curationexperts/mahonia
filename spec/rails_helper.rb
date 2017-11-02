@@ -9,6 +9,10 @@ require 'rspec/rails'
 require 'database_cleaner'
 require 'active_fedora/cleaner'
 
+# Support the old FactoryGirl name for the moment, use `FactoryBot` going
+# forward.
+FactoryGirl = FactoryBot unless defined?(FactoryGirl)
+
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
 
 # Checks for pending migration and applies them before tests are run.
@@ -44,7 +48,7 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   config.before(:suite) do
     ActiveJob::Base.queue_adapter = :test

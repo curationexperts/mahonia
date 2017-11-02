@@ -1,7 +1,7 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :etd do
     transient do
-      user { FactoryGirl.create(:user) }
+      user { FactoryBot.create(:user) }
       pdf  { nil }
     end
 
