@@ -371,6 +371,8 @@ GEM
       select2-rails (~> 3.5)
       signet
       tinymce-rails (~> 4.1)
+    hyrax-spec (0.1.0)
+      rspec (~> 3.6)
     i18n (0.9.0)
       concurrent-ruby (~> 1.0)
     ice_nine (0.11.2)
@@ -634,6 +636,10 @@ GEM
     rsolr (2.0.2)
       builder (>= 2.1.2)
       faraday
+    rspec (3.7.0)
+      rspec-core (~> 3.7.0)
+      rspec-expectations (~> 3.7.0)
+      rspec-mocks (~> 3.7.0)
     rspec-core (3.7.0)
       rspec-support (~> 3.7.0)
     rspec-expectations (3.7.0)
@@ -801,6 +807,7 @@ DEPENDENCIES
   fcrepo_wrapper
   hydra-role-management
   hyrax (= 2.0.0.rc2)
+  hyrax-spec (~> 0.1.0)
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)

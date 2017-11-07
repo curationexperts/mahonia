@@ -74,6 +74,7 @@ gem 'rsolr', '>= 1.0'
 group :development, :test do
   gem 'database_cleaner'
   gem 'fcrepo_wrapper'
+  gem 'hyrax-spec', '~> 0.1.0'
   gem 'rspec-rails'
 end
 

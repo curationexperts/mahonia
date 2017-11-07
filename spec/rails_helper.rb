@@ -8,6 +8,7 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'database_cleaner'
 require 'active_fedora/cleaner'
+require 'hyrax/spec/matchers'
 
 # Support the old FactoryGirl name for the moment, use `FactoryBot` going
 # forward.
