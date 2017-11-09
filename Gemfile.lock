@@ -327,7 +327,7 @@ GEM
       hydra-file_characterization (~> 0.3, >= 0.3.3)
       hydra-pcdm (>= 0.9)
       om (~> 3.1)
-    hyrax (2.0.0.rc3)
+    hyrax (2.0.0)
       active-fedora (~> 11.5, >= 11.5.2)
       active_fedora-noid (~> 2.0, >= 2.0.2)
       almond-rails (~> 0.1)
@@ -805,7 +805,7 @@ DEPENDENCIES
   factory_bot_rails (~> 4.8.0)
   fcrepo_wrapper
   hydra-role-management
-  hyrax (= 2.0.0.rc3)
+  hyrax (~> 2.0.0)
   hyrax-spec (~> 0.1.0)
   jbuilder (~> 2.5)
   jquery-rails
