@@ -8,10 +8,10 @@ class Etd < ActiveFedora::Base
 
   self.human_readable_type = 'Etd'
 
-  apply_schema Schemas::CoreMetadata
-  apply_schema Schemas::EtdMetadata
-
   # This must be included at the end, because it finalizes the metadata
   # schema (by adding accepts_nested_attributes)
   include ::Hyrax::BasicMetadata
+
+  apply_schema Schemas::CoreMetadata, Schemas::GeneratedResourceSchemaStrategy.new
+  apply_schema Schemas::EtdMetadata,  Schemas::GeneratedResourceSchemaStrategy.new
 end
