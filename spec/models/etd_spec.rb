@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Etd do
   subject(:etd) { FactoryGirl.build(:etd) }
 
-  it_behaves_like 'a model with basic metadata', except: :keyword
+  it_behaves_like 'a model with hyrax basic metadata', except: :keyword
   it_behaves_like 'a model with ohsu core metadata'
   it_behaves_like 'a model with ohsu ETD metadata'
 
