@@ -23,9 +23,10 @@
    session
 1. Setup your database.
    We use PostgreSQL. To support the test and development environments, you'll
-   need have Postgres installed and running. In your `psql` console do
-   `create role mahonia with createdb login password 'password1';`. Then do
-   `bundle exec rake db:create` to setup the create the database and schema.
+   need have Postgres installed and running.
+   Ensure that your current user can create databases in postgres. In the `psql`
+   console do `create role [username] with createdb login`. Then do
+   `bundle exec rake db:create` to create the databases.
 
 You can now run the test suite with `bundle exec rake ci`, or start a
 development server with `bundle exec rake hydra:server`.

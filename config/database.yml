@@ -3,8 +3,6 @@ default: &default
   encoding: unicode
   pool:     5
   timeout:  5000
-  username: mahonia
-  password: password1
 
 development:
   <<: *default
@@ -20,3 +18,5 @@ test:
 production:
   <<: *default
   database: mahonia_production
+  username: mahonia
+  password: password1
