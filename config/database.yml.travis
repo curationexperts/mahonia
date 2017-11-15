@@ -1,0 +1,21 @@
+default: &default
+  adapter:  postgresql
+  encoding: unicode
+  pool:     5
+  timeout:  5000
+
+development:
+  <<: *default
+  database: mahonia_development
+  username: mahonia
+  password: password1
+
+test:
+  <<: *default
+  database: travis_ci_test
+
+production:
+  <<: *default
+  database: mahonia_production
+  username: mahonia
+  password: password1

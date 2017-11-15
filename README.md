@@ -21,10 +21,14 @@
    `redis-server &`
    *note:* use ` &` to start in the background, or run redis in a new terminal
    session
+1. Setup your database.
+   We use PostgreSQL. To support the test and development environments, you'll
+   need have Postgres installed and running. In your `psql` console do
+   `create role mahonia with createdb login password 'password1';`. Then do
+   `bundle exec rake db:create` to setup the create the database and schema.
 
 You can now run the test suite with `bundle exec rake ci`, or start a
 development server with `bundle exec rake hydra:server`.
-
 
 ## How to create an admin user on the console
 (See https://github.com/samvera/hyrax/wiki/Making-Admin-Users-in-Hyrax for more details)
