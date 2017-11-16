@@ -27,6 +27,17 @@ RSpec.describe Etd do
     end
   end
 
+  describe '#date_uploaded' do
+    subject(:etd) { FactoryBot.actor_create(:etd) }
+    let(:xmas)    { DateTime.parse('2017-12-25 11:30').iso8601 }
+
+    before { allow(Hyrax::TimeService).to receive(:time_in_utc) { xmas } }
+
+    it 'is set by actor stack' do
+      expect(etd.date_uploaded).to eq xmas
+    end
+  end
+
   describe '#title' do
     it 'validates presence' do
       etd = FactoryGirl.build(:etd, title: [])
