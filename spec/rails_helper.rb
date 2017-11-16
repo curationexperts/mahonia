@@ -9,6 +9,7 @@ require 'rspec/rails'
 require 'database_cleaner'
 require 'active_fedora/cleaner'
 require 'hyrax/spec/matchers'
+require 'hyrax/spec/shared_examples'
 
 # Support the old FactoryGirl name for the moment, use `FactoryBot` going
 # forward.
