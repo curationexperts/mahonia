@@ -13,13 +13,15 @@ module Mahonia
 
     class << self
       ##
-      # @param type [Symbol]
+      # @param type           [Symbol]
+      # @param registrar_opts [Hash]
+      # @option registrar_opts [Mahonia::IdentifierBuilder] :builder
       #
       # @return [IdentifierDispatcher] a dispatcher with an registrar for the
       #   given type
       # @see IdentifierRegistrar.for
-      def for(type)
-        new(registrar: Mahonia::IdentifierRegistrar.for(type))
+      def for(type, **registrar_opts)
+        new(registrar: Mahonia::IdentifierRegistrar.for(type, **registrar_opts))
       end
     end
 
