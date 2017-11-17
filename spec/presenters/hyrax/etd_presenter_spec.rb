@@ -7,6 +7,12 @@ RSpec.describe Hyrax::EtdPresenter, type: :presenter do
   let(:etd)           { FactoryGirl.create(:moomins_thesis, id: 'moomin_id') }
   let(:request)       { instance_double('Rack::Request', host: 'example.com') }
 
+  describe '#citation' do
+    it 'gives a citation string' do
+      expect(presenter.citation).to include etd.title.first
+    end
+  end
+
   describe '#export_as_ttl' do
     let(:expected_fields) do
       [:creator, :date, :date_created, :date_label, :date_modified,
