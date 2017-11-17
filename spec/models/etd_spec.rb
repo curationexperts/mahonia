@@ -27,6 +27,26 @@ RSpec.describe Etd do
     end
   end
 
+  describe '#date_uploaded' do
+    let(:time) { DateTime.current }
+
+    it 'is a DateTime' do
+      expect { etd.date_uploaded = time }
+        .to change { etd.date_uploaded }
+        .to be_a DateTime
+    end
+
+    context 'when created through a work actor' do
+      subject(:etd) { FactoryBot.actor_create(:etd) }
+
+      before { allow(Hyrax::TimeService).to receive(:time_in_utc) { time } }
+
+      it 'is set by actor stack' do
+        expect(etd.date_uploaded).to eq time
+      end
+    end
+  end
+
   describe '#title' do
     it 'validates presence' do
       etd = FactoryGirl.build(:etd, title: [])
