@@ -29,6 +29,11 @@ class SolrDocument
     self[Solrizer.solr_name('date_label')]
   end
 
+  # first is called at https://github.com/samvera/hyrax/blob/b161167a07650f1b873e2ada838d1784a8db02e1/app/views/shared/_citations.html.erb#L22
+  def date_created
+    fetch(Solrizer.solr_name('date_created', type: :date), [])
+  end
+
   def degree
     self[Solrizer.solr_name('degree')]
   end

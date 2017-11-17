@@ -28,13 +28,22 @@ RSpec.describe Etd do
   end
 
   describe '#date_uploaded' do
-    subject(:etd) { FactoryBot.actor_create(:etd) }
-    let(:xmas)    { DateTime.parse('2017-12-25 11:30').iso8601 }
+    let(:time) { DateTime.current }
 
-    before { allow(Hyrax::TimeService).to receive(:time_in_utc) { xmas } }
+    it 'is a DateTime' do
+      expect { etd.date_uploaded = time }
+        .to change { etd.date_uploaded }
+        .to be_a DateTime
+    end
 
-    it 'is set by actor stack' do
-      expect(etd.date_uploaded).to eq xmas
+    context 'when created through a work actor' do
+      subject(:etd) { FactoryBot.actor_create(:etd) }
+
+      before { allow(Hyrax::TimeService).to receive(:time_in_utc) { time } }
+
+      it 'is set by actor stack' do
+        expect(etd.date_uploaded).to eq time
+      end
     end
   end
 
