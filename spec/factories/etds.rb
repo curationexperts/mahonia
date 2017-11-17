@@ -32,6 +32,7 @@ FactoryBot.define do
       date_uploaded    DateTime.current
       degree           ['M.Phil.']
       department       ['Coin Collecting']
+      description      ['Winter', 'Collecting']
       identifier       ['Moomin_123']
       institution      ['Moomin Valley Community College']
       keyword          ['moomin', 'snork', 'hattifattener']

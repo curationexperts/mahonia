@@ -10,9 +10,9 @@ RSpec.describe Hyrax::EtdPresenter, type: :presenter do
   describe '#export_as_ttl' do
     let(:expected_fields) do
       [:creator, :date, :date_created, :date_label, :date_modified,
-       :date_uploaded, :degree, :department, :identifier, :institution,
-       :license, :orcid_id, :title, :resource_type, :rights_note,
-       :rights_statement, :school, :source, :subject]
+       :date_uploaded, :degree, :department, :description, :identifier,
+       :institution, :license, :orcid_id, :title, :resource_type,
+       :rights_note, :rights_statement, :school, :source, :subject]
     end
 
     let(:properties) { etd.class.properties }

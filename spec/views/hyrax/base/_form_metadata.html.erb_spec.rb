@@ -85,6 +85,14 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
                       'M.P.H.', 'M.S.', 'M.S.N.', 'Ph.D.')
     end
 
+    it 'has description' do
+      expect(page)
+        .to have_form_field(:description)
+        .as_single_valued
+        .on_model(work.class)
+        .with_label('Description')
+    end
+
     # just test a few department options to make sure the department loads;
     # this is a long list and the test will likely change when typeahead exists.
     it 'has department' do
