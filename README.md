@@ -27,6 +27,9 @@
    Ensure that your current user can create databases in postgres. In the `psql`
    console do `create role [username] with createdb login`. Then do
    `bundle exec rake db:create` to create the databases.
+1. Create a default [admin set](https://samvera.github.io/what-are-admin-things.html).
+   To add a new work from the dashboard, you will need to setup a default admin set. You
+   do this by running this rake task: `rake hyrax:default_admin_set:create`.
 
 You can now run the test suite with `bundle exec rake ci`, or start a
 development server with `bundle exec rake hydra:server`.
