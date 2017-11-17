@@ -25,6 +25,10 @@ class SolrDocument
 
   use_extension(Hydra::ContentNegotiation)
 
+  def date
+    self[Solrizer.solr_name('date')]
+  end
+
   def date_label
     self[Solrizer.solr_name('date_label')]
   end

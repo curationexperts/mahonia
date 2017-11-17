@@ -4,6 +4,21 @@ RSpec.describe SolrDocument do
   subject(:solr_document) { described_class.new(etd.to_solr) }
   let(:etd)               { FactoryGirl.build(:etd) }
 
+  describe '#date' do
+    it 'is nil when empty' do
+      expect(solr_document.date).to be_nil
+    end
+
+    context 'with dates' do
+      let(:date) { ['199?'] }
+      let(:etd)  { FactoryGirl.build(:etd, date: date) }
+
+      it 'matches the model dates' do
+        expect(solr_document.date).to contain_exactly(*date)
+      end
+    end
+  end
+
   describe '#date_label' do
     it 'is nil when empty' do
       expect(solr_document.date_label).to be_nil
