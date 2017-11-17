@@ -1,5 +1,8 @@
 # Mahonia
 
+[![Build Status](https://travis-ci.org/curationexperts/mahonia.svg?branch=master)](https://travis-ci.org/curationexperts/mahonia) 
+[![Coverage Status](https://coveralls.io/repos/github/curationexperts/mahonia/badge.svg?branch=master)](https://coveralls.io/github/curationexperts/mahonia?branch=master)
+
 <table width="100%">
   <tr>
     <td><img alt="Mahonia aquifolium image" src="app/assets/images/mahonia.jpg" height="40%"></td>
