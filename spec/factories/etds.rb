@@ -25,10 +25,11 @@ FactoryBot.define do
 
     factory :moomins_thesis do
       creator          ['Moomin', 'Hemulen']
+      date             ['199?']
       date_created     [Date.parse('2016-12-25')]
+      date_label       ['Winter in Moomin Valley']
       date_modified    DateTime.current
       date_uploaded    DateTime.current
-      date_label       ['Winter in Moomin Valley']
       degree           ['M.Phil.']
       department       ['Coin Collecting']
       identifier       ['Moomin_123']
