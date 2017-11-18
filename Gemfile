@@ -79,5 +79,6 @@ end
 
 group :test do
   gem 'capybara',           '~> 2.15.4'
+  gem 'coveralls',          require: false
   gem 'factory_bot_rails',  '~> 4.8.0'
 end
