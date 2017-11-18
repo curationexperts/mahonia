@@ -16,8 +16,8 @@ class EtdIndexer < Hyrax::WorkIndexer
   class IndexingService < Hyrax::DeepIndexingService
     self.stored_fields += []
     self.stored_and_facetable_fields +=
-      [:date_label, :date_created, :degree, :department, :institution, :license,
-       :orcid_id, :school, :rights_statement]
+      [:date, :date_label, :date_created, :degree, :department, :institution,
+       :license, :orcid_id, :school, :rights_statement]
 
     stored_fields.delete(:license)
     stored_fields.delete(:rights_statement)

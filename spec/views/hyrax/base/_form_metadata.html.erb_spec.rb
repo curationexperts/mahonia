@@ -63,6 +63,13 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
         .with_label 'Creator'
     end
 
+    it 'has dates' do
+      expect(page)
+        .to have_multivalued_field(:date)
+        .on_model(work.class)
+        .with_label 'Date'
+    end
+
     it 'has date labels' do
       expect(page)
         .to have_multivalued_field(:date_label)
