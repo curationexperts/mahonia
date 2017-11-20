@@ -18,7 +18,7 @@ module Mahonia
     # @param [Hash] args from get_field_values
     def render_truncated_description(args)
       content_tag :div, class: 'truncate-description' do
-        snippit(args) + link_to("View More", url_for(args[:document])).to_s
+        snippit(args) + link_to("View More", url_for(args[:document]), class: 'btn btn-default').to_s
       end
     end
   end
