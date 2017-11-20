@@ -1,0 +1,13 @@
+---
+:queues:
+  - [id_service, 1]
+  - [default, 1]
+
+test:
+  :concurrency: 5
+
+development:
+  :concurrency: 5
+
+production:
+  :concurrency: 5
