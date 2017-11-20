@@ -8,11 +8,9 @@
     <td>
        <i>Mahonia aquifolium</i>: Electronic Theses & Dissertations
        <br/>
-       [![Build Status](https://travis-ci.org/curationexperts/mahonia.svg?branch=master)](https://travis-ci.org/curationexperts/mahonia)
-<br/>
-       [![Coverage Status](https://coveralls.io/repos/github/curationexperts/mahonia/badge.svg?branch=master)](https://coveralls.io/github/curationexperts/mahonia?branch=master)
-<br/>
-       [![Dependency Status](https://gemnasium.com/badges/github.com/curationexperts/mahonia.svg)](https://gemnasium.com/github.com/curationexperts/mahonia)
+     <p><a href="https://travis-ci.org/curationexperts/mahonia"><img src="https://travis-ci.org/curationexperts/mahonia.svg?branch=master" alt="Build Status"></a> 
+<a href="https://coveralls.io/github/curationexperts/mahonia?branch=master"><img src="https://coveralls.io/repos/github/curationexperts/mahonia/badge.svg?branch=master" alt="Coverage Status"></a> 
+<a href="https://gemnasium.com/github.com/curationexperts/mahonia"><img src="https://gemnasium.com/badges/github.com/curationexperts/mahonia.svg" alt="Dependency Status"></a></p>
     </td>
   </tr>
 </table>
