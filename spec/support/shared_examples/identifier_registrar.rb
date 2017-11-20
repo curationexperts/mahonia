@@ -2,7 +2,7 @@ RSpec.shared_examples 'an IdentifierRegistrar' do
   subject(:registrar) { described_class.new(builder: builder) }
   let(:abstract)      { described_class == Mahonia::IdentifierRegistrar }
   let(:builder)       { instance_double(Mahonia::IdentifierBuilder, build: 'moomin') }
-  let(:object)        { :object }
+  let(:object)        { instance_double(Etd, id: 'moomin_id') }
 
   it { is_expected.to have_attributes(builder: builder) }
 

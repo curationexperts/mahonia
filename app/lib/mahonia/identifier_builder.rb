@@ -2,6 +2,10 @@ module Mahonia
   ##
   # Builds an identifier string.
   #
+  # Implementations must accept a `prefix:` to `#initialize`, and a `hint:` to
+  # `#build`. Either or both may be used at the preference of the specific
+  # implementer or ignored entirely when `#build` is called.
+  #
   # @example
   #   builder = IdentifierBuilder.new(prefix: 'moomin')
   #   builder.build(hint: '1') # => "moomin/1"
