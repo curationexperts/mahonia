@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'fakes/fake_datacite_connection'
+require 'fakes/fake_identifier_builder'
 
 RSpec.describe DataciteRegisterJob, type: :job do
   let(:object) { create(:etd) }
@@ -14,11 +16,21 @@ RSpec.describe DataciteRegisterJob, type: :job do
     end
   end
 
-  describe '.perform_now' do
+  describe '.perform' do
+    subject(:job) do
+      described_class.new.tap do |job|
+        job.registrar_opts = { builder: builder, connection: connection }
+      end
+    end
+
+    let(:builder)    { FakeIdentifierBuilder.new(id) }
+    let(:connection) { FakeDataciteConnection.new }
+    let(:id)         { 'moomin' }
+
     it 'adds an id to the object' do
-      expect { described_class.perform_now(object) }
+      expect { job.perform(object) }
         .to change { object.identifier.to_a }
-        .to contain_exactly 'moomin'
+        .to contain_exactly id
     end
   end
 end
