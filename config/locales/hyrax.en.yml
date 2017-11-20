@@ -60,6 +60,7 @@ en:
         resource_type:    Document Type
         orcid_id:         ORCID
         rights_statement: Rights
+        description:      Description
   hyrax:
     product_name:           "Hyrax"
     product_twitter_handle: "@SamveraRepo"
