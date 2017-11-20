@@ -1,13 +1,18 @@
 # Mahonia
 
-[![Build Status](https://travis-ci.org/curationexperts/mahonia.svg?branch=master)](https://travis-ci.org/curationexperts/mahonia) 
-[![Coverage Status](https://coveralls.io/repos/github/curationexperts/mahonia/badge.svg?branch=master)](https://coveralls.io/github/curationexperts/mahonia?branch=master)
+
 
 <table width="100%">
   <tr>
     <td><img alt="Mahonia aquifolium image" src="app/assets/images/mahonia.jpg" height="40%"></td>
     <td>
        <i>Mahonia aquifolium</i>: Electronic Theses & Dissertations
+       <br/>
+       [![Build Status](https://travis-ci.org/curationexperts/mahonia.svg?branch=master)](https://travis-ci.org/curationexperts/mahonia)
+<br/>
+       [![Coverage Status](https://coveralls.io/repos/github/curationexperts/mahonia/badge.svg?branch=master)](https://coveralls.io/github/curationexperts/mahonia?branch=master)
+<br/>
+       [![Dependency Status](https://gemnasium.com/badges/github.com/curationexperts/mahonia.svg)](https://gemnasium.com/github.com/curationexperts/mahonia)
     </td>
   </tr>
 </table>
