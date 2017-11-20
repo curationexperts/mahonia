@@ -16,6 +16,9 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+*.log
 
 # Ignore Byebug command history file.
 .byebug_history
+
+config/honeybadger.yml
