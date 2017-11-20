@@ -71,6 +71,7 @@ gem 'devise-guests', '~> 0.6'
 gem 'rsolr', '>= 1.0'
 group :development, :test do
   gem 'database_cleaner'
+  gem 'dotenv-rails'
   gem 'fcrepo_wrapper'
   # gem 'hyrax-spec', '~> 0.1.0'
   gem 'hyrax-spec', github: 'curationexperts/hyrax-spec', branch: 'master'
