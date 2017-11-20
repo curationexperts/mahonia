@@ -3,6 +3,12 @@ require 'rails_helper'
 RSpec.describe Datacite::Configuration do
   subject(:config) { described_class.instance }
 
+  after(:all) do
+    described_class
+      .instance
+      .load_from_hash Rails.application.config_for(:datacite)
+  end
+
   it 'loads attributes from Rails config file' do
     expect(config).to have_attributes domains:  an_instance_of(String),
                                       login:    an_instance_of(String),

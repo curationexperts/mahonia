@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'fakes/fake_datacite_connection'
 require 'fakes/fake_identifier_builder'
 
 RSpec.describe DataciteRegisterJob, type: :job do
@@ -18,12 +19,13 @@ RSpec.describe DataciteRegisterJob, type: :job do
   describe '.perform' do
     subject(:job) do
       described_class.new.tap do |job|
-        job.registrar_opts = { builder: builder }
+        job.registrar_opts = { builder: builder, connection: connection }
       end
     end
 
-    let(:builder) { FakeIdentifierBuilder.new(id) }
-    let(:id)      { 'moomin' }
+    let(:builder)    { FakeIdentifierBuilder.new(id) }
+    let(:connection) { FakeDataciteConnection.new }
+    let(:id)         { 'moomin' }
 
     it 'adds an id to the object' do
       expect { job.perform(object) }

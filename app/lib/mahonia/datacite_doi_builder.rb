@@ -6,11 +6,17 @@ module Mahonia
   # @see https://support.datacite.org/docs/mds-2
   class DataciteDoiBuilder < IdentifierBuilder
     ##
+    # @see IdentifierBuilder#initialize
+    def initialize(prefix: Datacite::Configuration.instance.prefix)
+      super
+    end
+
+    ##
     # @note hints are ignored
     #
     # @see IdentifierBuilder#build
     def build(*)
-      '10.5555/1234'
+      prefix + '/1234'
     end
   end
 end
