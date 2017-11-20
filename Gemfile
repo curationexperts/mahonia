@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 ruby '~> 2.4.2'
-
+gem 'honeybadger', '~> 3.1'
 gem 'hydra-role-management'
 gem 'pg'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
