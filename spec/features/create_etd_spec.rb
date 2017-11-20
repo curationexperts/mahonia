@@ -3,12 +3,15 @@
 require 'rails_helper'
 include Warden::Test::Helpers
 
-RSpec.feature 'Create a Etd', js: false do
+RSpec.feature 'Create a Etd', js: false, perform_enqueued: true do
   context 'as a logged in user' do
     let(:title) { 'Comet in Moominland' }
     let(:user)  { FactoryGirl.create(:user) }
 
-    before { login_as user }
+    before do
+      ActiveJob::Base.queue_adapter.filter = [DataciteRegisterJob]
+      login_as user
+    end
 
     scenario 'creating' do
       visit '/dashboard'
@@ -26,7 +29,8 @@ RSpec.feature 'Create a Etd', js: false do
 
       find('#with_files_submit').click
 
-      expect(page).to have_content title
+      expect(page).to have_content title # sets title
+      expect(page).to have_css('.identifier', text: '10.5072') # assigns DOI
     end
 
     scenario 'editing' do

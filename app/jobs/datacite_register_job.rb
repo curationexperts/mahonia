@@ -1,7 +1,11 @@
 class DataciteRegisterJob < ApplicationJob
   ##
   # @!attribute [rw] registrar_opts
-  attr_accessor :registrar_opts
+  attr_writer :registrar_opts
+
+  def registrar_opts
+    @registrar_opts ||= {}
+  end
 
   queue_as :id_service
 
