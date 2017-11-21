@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.shared_examples 'an IdentifierRegistrar' do
   subject(:registrar) { described_class.new(builder: builder) }
   let(:abstract)      { described_class == Mahonia::IdentifierRegistrar }

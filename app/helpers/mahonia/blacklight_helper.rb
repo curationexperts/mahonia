@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Mahonia
   module BlacklightHelper
     # Based on, but slightly different from helpers used in GeoBlacklight

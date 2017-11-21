@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Schemas
   ##
   # An extension strategy to apply schema changes to the underlying AT model if it

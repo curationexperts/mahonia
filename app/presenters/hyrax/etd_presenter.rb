@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Hyrax
   class EtdPresenter < Hyrax::WorkShowPresenter
     delegate :date, :date_label, :degree, :department, :institution, :orcid_id,

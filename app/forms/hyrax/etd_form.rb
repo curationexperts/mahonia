@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Hyrax
   class EtdForm < Hyrax::Forms::WorkForm
     SINGLE_VALUE = [:degree, :school, :department].freeze

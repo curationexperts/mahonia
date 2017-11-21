@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class FakeDataciteConnection
   def initialize(*)
     @dois = {}
