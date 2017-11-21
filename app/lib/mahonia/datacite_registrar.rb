@@ -8,8 +8,9 @@ module Mahonia
     attr_accessor :connection
 
     ##
-    # @param builder [Mahonia::IdentifierBuilder]
-    def initialize(builder:    Mahonia::DataciteDoiBuilder.new,
+    # @param builder    [Mahonia::IdentifierBuilder]
+    # @param connection [Datacite::Connection]
+    def initialize(builder:    Mahonia::IdentifierBuilder.new(prefix: prefix),
                    connection: Datacite::Connection.new)
       @connection = connection
       super(builder: builder)
@@ -17,9 +18,15 @@ module Mahonia
 
     ##
     # @see IdentifierRegistrar#register!
-    def register!(*)
-      record = IdentifierRecord.new(builder.build)
+    def register!(object:)
+      record = IdentifierRecord.new(builder.build(hint: object.id))
       connection.create(metadata: record)
     end
+
+    private
+
+      def prefix
+        Datacite::Configuration.instance.prefix
+      end
   end
 end
