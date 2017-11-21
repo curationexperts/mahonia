@@ -66,9 +66,13 @@ group :development, :test do
   gem 'solr_wrapper', '>= 0.3'
 end
 
+gem 'citeproc-ruby', '~> 1.0', '>= 1.0.6'
+gem 'csl-styles'
 gem 'devise'
 gem 'devise-guests', '~> 0.6'
+gem 'edtf', '~> 3.0'
 gem 'rsolr', '>= 1.0'
+
 group :development, :test do
   gem 'database_cleaner'
   gem 'dotenv-rails'

@@ -175,6 +175,11 @@ GEM
       activemodel (>= 4.0.0)
       activesupport (>= 4.0.0)
       mime-types (>= 1.16)
+    citeproc (1.0.6)
+      namae (~> 0.8)
+    citeproc-ruby (1.1.8)
+      citeproc (>= 1.0.4, < 2.0)
+      csl (~> 1.4)
     clipboard-rails (1.7.1)
     coffee-rails (4.2.2)
       coffee-script (>= 2.2.0)
@@ -192,6 +197,10 @@ GEM
       term-ansicolor
       thor
     crass (1.0.2)
+    csl (1.4.5)
+      namae (~> 0.7)
+    csl-styles (1.0.1.8)
+      csl (~> 1.0)
     daemons (1.2.5)
     database_cleaner (1.6.2)
     declarative (0.0.10)
@@ -251,6 +260,8 @@ GEM
     ebnf (1.1.1)
       rdf (~> 2.2)
       sxp (~> 1.0)
+    edtf (3.0.4)
+      activesupport (>= 3.0, < 6.0)
     equivalent-xml (0.6.0)
       nokogiri (>= 1.4.3)
     erubis (2.7.0)
@@ -508,6 +519,7 @@ GEM
     multi_json (1.12.2)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
+    namae (0.11.3)
     nest (2.1.0)
       redic
     net-http-persistent (2.9.4)
@@ -835,12 +847,15 @@ DEPENDENCIES
   capistrano-rails
   capistrano-sidekiq (~> 0.20.0)
   capybara (~> 2.15.4)
+  citeproc-ruby (~> 1.0, >= 1.0.6)
   coffee-rails (~> 4.2)
   coveralls
+  csl-styles
   database_cleaner
   devise
   devise-guests (~> 0.6)
   dotenv-rails
+  edtf (~> 3.0)
   factory_bot_rails (~> 4.8.0)
   fcrepo_wrapper
   honeybadger (~> 3.1)

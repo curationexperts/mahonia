@@ -40,4 +40,8 @@ RSpec.describe 'hyrax/base/_attribute_rows.html.erb', type: :view do
     expect(node).to have_show_field(:license)
       .with_values('Creative Commons BY-SA Attribution-ShareAlike 4.0 International').and_label('License')
   end
+
+  it 'shows the citation' do
+    expect(page).to have_css('.citation', text: work.title.first)
+  end
 end

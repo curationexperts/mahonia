@@ -47,5 +47,25 @@ FactoryBot.define do
                         'Moomin: do not read this.']
       rights_statement [RDF::URI('http://rightsstatements.org/vocab/NKC/1.0/')]
     end
+
+    # https://dspace.mit.edu/handle/1721.1/11173
+    factory :shannon_mit do
+      creator    ['Shannon, Claude Elwood']
+      date       ['1940']
+      title      ['A symbolic analysis of relay and switching circuits']
+      identifier ['10.5555/1234']
+
+      factory :shannon_mit_bad_bibtex do
+        creator ['Shannon, Claude Elwood, 1916-']
+      end
+    end
+
+    # https://dspace.mit.edu/handle/1721.1/11173
+    factory :shannon_weaver do
+      creator    ['Shannon, Claude Elwood', 'Weaver, Warren']
+      date       ['1949']
+      title      ['The Mathematical Theory of Communication']
+      identifier ['10.5555/1235']
+    end
   end
 end

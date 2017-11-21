@@ -1,3 +1,4 @@
+# coding: utf-8
 require_relative 'boot'
 
 require 'rails/all'
@@ -19,3 +20,6 @@ module Mahonia
     end
   end
 end
+
+Rails.application.routes.default_url_options[:host] =
+  ENV['RAILS_HOST'] || 'localhost'
