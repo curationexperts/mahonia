@@ -19,3 +19,6 @@ module Mahonia
     end
   end
 end
+
+Rails.application.routes.default_url_options[:host] =
+  ENV['RAILS_HOST'] || 'localhost'
