@@ -23,3 +23,7 @@
 
 config/honeybadger.yml
 coverage
+
+.env
+.env.development
+.env.production

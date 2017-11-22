@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 ruby '~> 2.4.2'
+gem 'dotenv-rails'
 gem 'honeybadger', '~> 3.1'
 gem 'hydra-role-management'
 gem 'pg'
@@ -75,7 +76,6 @@ gem 'rsolr', '>= 1.0'
 
 group :development, :test do
   gem 'database_cleaner'
-  gem 'dotenv-rails'
   gem 'fcrepo_wrapper'
   # gem 'hyrax-spec', '~> 0.1.0'
   gem 'hyrax-spec', github: 'curationexperts/hyrax-spec', branch: 'master'
