@@ -4,10 +4,10 @@
   - [default, 1]
 
 test:
-  :concurrency: ENV['SIDKEKIQ_CONCURRENCY']
+  :concurrency: <%= ENV['SIDEKIQ_CONCURRENCY'] || 5 %>
 
 development:
-  :concurrency: ENV['SIDKEKIQ_CONCURRENCY']
+  :concurrency: <%= ENV['SIDEKIQ_CONCURRENCY'] || 5 %>
 
 production:
-  :concurrency: ENV['SIDKEKIQ_CONCURRENCY']
+  :concurrency: <%= ENV['SIDEKIQ_CONCURRENCY'] || 5 %>
