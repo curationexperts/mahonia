@@ -8,8 +8,8 @@
     <td>
        <i>Mahonia aquifolium</i>: Electronic Theses & Dissertations
        <br/>
-     <p><a href="https://travis-ci.org/curationexperts/mahonia"><img src="https://travis-ci.org/curationexperts/mahonia.svg?branch=master" alt="Build Status"></a> 
-<a href="https://coveralls.io/github/curationexperts/mahonia?branch=master"><img src="https://coveralls.io/repos/github/curationexperts/mahonia/badge.svg?branch=master" alt="Coverage Status"></a> 
+     <p><a href="https://travis-ci.org/curationexperts/mahonia"><img src="https://travis-ci.org/curationexperts/mahonia.svg?branch=master" alt="Build Status"></a>
+<a href="https://coveralls.io/github/curationexperts/mahonia?branch=master"><img src="https://coveralls.io/repos/github/curationexperts/mahonia/badge.svg?branch=master" alt="Coverage Status"></a>
 <a href="https://gemnasium.com/github.com/curationexperts/mahonia"><img src="https://gemnasium.com/badges/github.com/curationexperts/mahonia.svg" alt="Dependency Status"></a></p>
     </td>
   </tr>
@@ -46,25 +46,21 @@ development server with `bundle exec rake hydra:server`.
 1. Connect to the rails console and follow this script (note that if you are on a production instance you'll need `RAILS_ENV=production bundle exec rails c`):
   ```ruby
   bundle exec rails c
-  2.4.2 :001 > u = User.new
-  2.4.2 :002 > u.email = "fake@example.com"
-  2.4.2 :003 > u.display_name = "Jane Doe"
-  2.4.2 :004 > u.password = "123456"
-  2.4.2 :005 > admin_role = Role.where(name: 'admin').first_or_create
-   => #<Role id: 1, name: "admin">
-  2.4.2 :006 > u.roles << admin_role
-   => #<ActiveRecord::Associations::CollectionProxy [#<Role id: 1, name: "admin">]>
-  2.4.2 :007 > u.save
+  2.4.2 > u = User.new
+  2.4.2 > u.email = "fake@example.com"
+  2.4.2 > u.display_name = "Jane Doe"
+  2.4.2 > u.password = "123456"
+  2.4.2 > u.save
    => true
-  2.4.2 :011 > u.admin?
-  Role Exists (0.2ms)  SELECT  1 AS one FROM "roles" INNER JOIN "roles_users" ON "roles"."id" = "roles_users"."role_id" WHERE "roles_users"."user_id" = ? AND "roles"."name" = ? LIMIT ?  [["user_id", 2], ["name", "admin"], ["LIMIT", 1]]
- => true
+  2.4.2 > u.add_role("admin")
+  2.4.2 > u.admin?
+   => true
   ```
 
 1. If the object won't save, or isn't working as expected, you can check the errors like this:
   ```ruby
   2.4.2 :015 > u = User.new
-  2.4.2 :016 > u.email = "bess@curationexperts.com"
+  2.4.2 :016 > u.email = "fake@example.com"
   2.4.2 :017 > u.save
    => false
   2.4.2 :018 > u.errors.messages

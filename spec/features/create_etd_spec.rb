@@ -3,17 +3,30 @@
 require 'rails_helper'
 include Warden::Test::Helpers
 
-RSpec.feature 'Create a Etd', js: false, perform_enqueued: true do
-  context 'as a logged in user' do
-    let(:title) { 'Comet in Moominland' }
-    let(:user)  { FactoryGirl.create(:user) }
+RSpec.feature 'Create an ETD', js: false, perform_enqueued: true do
+  let(:title) { 'Comet in Moominland' }
+  let(:admin) { FactoryBot.create(:admin) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:etd) do
+    FactoryBot.create(
+      :moomins_thesis,
+      user: admin,
+      visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+    )
+  end
 
+  before do
+    ActiveJob::Base.queue_adapter.filter = [DataciteRegisterJob]
+  end
+  after do
+    logout
+  end
+
+  context 'an admin user' do
     before do
-      ActiveJob::Base.queue_adapter.filter = [DataciteRegisterJob]
-      login_as user
+      login_as admin
     end
-
-    scenario 'creating' do
+    scenario 'can create a work' do
       visit '/dashboard'
       click_link 'Works'
       click_link 'Add new work'
@@ -33,9 +46,7 @@ RSpec.feature 'Create a Etd', js: false, perform_enqueued: true do
       expect(page).to have_css('.identifier', text: '10.5072') # assigns DOI
     end
 
-    scenario 'editing' do
-      etd = FactoryGirl.create(:moomins_thesis, user: user)
-
+    scenario 'can edit a work' do
       visit "concern/etds/#{etd.id}"
       click_link 'Edit'
 
@@ -47,6 +58,28 @@ RSpec.feature 'Create a Etd', js: false, perform_enqueued: true do
       find('#with_files_submit').click
 
       expect(page).to have_content(new_title, new_keyword)
+    end
+  end
+
+  # Non admin users should not be able to create a new work or to edit any works
+
+  context "a non-admin user" do
+    before do
+      login_as user
+    end
+    scenario "cannot create a work" do
+      expect(user.admin?).to eq(false)
+      visit '/dashboard'
+      click_link 'Works'
+      expect(page).not_to have_content('Add new work')
+      visit '/concern/etds/new'
+      expect(page).to have_content('You are not authorized to access this page.')
+    end
+    scenario "cannot edit a work" do
+      visit "/concern/etds/#{etd.id}"
+      expect(page).not_to have_content('Edit')
+      visit "/concern/etds/#{etd.id}/edit"
+      expect(page).to have_content('Unauthorized')
     end
   end
 end

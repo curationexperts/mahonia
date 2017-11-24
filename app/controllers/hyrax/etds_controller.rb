@@ -10,5 +10,15 @@ module Hyrax
 
     # Use this line if you want to use a custom presenter
     self.show_presenter = Hyrax::EtdPresenter
+
+    def new
+      raise Hydra::AccessDenied unless current_ability.admin?
+      super
+    end
+
+    def create
+      raise Hydra::AccessDenied unless current_ability.admin?
+      super
+    end
   end
 end
