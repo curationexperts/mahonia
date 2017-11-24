@@ -11,6 +11,7 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'database_cleaner'
 require 'active_fedora/cleaner'
+require 'hyrax/spec/factory_bot/build_strategies'
 require 'hyrax/spec/matchers'
 require 'hyrax/spec/shared_examples'
 
@@ -19,9 +20,6 @@ require 'hyrax/spec/shared_examples'
 FactoryGirl = FactoryBot unless defined?(FactoryGirl)
 
 Dir[Rails.root.join('spec', 'support', '**', '*.rb')].each { |f| require f }
-
-# Register custom FactoryBot strategies
-FactoryBot.register_strategy(:actor_create, ActorCreate)
 
 # Remove a deprecated FactoryBot feature that causes problems for doubles
 FactoryBot.allow_class_lookup = false

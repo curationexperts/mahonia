@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/curationexperts/hyrax-spec.git
-  revision: f932c6b7dd1762719b23cc968e4fea02eb3fe3bf
+  revision: 00f34c39591bfbb6d802a92ce1998ec7b684a36d
   branch: master
   specs:
-    hyrax-spec (0.1.0)
+    hyrax-spec (0.2.0)
       rspec (~> 3.6)
 
 GEM
