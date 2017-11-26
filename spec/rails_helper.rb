@@ -69,6 +69,11 @@ RSpec.configure do |config|
   config.include(ControllerLevelHelpers, type: :view)
   config.before(type: :view) { initialize_controller_helpers(view) }
 
+  config.before(datacite_api: true) do
+    pending('Requires Datacite API access. Provide credentials in `.env` to enable.') if
+      Datacite::Configuration.instance.password == 'YOUR_PASSWORD_HERE'
+  end
+
   # Use this example group when you want to perform jobs inline during testing.
   #
   # Limit to specific job classes with:

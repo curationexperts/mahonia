@@ -2,11 +2,14 @@
 require 'rails_helper'
 
 RSpec.describe Mahonia::DataciteRegistrar do
-  subject(:registrar) { described_class.new }
+  subject(:registrar) { described_class.new(connection: connection) }
   let(:model)         { instance_double(Etd, id: 'moomin_id') }
   let(:test_prefix)   { Datacite::Configuration.instance.prefix }
+  let(:connection)    { FakeDataciteConnection.new }
 
-  it_behaves_like 'an IdentifierRegistrar'
+  it_behaves_like 'an IdentifierRegistrar' do
+    before { registrar.connection = connection }
+  end
 
   describe '#builder' do
     it 'has a default bulider' do

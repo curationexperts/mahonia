@@ -12,6 +12,7 @@ RSpec.describe Datacite::Configuration do
 
   it 'loads attributes from Rails config file' do
     expect(config).to have_attributes domains:  an_instance_of(String),
+                                      host:     an_instance_of(String),
                                       login:    an_instance_of(String),
                                       password: an_instance_of(String),
                                       prefix:   an_instance_of(String)
@@ -20,6 +21,7 @@ RSpec.describe Datacite::Configuration do
   describe '#load_from_hash' do
     let(:hash) do
       { 'domains'  => 'hash_domains',
+        'host'     => 'hash_host',
         'login'    => 'hash_login',
         'password' => 'hash_password',
         'prefix'   => 'hash_prefix' }
@@ -35,6 +37,7 @@ RSpec.describe Datacite::Configuration do
   context 'with manually set attributes' do
     before do
       config.domains  = 'domains'
+      config.host     = 'host'
       config.login    = 'login'
       config.password = 'password'
       config.prefix   = 'prefix'
@@ -42,6 +45,7 @@ RSpec.describe Datacite::Configuration do
 
     it do
       is_expected.to have_attributes domains:  'domains',
+                                     host:     'host',
                                      login:    'login',
                                      password: 'password',
                                      prefix:   'prefix'

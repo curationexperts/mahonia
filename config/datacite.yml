@@ -1,18 +1,21 @@
 ---
 development:
   domains:  <%= ENV['DATACITE_DOMAINS'] %>
+  host:     <%= ENV['DATACITE_HOST'] %>
   login:    <%= ENV['DATACITE_LOGIN'] %>
   password: <%= ENV['DATACITE_PASSWORD'] %>
   prefix:   <%= ENV['DATACITE_PREFIX'] %>
 
 test:
   domains:  <%= ENV['DATACITE_DOMAINS'] %>
+  host:     'https://mds.test.datacite.org'
   login:    <%= ENV['DATACITE_LOGIN'] %>
   password: <%= ENV['DATACITE_PASSWORD'] %>
   prefix:   '10.5072'
 
 production:
   domains:  <%= ENV['DATACITE_DOMAINS'] %>
+  host:     <%= ENV['DATACITE_HOST'] %>
   login:    <%= ENV['DATACITE_LOGIN'] %>
   password: <%= ENV['DATACITE_PASSWORD'] %>
   prefix:   <%= ENV['DATACITE_PREFIX'] %>
