@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Schemas
   class CoreMetadata < ActiveTriples::Schema
     property :date,        predicate: RDF::Vocab::DC11.date

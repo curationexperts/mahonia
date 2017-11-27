@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class DataciteRegisterJob < ApplicationJob
   ##
   # @!attribute [rw] registrar_opts

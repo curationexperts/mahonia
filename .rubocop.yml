@@ -2,7 +2,7 @@ inherit_gem:
   bixby: bixby_default.yml
 
 AllCops:
-  TargetRubyVersion: "2.4.2"
+  TargetRubyVersion: '2.4.2'
 
 Metrics/BlockLength:
   Exclude:
@@ -16,5 +16,3 @@ RSpec/MultipleExpectations:
 RSpec/ExampleLength:
   Exclude:
     - 'spec/features/**/*'
-Style/FrozenStringLiteralComment:
-   Enabled: false

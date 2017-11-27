@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec::Matchers.define :have_show_field do |name|
   match do |rendered_view|
     @displayed_fields = rendered_view.find_css("li.#{name}")

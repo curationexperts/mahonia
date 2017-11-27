@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class EtdIndexer < Hyrax::WorkIndexer
   ##
   # Use the custom indexing service.

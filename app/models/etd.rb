@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class Etd < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
 

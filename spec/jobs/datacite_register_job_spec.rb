@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails_helper'
 require 'fakes/fake_datacite_connection'
 require 'fakes/fake_identifier_builder'

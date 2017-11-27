@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :hyrax do
   desc 'Ensure Hyrax default admin set exists'
   task :ensure_default_admin_set do

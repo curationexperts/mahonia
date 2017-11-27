@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.shared_examples 'an IdentifierBuilder' do
   subject(:builder) { described_class.new }
 

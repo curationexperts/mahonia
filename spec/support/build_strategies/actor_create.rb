@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ActorCreate
   def initialize
     @assciation_strategy = FactoryBot.strategy_by_name(:create).new

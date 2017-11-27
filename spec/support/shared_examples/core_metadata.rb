@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.shared_examples 'a model with ohsu core metadata' do
   subject(:model) { described_class.new }
 
