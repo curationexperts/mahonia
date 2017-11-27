@@ -24,6 +24,8 @@
 config/honeybadger.yml
 coverage
 
+dump.rdb
+
 .env
 .env.development
 .env.production

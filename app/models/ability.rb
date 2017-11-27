@@ -3,7 +3,8 @@ class Ability
   include Hydra::Ability
 
   include Hyrax::Ability
-  self.ability_logic += [:everyone_can_create_curation_concerns]
+  # Remove Hyrax default behavior. In Mahonia, only admin users can create works.
+  # self.ability_logic += [:everyone_can_create_curation_concerns]
 
   # Define any customized permissions here.
   def custom_permissions

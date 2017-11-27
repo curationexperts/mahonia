@@ -78,6 +78,7 @@ gem 'rsolr', '>= 1.0'
 group :development, :test do
   gem 'database_cleaner'
   gem 'fcrepo_wrapper'
+  gem 'ffaker'
   # gem 'hyrax-spec', '~> 0.1.0'
   gem 'hyrax-spec', github: 'curationexperts/hyrax-spec', branch: 'master'
   gem 'rspec-rails'

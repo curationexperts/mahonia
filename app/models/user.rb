@@ -23,6 +23,20 @@ class User < ApplicationRecord
   # user class to get a user-displayable login/identifier for
   # the account.
   def to_s
-    email
+    display_name
+  end
+
+  def add_role(name)
+    role = Role.find_by(name: name)
+    role = Role.create(name: name) if role.nil?
+    role.users << self
+    role.save
+    reload
+  end
+
+  def remove_role(name)
+    role = Role.find_by(name: name)
+    role.users.delete(self) if role&.users && role.users.include?(self)
+    reload
   end
 end
