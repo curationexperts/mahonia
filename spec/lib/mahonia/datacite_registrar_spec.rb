@@ -1,11 +1,22 @@
 # frozen_string_literal: true
 require 'rails_helper'
+require 'fakes/fake_datacite_connection'
 
 RSpec.describe Mahonia::DataciteRegistrar do
   subject(:registrar) { described_class.new(connection: connection) }
-  let(:model)         { instance_double(Etd, id: 'moomin_id') }
+  let(:model)         { FactoryBot.build_stubbed(:moomins_thesis, id: identifier) }
   let(:test_prefix)   { Datacite::Configuration.instance.prefix }
   let(:connection)    { FakeDataciteConnection.new }
+  let(:doi)           { "#{test_prefix}/#{identifier}" }
+  let(:identifier)    { 'moomin_id' }
+
+  let(:mapped_hash) do
+    { identifier:       doi,
+      creator:          model.creator,
+      publisher:        model.publisher,
+      publication_year: model.date_uploaded.year,
+      title:            model.title }
+  end
 
   it_behaves_like 'an IdentifierRegistrar' do
     before { registrar.connection = connection }
@@ -17,10 +28,44 @@ RSpec.describe Mahonia::DataciteRegistrar do
     end
   end
 
+  describe '#record_for' do
+    context 'with stripped down schema' do
+      let(:model) { instance_double(Etd, id: identifier) }
+
+      it 'builds a record with only the identifer' do
+        expect(registrar.record_for(object: model))
+          .to have_attributes identifier: doi
+      end
+    end
+
+    it 'builds a record with metadata mapped to datacite' do
+      expect(registrar.record_for(object: model))
+        .to have_attributes(**mapped_hash)
+    end
+  end
+
   describe '#register!' do
-    it 'registers a datacite id' do
+    context 'with no id' do
+      let(:model) { instance_double(Etd, id: nil) }
+
+      it 'raises an ArgumentError' do
+        expect { registrar.register!(object: model) }
+          .to raise_error ArgumentError
+      end
+    end
+
+    context 'with stripped down schema' do
+      let(:model) { instance_double(Etd, id: identifier) }
+
+      it 'registers a datacite id' do
+        expect(registrar.register!(object: model))
+          .to have_attributes identifier: doi
+      end
+    end
+
+    it 'registers a datacite id with attributes' do
       expect(registrar.register!(object: model))
-        .to have_attributes identifier: test_prefix + '/moomin_id'
+        .to have_attributes(**mapped_hash)
     end
   end
 end

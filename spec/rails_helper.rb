@@ -76,7 +76,7 @@ RSpec.configure do |config|
   config.before(datacite_api: true) do
     @datacite_requests = {}
 
-    if Datacite::Configuration.instance.password == 'YOUR_PASSWORD_HERE'
+    if Datacite::Configuration.instance.password.match?(/PASSWORD/)
       WebMock.disable_net_connect!(allow_localhost: true)
 
       # give 401 on all credentials
@@ -92,6 +92,33 @@ RSpec.configure do |config|
               basic_auth: [Datacite::Configuration.instance.login,
                            Datacite::Configuration.instance.password])
         .to_return(status: 201, body: 'Yay!', headers: {})
+
+      # 404 when auth is good on an unrecognized path
+      @datacite_requests[:get_404] =
+        stub_request(:get, /https:\/\/mds\.test\.datacite\.org\/metadata\/#{Datacite::Configuration.instance.prefix}\/.*/)
+        .with(basic_auth: [Datacite::Configuration.instance.login,
+                           Datacite::Configuration.instance.password])
+        .to_return(status: 404)
+
+      # 200 when the path is expected
+      @datacite_requests[:get] =
+        stub_request(:get, "https://mds.test.datacite.org/metadata/#{Datacite::Configuration.instance.prefix}/moomin")
+        .with(basic_auth: [Datacite::Configuration.instance.login,
+                           Datacite::Configuration.instance.password])
+        .to_return(status:  200,
+                   body:    "<?xml version=\"1.0\"?>\n<resource xmlns=\"" \
+                   "http://datacite.org/schema/kernel-4\" xmlns:xsi=\"" \
+                   "http://www.w3.org/2001/XMLSchema-instance\" " \
+                   "xsi:schemaLocation=\"http://datacite.org/schema/kernel-4 " \
+                   "http://schema.datacite.org/meta/kernel-4/metadata.xsd\">\n  " \
+                   "<identifier identifierType=\"DOI\">10.5072/moomin</identifier>\n  " \
+                   "<titles>\n    <title>Comet in Moominland</title>\n  </titles>\n  " \
+                   "<creators>\n    <creator>\n      <creatorName>:unav</creatorName>\n    " \
+                   "</creator>\n  </creators>\n  <publisher>:unav</publisher>\n  " \
+                   "<publicationYear>2017</publicationYear>\n  " \
+                   "<resourceType resourceTypeGeneral=\"Text\">Dissertation</resourceType>\n  " \
+                   "<version>4.0</version>\n</resource>\n",
+                   headers: {})
     end
   end
 

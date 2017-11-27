@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 module Mahonia
   class DataciteRegistrar < IdentifierRegistrar
-    IdentifierRecord = Struct.new(:identifier)
+    IdentifierRecord =
+      Struct.new(:identifier, :creator, :publisher, :publication_year, :title)
 
     ##
     # @!attribute [rw] connection
@@ -18,10 +19,19 @@ module Mahonia
     end
 
     ##
+    # @return [Mahonia::DataciteRegistrar::IdentifierRecord]
+    def record_for(object:)
+      IdentifierRecord.new(builder.build(hint: object.id),
+                           object.try(:creator),
+                           object.try(:publisher),
+                           object.try(:date_uploaded).try(:year),
+                           object.try(:title))
+    end
+
+    ##
     # @see IdentifierRegistrar#register!
     def register!(object:)
-      record = IdentifierRecord.new(builder.build(hint: object.id))
-      connection.create(metadata: record)
+      connection.create(metadata: record_for(object: object))
     end
 
     private
