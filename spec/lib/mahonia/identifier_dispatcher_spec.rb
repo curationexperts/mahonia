@@ -11,7 +11,7 @@ RSpec.describe Mahonia::IdentifierDispatcher do
       def initialize(*); end
 
       def register!(*)
-        Struct.new('IdServiceRecord', :identifier).new('moomin/123/abc')
+        Struct.new(:identifier).new('moomin/123/abc')
       end
     end
   end
