@@ -82,6 +82,7 @@ group :development, :test do
   # gem 'hyrax-spec', '~> 0.1.0'
   gem 'hyrax-spec', github: 'curationexperts/hyrax-spec', branch: 'master'
   gem 'rspec-rails'
+  gem 'webmock', '~> 3.1', '>= 3.1.1'
 end
 
 group :test do
