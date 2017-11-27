@@ -14,6 +14,7 @@ require 'active_fedora/cleaner'
 require 'hyrax/spec/factory_bot/build_strategies'
 require 'hyrax/spec/matchers'
 require 'hyrax/spec/shared_examples'
+require 'webmock/rspec'
 
 # Support the old FactoryGirl name for the moment, use `FactoryBot` going
 # forward.
@@ -60,6 +61,9 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   config.before(:suite) do
+    # Enable web connections; disable explictly for certain example groups
+    WebMock.allow_net_connect!
+
     ActiveJob::Base.queue_adapter = :test
     ActiveFedora::Cleaner.clean!
     DatabaseCleaner.clean_with(:truncation)
@@ -68,6 +72,33 @@ RSpec.configure do |config|
 
   config.include(ControllerLevelHelpers, type: :view)
   config.before(type: :view) { initialize_controller_helpers(view) }
+
+  config.before(datacite_api: true) do
+    @datacite_requests = {}
+
+    if Datacite::Configuration.instance.password == 'YOUR_PASSWORD_HERE'
+      WebMock.disable_net_connect!(allow_localhost: true)
+
+      # give 401 on all credentials
+      @datacite_requests[:post_bad_credentials] =
+        stub_request(:post, "https://mds.test.datacite.org/metadata")
+        .with(headers: { 'Content-Type' => 'application/xml' })
+        .to_return(status: 401, body: 'Unauthorized', headers: {})
+
+      # give 201 for configured credentials; any configured credentials will do
+      @datacite_requests[:post_create] =
+        stub_request(:post, "https://mds.test.datacite.org/metadata")
+        .with(headers:    { 'Content-Type' => 'application/xml' },
+              basic_auth: [Datacite::Configuration.instance.login,
+                           Datacite::Configuration.instance.password])
+        .to_return(status: 201, body: 'Yay!', headers: {})
+    end
+  end
+
+  config.after(datacite_api: true) do
+    @datacite_requests.each_value { |stub| remove_request_stub(stub) }
+    WebMock.allow_net_connect!
+  end
 
   # Use this example group when you want to perform jobs inline during testing.
   #

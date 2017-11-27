@@ -22,15 +22,5 @@ RSpec.describe Hyrax::Actors::DataciteActor do
           .on_queue('id_service')
       end
     end
-
-    context 'when job is performed', perform_enqueued: true do
-      before { ActiveJob::Base.queue_adapter.filter = [DataciteRegisterJob] }
-
-      it 'sets the identifier for the object' do
-        expect { actor.create(env) }
-          .to change { object.reload.identifier.to_a }
-          .to contain_exactly(an_instance_of(String))
-      end
-    end
   end
 end

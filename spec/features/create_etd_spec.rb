@@ -4,7 +4,7 @@
 require 'rails_helper'
 include Warden::Test::Helpers
 
-RSpec.feature 'Create an ETD', js: false, perform_enqueued: true do
+RSpec.feature 'Create an ETD', js: false do
   let(:title) { 'Comet in Moominland' }
   let(:admin) { FactoryBot.create(:admin) }
   let(:user) { FactoryBot.create(:user) }
@@ -16,18 +16,14 @@ RSpec.feature 'Create an ETD', js: false, perform_enqueued: true do
     )
   end
 
-  before do
-    ActiveJob::Base.queue_adapter.filter = [DataciteRegisterJob]
-  end
-  after do
-    logout
-  end
+  after { logout }
 
   context 'an admin user' do
-    before do
-      login_as admin
-    end
-    scenario 'can create a work' do
+    before { login_as admin }
+
+    scenario 'can create a work', :perform_enqueued, :datacite_api do
+      ActiveJob::Base.queue_adapter.filter = [DataciteRegisterJob]
+
       visit '/dashboard'
       click_link 'Works'
       click_link 'Add new work'
