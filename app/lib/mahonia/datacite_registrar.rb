@@ -31,7 +31,12 @@ module Mahonia
     ##
     # @see IdentifierRegistrar#register!
     def register!(object:)
-      connection.create(metadata: record_for(object: object))
+      metadata = record_for(object: object)
+
+      result = connection.create(metadata: metadata)
+      connection.register(metadata: result,
+                          url:      Etd.application_url(id: object.id))
+      result
     end
 
     private
