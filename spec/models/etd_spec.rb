@@ -28,6 +28,31 @@ RSpec.describe Etd do
     end
   end
 
+  describe '.application_url' do
+    let(:id) { 'moomin_id' }
+
+    it 'returns a url' do
+      expect(described_class.application_url(id: id)).to end_with id
+    end
+  end
+
+  describe '#application_url' do
+    context 'with no id set' do
+      it 'raises an ArgumentError' do
+        expect { etd.application_url }.to raise_error ArgumentError
+      end
+    end
+
+    context 'with an id' do
+      subject(:etd) { FactoryGirl.build(:etd, id: id) }
+      let(:id)      { 'moomin_id' }
+
+      it 'returns a url' do
+        expect(etd.application_url).to end_with id
+      end
+    end
+  end
+
   describe '#date_uploaded' do
     let(:time) { DateTime.current }
 
