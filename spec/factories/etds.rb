@@ -24,6 +24,10 @@ FactoryBot.define do
       visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
     end
 
+    factory :authenticated_etd do
+      visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED
+    end
+
     factory :moomins_thesis do
       creator          ['Moomin', 'Hemulen']
       date             ['199?']
