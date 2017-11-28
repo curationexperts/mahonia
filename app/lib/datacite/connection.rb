@@ -1,7 +1,40 @@
 # frozen_string_literal: true
 module Datacite
+  ##
+  # A light wrapper around the DataCite Metadata Store (MDS) API v2.
+  #
+  # The API supports creating new metadata records for DOIs and registering the
+  # DOI/metadata to a given URL. This is a two step process implemented here as
+  # `#create` and `#register`.
+  #
+  # The creation step creates a metadata record in the DataCite MDS. The
+  # registration step adds a handle record. The TTL on DataCite handles is 24
+  # hours, so records may not appear or update immediately upstream when
+  # `#register` is called.
+  #
+  # @example Creating and registering a DOI
+  #   connection = Datacite::Connection.new
+  #
+  #   # We need a record with an identifier, anything responding to
+  #   # `#identifier` with a DOI string will work.
+  #   Record = Struct.new(:identifier)
+  #   record = Record.new('10.5072/moomin')
+  #
+  #   connection.create(metadata: record)
+  #   connection.register(metadata: record, url: 'http://example.com/moomin')
+  #
+  # @example Creating a DOI with rich metadata
+  #   connection = Datacite::Connection.new
+  #
+  #   Record = Struct.new(:identifier, :title, :creator, :publicationYear)
+  #   record = Record.new('10.5072/moomin', ['Kometjakten'], ['Tove Jansson'], '1946')
+  #
+  #   connection.create(metadata: record)
+  #
+  # @see https://support.datacite.org/docs/mds-2
   class Connection
-    POST_PATH      = '/metadata'
+    METADATA_PATH  = '/metadata'
+    REGISTER_PATH  = '/doi'
     STATUS_CREATED = 201
     STATUS_OK      = 200
 
@@ -54,7 +87,7 @@ module Datacite
     # @raise [Datacite::Connection::Error]
     def get(metadata:)
       response =
-        connection.get Pathname.new(POST_PATH).join(metadata.identifier).to_s
+        connection.get Pathname.new(METADATA_PATH).join(metadata.identifier).to_s
 
       raise Error.new('', response) unless response.status == STATUS_OK
 
@@ -62,6 +95,25 @@ module Datacite
       identifier = doc.xpath('//xmlns:identifier', doc.namespaces).text
 
       ResponseRecord.new(identifier)
+    end
+
+    ##
+    # Register the URL for a DOI.
+    #
+    # @param metadata [#identifier]
+    # @param url      [String]
+    #
+    # @return [#identifier] the metadata record returned from the server
+    # @raise [Datacite::Connection::Error]
+    def register(metadata:, url:)
+      headers  = { 'Content-Type': 'text/plain;charset=UTF-8' }
+      path     = Pathname.new(REGISTER_PATH).join(metadata.identifier).to_s
+      payload  = "doi=#{metadata.identifier}\nurl=#{url}"
+
+      response = connection.put(path, payload, headers)
+      raise Error.new('', response) unless response.status == STATUS_CREATED
+
+      metadata
     end
 
     class Error < RuntimeError
@@ -99,7 +151,7 @@ module Datacite
       # @return [void]
       def post(body:)
         headers  = { "Content-Type": "application/xml" }
-        response = connection.post(POST_PATH, body, headers)
+        response = connection.post(METADATA_PATH, body, headers)
 
         raise Error.new('', response) unless response.status == STATUS_CREATED
       end
