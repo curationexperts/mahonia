@@ -33,5 +33,15 @@ RSpec.describe DataciteRegisterJob, type: :job do
         .to change { object.identifier.to_a }
         .to contain_exactly id
     end
+
+    # rubocop:disable RSpec/VerifiedDoubles
+    it 'registers the id with metadata' do
+      job.perform(object)
+
+      expect(connection.get(metadata: double(identifier: id)))
+        .to have_attributes(identifier: id,
+                            titles:     object.title)
+    end
+    # rubocop:enable RSpec/VerifiedDoubles
   end
 end

@@ -3,6 +3,9 @@ module Datacite
   class Connection
     POST_PATH      = '/metadata'
     STATUS_CREATED = 201
+    STATUS_OK      = 200
+
+    ResponseRecord = Struct.new(:identifier)
 
     ##
     # @!attribute [rw] configuration
@@ -39,6 +42,26 @@ module Datacite
       populate_builder(metadata: metadata)
       post(body: content_builder.build)
       metadata
+    end
+
+    ##
+    # @note this method currently returns a pared down record containing only
+    #   the identifier. It may be extended in the future to map back from XML.
+    #
+    # @param metadata [#identifier]
+    #
+    # @return [#identifier] the metadata record returned from the server
+    # @raise [Datacite::Connection::Error]
+    def get(metadata:)
+      response =
+        connection.get Pathname.new(POST_PATH).join(metadata.identifier).to_s
+
+      raise Error.new('', response) unless response.status == STATUS_OK
+
+      doc        = Nokogiri::XML(response.body)
+      identifier = doc.xpath('//xmlns:identifier', doc.namespaces).text
+
+      ResponseRecord.new(identifier)
     end
 
     class Error < RuntimeError
