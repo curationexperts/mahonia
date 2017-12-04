@@ -12,6 +12,13 @@ RSpec.describe 'hyrax/base/_metadata.html.erb', type: :view do
   let(:solr_document) { SolrDocument.new(work.to_solr) }
   let(:work)          { FactoryGirl.build(:moomins_thesis) }
 
+  it 'has a license' do
+    expect(page)
+      .to have_show_field(:license)
+      .with_values('Creative Commons BY-SA Attribution-ShareAlike 4.0 International')
+      .and_label('License')
+  end
+
   describe 'embargos' do
     let(:work) { FactoryGirl.build(:embargoed_etd) }
     let(:date) { work.embargo_release_date.to_date.to_formatted_s(:standard) }
