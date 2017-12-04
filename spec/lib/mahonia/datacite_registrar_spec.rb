@@ -67,5 +67,11 @@ RSpec.describe Mahonia::DataciteRegistrar do
       expect(registrar.register!(object: model))
         .to have_attributes(**mapped_hash)
     end
+
+    it 'sends a request to update the handle registration' do
+      expect { registrar.register!(object: model) }
+        .to change { registrar.connection.registered } # spy
+        .to include(doi => 'http://localhost:3000/concern/etds/moomin_id')
+    end
   end
 end

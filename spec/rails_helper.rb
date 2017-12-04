@@ -76,6 +76,7 @@ RSpec.configure do |config|
   config.before(datacite_api: true) do
     @datacite_requests = {}
 
+    # @todo: implement a more complete DataCite API mock
     if Datacite::Configuration.instance.password.match?(/PASSWORD/)
       WebMock.disable_net_connect!(allow_localhost: true)
 
@@ -119,6 +120,18 @@ RSpec.configure do |config|
                    "<resourceType resourceTypeGeneral=\"Text\">Dissertation</resourceType>\n  " \
                    "<version>4.0</version>\n</resource>\n",
                    headers: {})
+
+      # give 401 on all credentials
+      @datacite_requests[:put_bad_credentials] =
+        stub_request(:put, "https://mds.test.datacite.org/doi/10.5072/moomin")
+        .to_return(status: 401, body: 'Unauthorized')
+
+      # give 201 for configured credentials
+      @datacite_requests[:put_create] =
+        stub_request(:put, /https:\/\/mds\.test\.datacite\.org\/doi\/#{Datacite::Configuration.instance.prefix}\/.*/)
+        .with(basic_auth: [Datacite::Configuration.instance.login,
+                           Datacite::Configuration.instance.password])
+        .to_return(status: 201)
     end
   end
 

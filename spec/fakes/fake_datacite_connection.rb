@@ -1,7 +1,14 @@
 # frozen_string_literal: true
+##
+# A fake connection to DataCite.
+#
+# `#dois` and `#registered` are offered as spies.
 class FakeDataciteConnection
+  attr_reader :dois, :registered
+
   def initialize(*)
-    @dois = {}
+    @dois       = {}
+    @registered = {}
   end
 
   def create(metadata:)
@@ -10,6 +17,10 @@ class FakeDataciteConnection
 
   def get(metadata:)
     map_record(@dois[metadata.identifier])
+  end
+
+  def register(metadata:, url:)
+    @registered[metadata.identifier] = url
   end
 
   private

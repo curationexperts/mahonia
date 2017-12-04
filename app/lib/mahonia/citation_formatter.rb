@@ -56,8 +56,8 @@ module Mahonia
     end
 
     def url
-      return unless object.id
-      Rails.application.routes.url_helpers.hyrax_etd_url(object.id)
+      return unless (id = object.id)
+      Etd.application_url(id: id)
     end
   end
 end

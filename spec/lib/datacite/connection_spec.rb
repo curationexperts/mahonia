@@ -6,6 +6,15 @@ RSpec.describe Datacite::Connection do
   let(:configuration)  { Datacite::Configuration.instance }
   let(:identifier)     { "#{configuration.prefix}/moomin" }
 
+  let(:invalid_configuration) do
+    instance_double(Datacite::Configuration,
+                    domains:  Datacite::Configuration.instance.domains,
+                    host:     Datacite::Configuration.instance.host,
+                    login:    'FAKE LOGIN',
+                    password: 'FAKE PASSWORD',
+                    prefix:   Datacite::Configuration.instance.prefix)
+  end
+
   # rubocop:disable RSpec/VerifiedDoubles
   # We are happy to use an unverified double, since we aren't picky the metadata
   # behavior as long as it responds to identifier
@@ -25,15 +34,8 @@ RSpec.describe Datacite::Connection do
     end
 
     context 'with invalid authentication' do
-      subject(:connection) { described_class.new(configuration: configuration) }
-
-      let(:configuration) do
-        instance_double(Datacite::Configuration,
-                        domains:  Datacite::Configuration.instance.domains,
-                        host:     Datacite::Configuration.instance.host,
-                        login:    'FAKE LOGIN',
-                        password: 'FAKE PASSWORD',
-                        prefix:   Datacite::Configuration.instance.prefix)
+      subject(:connection) do
+        described_class.new(configuration: invalid_configuration)
       end
 
       it 'raises Unauthorized' do
@@ -59,6 +61,26 @@ RSpec.describe Datacite::Connection do
       it 'responds 404 Not Found' do
         expect { connection.get(metadata: metadata) }
           .to raise_error described_class::Error, /404/
+      end
+    end
+  end
+
+  describe '#register', :datacite_api do
+    let(:url) { 'http://example.com/moomin' }
+
+    it 'registers a doi' do
+      expect(connection.register(metadata: metadata, url: url))
+        .to have_attributes(identifier: identifier)
+    end
+
+    context 'with bad authentication' do
+      subject(:connection) do
+        described_class.new(configuration: invalid_configuration)
+      end
+
+      it 'raises Unauthorized' do
+        expect { connection.register(metadata: metadata, url: url) }
+          .to raise_error described_class::Error, /401/
       end
     end
   end
