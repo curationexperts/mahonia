@@ -28,6 +28,20 @@ FactoryBot.define do
       visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED
     end
 
+    factory :embargoed_etd do
+      transient do
+        embargo_date  { Date.tomorrow.to_s }
+        current_state { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE }
+        future_state  { Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC }
+      end
+
+      after(:build) do |work, evaluator|
+        work.apply_embargo(evaluator.embargo_date,
+                           evaluator.current_state,
+                           evaluator.future_state)
+      end
+    end
+
     factory :moomins_thesis do
       creator          ['Moomin', 'Hemulen']
       date             ['199?']

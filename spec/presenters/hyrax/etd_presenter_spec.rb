@@ -5,7 +5,7 @@ RSpec.describe Hyrax::EtdPresenter, type: :presenter do
   subject(:presenter) { described_class.new(document, ability, request) }
   let(:ability)       { nil }
   let(:document)      { SolrDocument.new(etd.to_solr) }
-  let(:etd)           { FactoryGirl.create(:moomins_thesis, id: 'moomin_id') }
+  let(:etd)           { FactoryGirl.create(:moomins_thesis) }
   let(:request)       { instance_double('Rack::Request', host: 'example.com') }
 
   describe '#citation' do
@@ -29,6 +29,14 @@ RSpec.describe Hyrax::EtdPresenter, type: :presenter do
         expected_fields.map { |f| properties[f.to_s].predicate.to_base }
 
       expect(presenter.export_as_ttl).to include(*predicates)
+    end
+
+    context 'with an embargo' do
+      let(:etd) { FactoryGirl.create(:embargoed_etd) }
+
+      it 'exports an embargo' do
+        expect(presenter.export_as_ttl).to include Hydra::ACL.hasEmbargo
+      end
     end
   end
 end
