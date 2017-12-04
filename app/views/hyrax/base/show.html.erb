@@ -17,7 +17,13 @@
     <%= render "show_actions", presenter: @presenter %>
     <%# Use the fully qualified path to avoid RSpec error: translation missing: en.hyrax.base.show.html.erb.last_modified %>
     <%= t('hyrax.base.show.last_modified', value: @presenter.date_modified) %>
-    <%= render 'representative_media', presenter: @presenter %>
+      <% unless @presenter.representative_presenter.nil? %>
+      <%= image_tag thumbnail_url(@presenter.representative_presenter),
+          class: "representative-media",
+          alt: "",
+          role: "presentation" %>
+      <% end %>
+    <%= render 'document_controls' %>
     <%= render 'social_media' %>
     <%= render 'citations', presenter: @presenter %>
   </div>
@@ -31,4 +37,7 @@
     <%#= render 'sharing_with', presenter: @presenter %>
     <%#= render 'user_activity', presenter: @presenter %>
   </div>
+</div>
+<div class="viewer-container">
+  <%= render 'representative_media', presenter: @presenter %>
 </div>
