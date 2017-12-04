@@ -29,4 +29,12 @@ RSpec.describe 'catalog/_index_list_default', type: :view do
                                      'Date Uploaded', 'Degree Name', 'Keyword',
                                      'Document Type', 'Subject')
   end
+
+  context 'when under embargo' do
+    let(:etd) { FactoryGirl.build(:embargoed_etd) }
+
+    it 'does not show the embargo date' do
+      is_expected.not_to list_index_fields('Embargo release date', 'Available for Download Date')
+    end
+  end
 end

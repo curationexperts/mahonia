@@ -53,6 +53,7 @@ en:
           resource_type: Document type
           rights_statement: Rights
           school: School
+          embargo_release_date: Available for Download Date
   simple_form:
     labels:
       defaults:
