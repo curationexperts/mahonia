@@ -542,6 +542,7 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
+    okcomputer (1.17.1)
     om (3.1.1)
       activemodel
       activesupport
@@ -875,6 +876,7 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)
+  okcomputer (~> 1.17, >= 1.17.1)
   pg
   puma (~> 3.0)
   rails (~> 5.0.6)
