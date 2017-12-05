@@ -7,6 +7,22 @@ RSpec.describe Mahonia::CitationFormatter do
   let(:etd)           { FactoryBot.build(:shannon_mit, id: 'shannon') }
 
   describe '#citation' do
+    context 'with injected html' do
+      let(:etd) do
+        FactoryBot.build(:shannon_mit,
+                         title:   ['<script>title</script>'],
+                         creator: ['<h1>Shannon</h1>'])
+      end
+
+      it 'is resiliant to code injection for title' do
+        expect(formatter.citation).not_to include '<script>'
+      end
+
+      it 'is resiliant to code injection for other fields' do
+        expect(formatter.citation).not_to include '<h1>'
+      end
+    end
+
     it 'has the authors' do
       expect(formatter.citation).to include 'Shannon, C. E.'
     end
