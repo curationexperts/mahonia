@@ -38,8 +38,14 @@ RSpec.describe 'hyrax/base/_metadata.html.erb', type: :view do
       .and_label('License')
   end
 
-  it 'shows the citation' do
-    expect(page).to have_css('.citation', text: work.title.first)
+  describe 'citations' do
+    it 'shows the citation' do
+      expect(page).to have_css('.citation', text: work.title.first)
+    end
+
+    it 'does not include html tag for italic' do
+      expect(page).not_to have_content '<i>'
+    end
   end
 
   describe 'embargos' do
