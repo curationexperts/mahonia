@@ -73,6 +73,7 @@ gem 'csl-styles'
 gem 'devise'
 gem 'devise-guests', '~> 0.6'
 gem 'edtf', '~> 3.0'
+gem 'okcomputer', '~> 1.17', '>= 1.17.1'
 gem 'rsolr', '>= 1.0'
 
 group :development, :test do
