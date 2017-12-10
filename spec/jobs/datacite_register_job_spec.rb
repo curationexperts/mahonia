@@ -6,7 +6,9 @@ require 'fakes/fake_identifier_builder'
 RSpec.describe DataciteRegisterJob, type: :job do
   let(:object) { create(:etd) }
 
-  it_behaves_like 'an ApplicationJob'
+  it_behaves_like 'an ApplicationJob' do
+    let(:deserialize_object) { object }
+  end
 
   describe '.perform_later' do
     before { ActiveJob::Base.queue_adapter = :test }

@@ -2,6 +2,13 @@
 class ApplicationJob < ActiveJob::Base
   KNOWN_QUEUES = [:default, :id_service].freeze
 
+  rescue_from ActiveJob::DeserializationError do |exception|
+    raise exception unless exception.cause.is_a? Ldp::Gone
+
+    logger.warn "#{self.class} with id #{job_id} failed with #{exception.cause}." \
+                "The object passed to the job no longer exists.\n\t#{exception}\n\t"
+  end
+
   class << self
     ##
     # @return [Array<Symbol>] names of all known queues
