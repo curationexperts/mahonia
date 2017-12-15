@@ -33,7 +33,7 @@
    need have Postgres installed and running.
    Ensure that your current user can create databases in postgres. In the `psql`
    console do `create role [username] with createdb login`. Then do
-   `bundle exec rake db:create` to create the databases.
+   `bundle exec rake db:setup` to create the databases.
 1. Start solr and fedora (in new tabs) `bundle exec solr_wrapper` and `bundle exec fcrepo_wrapper`.   
 1. Create a default [admin set](https://samvera.github.io/what-are-admin-things.html).
    To add a new work from the dashboard, you will need to setup a default admin set. You
