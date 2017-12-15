@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171029164826) do
+ActiveRecord::Schema.define(version: 20171215182415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -243,6 +243,22 @@ ActiveRecord::Schema.define(version: 20171029164826) do
     t.datetime "updated_at",         null: false
     t.index ["local_authority_id"], name: "index_qa_local_authority_entries_on_local_authority_id", using: :btree
     t.index ["uri"], name: "index_qa_local_authority_entries_on_uri", unique: true, using: :btree
+  end
+
+  create_table "qa_mesh_trees", force: :cascade do |t|
+    t.string "term_id"
+    t.string "tree_number"
+    t.index ["term_id"], name: "index_qa_mesh_trees_on_term_id", using: :btree
+    t.index ["tree_number"], name: "index_qa_mesh_trees_on_tree_number", using: :btree
+  end
+
+  create_table "qa_subject_mesh_terms", force: :cascade do |t|
+    t.string "term_id"
+    t.string "term"
+    t.text   "synonyms"
+    t.string "term_lower"
+    t.index ["term_id"], name: "index_qa_subject_mesh_terms_on_term_id", using: :btree
+    t.index ["term_lower"], name: "index_qa_subject_mesh_terms_on_term_lower", using: :btree
   end
 
   create_table "roles", force: :cascade do |t|
