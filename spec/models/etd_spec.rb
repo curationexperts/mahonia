@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Etd do
+RSpec.describe Etd, :clean do
   subject(:etd) { FactoryGirl.build(:etd) }
 
   it_behaves_like 'a model with hyrax basic metadata', except: :keyword
@@ -55,6 +55,10 @@ RSpec.describe Etd do
 
   describe '#date_uploaded' do
     let(:time) { DateTime.current }
+
+    before do
+      AdminSet.find_or_create_default_admin_set_id
+    end
 
     it 'is a DateTime' do
       expect { etd.date_uploaded = time }

@@ -4,7 +4,7 @@
 require 'rails_helper'
 include Warden::Test::Helpers
 
-RSpec.feature 'Create an ETD', js: false do
+RSpec.feature 'Create an ETD', :clean, js: false do
   let(:title) { 'Comet in Moominland' }
   let(:admin) { FactoryBot.create(:admin) }
   let(:user) { FactoryBot.create(:user) }
@@ -19,7 +19,10 @@ RSpec.feature 'Create an ETD', js: false do
   after { logout }
 
   context 'an admin user' do
-    before { login_as admin }
+    before do
+      login_as admin
+      AdminSet.find_or_create_default_admin_set_id
+    end
 
     scenario 'can create a work', :perform_enqueued, :datacite_api do
       ActiveJob::Base.queue_adapter.filter = [DataciteRegisterJob]
