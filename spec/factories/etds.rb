@@ -43,27 +43,30 @@ FactoryBot.define do
     end
 
     factory :moomins_thesis do
+      title            ['Moomintroll']
       creator          ['Moomin', 'Hemulen']
       date             ['199?']
+      publisher        ['A Publisher']
       date_created     [Date.parse('2016-12-25')]
       date_label       ['Winter in Moomin Valley']
       date_modified    DateTime.current
       date_uploaded    DateTime.current
-      degree           ['M.Phil.']
-      department       ['Coin Collecting']
+      degree           ['D.N.P.']
+      department       ['Department of Biochemistry']
       description      ['Winter', 'Collecting']
       identifier       ['Moomin_123']
-      institution      ['Moomin Valley Community College']
+      institution      ['OHSU']
       keyword          ['moomin', 'snork', 'hattifattener']
       language         ['Finnish', 'Swedish']
       license          [RDF::URI('https://creativecommons.org/licenses/by-sa/4.0/')]
       orcid_id         ['0000-0001-2345-6789', '0000-0002-1825-0097']
-      school           ['School of Hattifattener Studies']
+      school           ['School of Public Health']
+      related_url      ['http://samvera.github.io']
       source           ['Too-Ticky', 'Snufkin']
       subject          ['Moomins', 'Snorks']
-      resource_type    ['thesis']
-      rights_note      ['For the exclusive viewing of Little My.',
-                        'Moomin: do not read this.']
+      resource_type    ['Thesis']
+      bibliographic_citation ['something cited']
+      rights_note      ['For the exclusive viewing of Little My.', 'Moomin: do not read this.']
       rights_statement [RDF::URI('http://rightsstatements.org/vocab/NKC/1.0/')]
     end
 
