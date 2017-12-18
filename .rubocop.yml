@@ -13,6 +13,8 @@ Metrics/BlockLength:
 RSpec/MultipleExpectations:
   Exclude:
     - 'spec/features/**/*'
+    - 'spec/support/shared_examples/hyrax_basic_metadata.rb'
 RSpec/ExampleLength:
   Exclude:
     - 'spec/features/**/*'
+    - 'spec/support/shared_examples/hyrax_basic_metadata.rb'
