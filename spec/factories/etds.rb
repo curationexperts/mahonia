@@ -43,6 +43,7 @@ FactoryBot.define do
     end
 
     factory :moomins_thesis do
+      title            ['Moomintroll']
       creator          ['Moomin', 'Hemulen']
       date             ['199?']
       date_created     [Date.parse('2016-12-25')]
@@ -61,9 +62,8 @@ FactoryBot.define do
       school           ['School of Hattifattener Studies']
       source           ['Too-Ticky', 'Snufkin']
       subject          ['Moomins', 'Snorks']
-      resource_type    ['thesis']
-      rights_note      ['For the exclusive viewing of Little My.',
-                        'Moomin: do not read this.']
+      resource_type    ['Thesis']
+      rights_note      ['For the exclusive viewing of Little My.', 'Moomin: do not read this.']
       rights_statement [RDF::URI('http://rightsstatements.org/vocab/NKC/1.0/')]
     end
 
