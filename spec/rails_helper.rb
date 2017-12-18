@@ -9,12 +9,33 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
+require 'capybara/poltergeist'
 require 'database_cleaner'
 require 'active_fedora/cleaner'
 require 'hyrax/spec/factory_bot/build_strategies'
 require 'hyrax/spec/matchers'
 require 'hyrax/spec/shared_examples'
+require 'selenium-webdriver'
 require 'webmock/rspec'
+
+# Capybara settings
+poltergeist_options = {
+  js_errors: false,
+  timeout: 30,
+  logger: nil,
+  phantomjs_logger: StringIO.new,
+  phantomjs_options: [
+    '--load-images=no',
+    '--ignore-ssl-errors=yes'
+  ]
+}
+Capybara.register_driver(:poltergeist) do |app|
+  Capybara::Poltergeist::Driver.new(app, poltergeist_options)
+end
+
+Capybara.default_driver = :rack_test
+
+Capybara.javascript_driver = :poltergeist
 
 # Support the old FactoryGirl name for the moment, use `FactoryBot` going
 # forward.
@@ -36,7 +57,7 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -60,6 +81,8 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
 
+  config.use_transactional_fixtures = false
+
   config.before(:suite) do
     # Enable web connections; disable explictly for certain example groups
     WebMock.allow_net_connect!
@@ -67,7 +90,28 @@ RSpec.configure do |config|
     ActiveJob::Base.queue_adapter = :test
     ActiveFedora::Cleaner.clean!
     DatabaseCleaner.clean_with(:truncation)
-    AdminSet.find_or_create_default_admin_set_id
+  end
+
+  config.before do |example|
+    # Pass `:clean' to destroy objects in fedora/solr and start from scratch
+    ActiveFedora::Cleaner.clean! if example.metadata[:clean]
+
+    if example.metadata[:type] == :feature && Capybara.current_driver != :rack_test
+      DatabaseCleaner.strategy = :truncation
+    else
+      DatabaseCleaner.strategy = :transaction
+      DatabaseCleaner.start
+    end
+  end
+
+  config.append_after(:each, type: :feature) do
+    Warden.test_reset!
+    Capybara.reset_sessions!
+    page.driver.reset!
+  end
+
+  config.append_after do
+    DatabaseCleaner.clean
   end
 
   config.include(ControllerLevelHelpers, type: :view)
@@ -157,4 +201,6 @@ RSpec.configure do |config|
     ActiveJob::Base.queue_adapter.perform_enqueued_jobs    = false
     ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs = false
   end
+
+  config.include MeshHelper, mesh: true
 end

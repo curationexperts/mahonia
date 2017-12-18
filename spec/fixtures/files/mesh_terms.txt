@@ -1,0 +1,26 @@
+*NEWRECORD
+RECTYPE = D
+MH = Sulfamerazine
+AQ = AA AD AE AG AI AN BL CF CH CL CS EC HI IM IP ME PD PK PO RE SD ST TO TU UR
+PRINT ENTRY = Methylsulfadiazine|T109|T121|NON|EQV|UNK (19XX)|760324|abbcdef
+ENTRY = Mebacid|T109|T121|TRD|NRW|UNK (19XX)|821123|abbcdef
+ENTRY = Trimetox|T109|TRD|NRW|DE|060410|abcdef
+MN = D02.065.884.725.853
+MN = D02.092.146.807.853
+MN = D02.886.590.700.725.853
+PA = Anti-Bacterial Agents
+MH_TH = BAN (19XX)
+MH_TH = FDA SRS (2014)
+MH_TH = INN (19XX)
+MH_TH = USP (19XX)
+ST = T109
+ST = T121
+N1 = Benzenesulfonamide, 4-amino-N-(4-methyl-2-pyrimidinyl)-
+RN = UR1SAB295F
+RR = 127-79-7 (Sulfamerazine)
+MS = A sulfanilamide that is used as an antibacterial agent.
+MR = 20160701
+DA = 19990101
+DC = 1
+DX = 19660101
+UI = D013416
