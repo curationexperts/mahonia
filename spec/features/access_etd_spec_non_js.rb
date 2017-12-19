@@ -13,7 +13,7 @@ RSpec.feature 'Access an Etd', js: false do
     scenario 'searching submitted public etd' do
       visit '/'
 
-      fill_in 'Search OHSU Scholar Archive', with: etd.first_title
+      fill_in 'Search Hyrax', with: etd.first_title
       click_button 'Go'
 
       within(:css, "li#document_#{etd.id}") do
@@ -23,8 +23,8 @@ RSpec.feature 'Access an Etd', js: false do
 
     context 'with ingested file', :perform_enqueued do
       scenario 'downloading is allowed for public etd' do
-        visit "concern/etds/#{etd.id}"
-        click_on "Download the file"
+        visit      "concern/etds/#{etd.id}"
+        click_link "Download \"#{etd.representative.first_title}\""
 
         expect(page.response_headers['Content-Disposition']).to include 'attachment'
       end
@@ -37,7 +37,7 @@ RSpec.feature 'Access an Etd', js: false do
     scenario 'searching private etd is restricted' do
       visit '/'
 
-      fill_in 'Search OHSU Scholar Archive', with: private_etd.first_title
+      fill_in 'Search Hyrax', with: private_etd.first_title
       click_button 'Go'
 
       expect(page).not_to have_css("li#document_#{private_etd.id}")
@@ -71,7 +71,7 @@ RSpec.feature 'Access an Etd', js: false do
     scenario 'searching institutional etd is restricted' do
       visit '/'
 
-      fill_in 'Search OHSU Scholar Archive', with: institutional_etd.first_title
+      fill_in 'Search Hyrax', with: institutional_etd.first_title
       click_button 'Go'
 
       expect(page).not_to have_css("li#document_#{institutional_etd.id}")
