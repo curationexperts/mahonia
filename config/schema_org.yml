@@ -1,0 +1,9 @@
+schema_org:
+  resource_type:
+    Article: "http://schema.org/ScholarlyArticle"
+    Capstone: "http://schema.org/ScholarlyArticle"
+    Dissertation: "http://schema.org/ScholarlyArticle"
+    Portfolio: "http://schema.org/ScholarlyArticle"
+    Thesis: "http://schema.org/ScholarlyArticle"
+    Portfolio: "http://schema.org/ScholarlyArticle"
+    Other: "http://schema.org/ScholarlyArticle"
