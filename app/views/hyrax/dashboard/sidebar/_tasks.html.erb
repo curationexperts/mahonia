@@ -7,6 +7,12 @@
 
   <% if can? :manage, User %>
     <%= menu.nav_link(hyrax.admin_users_path) do %>
-      <span class="fa fa-user"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.users') %></span>
+        <span class="fa fa-user"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.users') %></span>
     <% end %>
+  <% end %>
+
+  <% if current_user.admin? %>
+      <%= menu.nav_link('/sidekiq/',  data: { turbolinks: false }) do %>
+          <span class="fa fa-line-chart"></span> <span class="sidebar-action-text"><%= t('hyrax.admin.sidebar.sidekiq') %></span>
+      <% end %>
   <% end %>
