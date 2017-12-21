@@ -1,15 +1,12 @@
 # frozen_string_literal: true
-# Generated via
-#  `rails generate hyrax:work Etd`
 require 'rails_helper'
 include Warden::Test::Helpers
 
-RSpec.feature 'Create an ETD', :clean, js: false do
-  let(:title) { 'Comet in Moominland' }
+RSpec.feature 'Create an OSHU ETD', :clean, js: false do
   let(:admin) { FactoryBot.create(:admin) }
   let(:user) { FactoryBot.create(:user) }
   let(:etd) do
-    FactoryBot.create(
+    FactoryBot.attributes_for(
       :moomins_thesis,
       user: admin,
       visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
@@ -24,16 +21,38 @@ RSpec.feature 'Create an ETD', :clean, js: false do
       AdminSet.find_or_create_default_admin_set_id
     end
 
-    scenario 'can create a work', :perform_enqueued, :datacite_api do
+    scenario 'can create an Etd', :perform_enqueued, :datacite_api do
       ActiveJob::Base.queue_adapter.filter = [DataciteRegisterJob]
 
-      visit '/dashboard'
-      click_link 'Works'
-      click_link 'Add new work'
+      visit("/concern/etds/new")
 
       expect(page).to have_content 'Add New Etd'
+      fill_in 'Title', with: etd[:title].first
+      fill_in 'Creator', with: etd[:creator].first
+      fill_in 'Keyword', with: etd[:keyword].first
+      # term for rights URI set in factory
+      select('No Known Copyright', from: 'Rights')
 
-      fill_in 'Title', with: title
+      click_link 'Additional fields'
+
+      fill_in 'Description', with: etd[:description].first
+      # term for license URI set in factory
+      select('Creative Commons BY-SA Attribution-ShareAlike 4.0 International', from: 'License')
+      fill_in 'Publisher', with: etd[:publisher].first
+      fill_in 'Date Created', with: etd[:date_created].first
+      fill_in 'Subject', with: etd[:subject].first
+      fill_in 'Language', with: etd[:language].first
+      fill_in 'Identifier', with: etd[:identifier].first
+      fill_in 'Related URL', with: etd[:related_url].first
+      fill_in 'Source', with: etd[:source].first
+      select(etd[:degree].first, from: 'Degree Name')
+      select(etd[:department].first, from: 'Department')
+      select(etd[:institution].first, from: 'Institution')
+      fill_in 'ORCID', with: etd[:orcid_id].first
+      select(etd[:resource_type].first, from: 'Document Type')
+      fill_in 'Rights note', with: etd[:rights_note].first
+      select(etd[:school].first, from: 'School')
+
       click_link 'Files'
 
       within('#addfiles') do
@@ -41,32 +60,37 @@ RSpec.feature 'Create an ETD', :clean, js: false do
       end
 
       find('#with_files_submit').click
-
-      expect(page).to have_content title # sets title
-      expect(page).to have_css('.identifier', text: '10.5072') # assigns DOI
-    end
-
-    scenario 'can edit a work' do
-      visit "concern/etds/#{etd.id}"
-      click_link 'Edit'
-
-      new_title   = 'Finn Family Moomintroll'
-      new_keyword = 'moomin'
-
-      fill_in 'Title',   with: new_title
-      fill_in 'Keyword', with: new_keyword
-      find('#with_files_submit').click
-
-      expect(page).to have_content(new_title, new_keyword)
+      expect(page).to have_content etd[:title].first
+      expect(page).to have_content etd[:creator].first
+      expect(page).to have_content etd[:keyword].first
+      # rights
+      expect(page).to have_content 'No Known Copyright'
+      expect(page).to have_content etd[:description].first
+      # license
+      expect(page).to have_content 'Creative Commons BY-SA Attribution-ShareAlike 4.0 International'
+      expect(page).to have_content etd[:publisher].first
+      expect(page).to have_content etd[:subject].first
+      expect(page).to have_content etd[:language].first
+      # Identifier sets DOI
+      expect(page).to have_css('.identifier', text: '10.5072')
+      expect(page).to have_content etd[:related_url].first
+      expect(page).to have_content etd[:degree].first
+      expect(page).to have_content etd[:department].first
+      expect(page).to have_content etd[:institution].first
+      expect(page).to have_content etd[:orcid_id].first
+      expect(page).to have_content etd[:source].first
+      expect(page).to have_content %r{#{etd[:resource_type].first}}i
+      expect(page).to have_content etd[:school].first
     end
   end
 
-  # Non admin users should not be able to create a new work or to edit any works
+  # Non admin users should not be able to create a new work
 
   context "a non-admin user" do
     before do
       login_as user
     end
+
     scenario "cannot create a work" do
       expect(user.admin?).to eq(false)
       visit '/dashboard'
@@ -74,12 +98,6 @@ RSpec.feature 'Create an ETD', :clean, js: false do
       expect(page).not_to have_content('Add new work')
       visit '/concern/etds/new'
       expect(page).to have_content('You are not authorized to access this page.')
-    end
-    scenario "cannot edit a work" do
-      visit "/concern/etds/#{etd.id}"
-      expect(page).not_to have_content('Edit')
-      visit "/concern/etds/#{etd.id}/edit"
-      expect(page).to have_content('Unauthorized')
     end
   end
 end
