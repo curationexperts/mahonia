@@ -13,6 +13,14 @@ RSpec.feature 'Autocomplete MeSH terms', mesh: true, js: true do
 
   scenario 'autocompleting MeSH terms in the subject field on form' do
     visit '/concern/etds/new'
+    # Add a file first
+    click_link "Files" # switch tab
+    expect(page).to have_content "Add files"
+    within('span#addfiles') do
+      attach_file('files[]', File.absolute_path(file_fixture('pdf-sample.pdf')), visible: false)
+    end
+    click_link "Description"
+
     expect(page).to have_content('Additional fields')
     click_on 'Additional fields'
 
@@ -28,22 +36,20 @@ RSpec.feature 'Autocomplete MeSH terms', mesh: true, js: true do
     select 'In Copyright', from: 'Rights'
     find('body').click
 
-    # Add a file
-    click_link "Files" # switch tab
-    expect(page).to have_content "Add files"
-    within('span#addfiles') do
-      attach_file('files[]', File.absolute_path(file_fixture('pdf-sample.pdf')), visible: false)
-    end
-    expect(page).to have_content('Delete')
-
     # Submit the form
     expect(page).to have_selector('#with_files_submit')
-    find('#with_files_submit').click
+    click_on('Save')
+
+    # wait until we have a record
+    persisted_etd = Etd.where(title: 'MeSH Test') while persisted_etd.nil?
 
     # Check that the page has Sulfamerazine
     expect(page).to have_content 'Sulfamerazine'
     expect(page).to have_content 'MeSH Test'
     expect(page).to have_content 'In Copyright'
+
+    # clean up
+    expect(page).to have_content('Delete')
     Etd.where(title_tesim: 'MeSH Test').first.delete
     expect(Etd.all.size).to eq 0
   end

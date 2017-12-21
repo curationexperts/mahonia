@@ -9,7 +9,7 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
-require 'capybara/poltergeist'
+
 require 'database_cleaner'
 require 'active_fedora/cleaner'
 require 'hyrax/spec/factory_bot/build_strategies'
@@ -18,25 +18,16 @@ require 'hyrax/spec/shared_examples'
 require 'selenium-webdriver'
 require 'webmock/rspec'
 
-# Capybara settings
-poltergeist_options = {
-  js_errors: false,
-  timeout: 30,
-  logger: nil,
-  phantomjs_logger: StringIO.new,
-  phantomjs_options: [
-    '--load-images=no',
-    '--ignore-ssl-errors=yes'
-  ]
-}
-Capybara.register_driver(:poltergeist) do |app|
-  Capybara::Poltergeist::Driver.new(app, poltergeist_options)
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 
-Capybara.default_driver = :rack_test
+Capybara.javascript_driver = :selenium_chrome
 
-Capybara.javascript_driver = :poltergeist
-
+Capybara.configure do |config|
+  config.default_max_wait_time = 10 # seconds
+  config.default_driver        = :rack_test
+end
 # Support the old FactoryGirl name for the moment, use `FactoryBot` going
 # forward.
 FactoryGirl = FactoryBot unless defined?(FactoryGirl)
@@ -80,7 +71,7 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include FactoryBot::Syntax::Methods
-
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = false
 
   config.before(:suite) do
@@ -112,6 +103,13 @@ RSpec.configure do |config|
 
   config.append_after do
     DatabaseCleaner.clean
+  end
+
+  config.before(:each, type: :feature) do
+    # Note: Make browser huge so that no content is hidden during tests
+    Selenium::WebDriver::Remote::Capabilities.chrome(
+      chromeOptions: { args: %w[window-size=2500,2500] }
+    )
   end
 
   config.include(ControllerLevelHelpers, type: :view)

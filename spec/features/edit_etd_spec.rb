@@ -19,12 +19,19 @@ RSpec.feature 'Edit an OSHU ETD', :clean, js: true do
         visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
       )
     end
-    scenario 'can edit all of the metadata of an Etd', :perform_enqueued, :datacite_api, js: false do
+
+    scenario 'can edit all of the metadata of an Etd', :perform_enqueued, :datacite_api do
       ActiveJob::Base.queue_adapter.filter = [DataciteRegisterJob]
 
       visit("/concern/etds/new")
-
       expect(page).to have_content 'Add New Etd'
+      click_link 'Files'
+      within('#addfiles') do
+        attach_file('files[]', "#{fixture_path}/files/pdf-sample.pdf", visible: false, wait: 10)
+      end
+
+      click_link 'Description'
+
       fill_in 'Creator', with: etd[:creator].first
       fill_in 'Keyword', with: etd[:keyword].first
       # term for rights URI set in factory
@@ -32,6 +39,7 @@ RSpec.feature 'Edit an OSHU ETD', :clean, js: true do
 
       click_link 'Additional fields'
 
+      fill_in 'Title', with: etd[:title].first
       fill_in 'Description', with: etd[:description].first
       # term for license URI set in factory
       select('Creative Commons BY-SA Attribution-ShareAlike 4.0 International', from: 'License')
@@ -48,16 +56,10 @@ RSpec.feature 'Edit an OSHU ETD', :clean, js: true do
       select(etd[:resource_type].first, from: 'Document Type')
       fill_in 'Rights note', with: etd[:rights_note].first
       select(etd[:school].first, from: 'School')
-      fill_in 'Title', with: etd[:title].first
-
-      click_link 'Files'
-      within('#addfiles') do
-        attach_file('files[]', "#{fixture_path}/files/pdf-sample.pdf", visible: false, wait: 10)
-      end
 
       click_on('Save')
-      # our etd is not persisted here, with phantom js driver, but is with chromedriver.
-      sleep(2)
+      # wait until we have a record
+      persisted_etd = Etd.where(title: "Edited Title") while persisted_etd.nil?
       click_on('Edit')
 
       sleep(2)
@@ -86,7 +88,7 @@ RSpec.feature 'Edit an OSHU ETD', :clean, js: true do
       select(etd[:school].last, from: 'School')
       fill_in 'Title', with: "Edited Title"
       # this seems to be a testing bug due to jobs needing to run to completion in order for record to have files associated with it, but the form should be valid when it's loaded.
-      # TODO: find out why files aren't here at this point in testing, possible fix test.
+      # TODO: confirm why files aren't here at this point in testing, possibly fix jobs and remove need to re-add files while editing to get valid form.
       click_link 'Files'
 
       within('#addfiles') do
@@ -94,7 +96,8 @@ RSpec.feature 'Edit an OSHU ETD', :clean, js: true do
       end
 
       click_on('Save')
-      sleep(2)
+      # wait until we have a record
+      persisted_etd = Etd.where(title: "Edited Title") while persisted_etd.nil?
 
       expect(page).to have_content "Edited Title"
       expect(page).to have_content "Edited Creator"
@@ -149,21 +152,24 @@ RSpec.feature 'Edit an OSHU ETD', :clean, js: true do
         visibility: Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
       )
       visit("/concern/etds/new")
-      fill_in 'Creator', with: etd[:creator].first
-      fill_in 'Keyword', with: etd[:keyword].first
-      # term for rights URI set in factory
-      select('No Known Copyright', from: 'Rights')
-      fill_in 'Title', with: etd[:title].first
 
       click_link 'Files'
       within('span#addfiles') do
         page.attach_file('files[]', "#{fixture_path}/files/pdf-sample.pdf", visible: false, wait: 5)
       end
+      click_link 'Description'
+      fill_in 'Title', with: etd[:title].first
+      fill_in 'Creator', with: etd[:creator].first
+      fill_in 'Keyword', with: etd[:keyword].first
+      # term for rights URI set in factory
+      select('No Known Copyright', from: 'Rights')
+
       # give the browser time to enable button
       sleep(2)
       expect(find('#with_files_submit')).not_to be_disabled
       click_on('Save')
-      sleep(5)
+      # wait until we have a record
+      persisted_etd = Etd.where(title: "Edited Title") while persisted_etd.nil?
 
       click_on("pdf-sample.pdf")
       accept_confirm { click_on("Delete This File") }

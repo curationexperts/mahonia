@@ -3,6 +3,20 @@ sudo: false
 cache: bundler
 dist: trusty
 
+addons:
+  apt:
+    packages:
+    - qt5-default
+    - libqt5webkit5-dev
+    - gstreamer1.0-plugins-base
+    - gstreamer1.0-tools gstreamer1.0-x
+    - google-chrome-stable
+
+before_install:
+  - gem update --system
+  - gem install bundler
+  - google-chrome-stable --headless --disable-gpu -no-sandbox --browsertime.xvfb --remote-debugging-port=9222 http://localhost &
+
 jdk:
   - oraclejdk8
 rvm:
@@ -10,7 +24,7 @@ rvm:
 before_script:
   - bundle exec rake db:create
 script:
-  - bundle exec rake
+  - xvfb-run -a bundle exec rake ci
 services:
   - redis-server
   - postgresql
