@@ -159,7 +159,7 @@ RSpec.configure do |config|
                    "<identifier identifierType=\"DOI\">10.5072/moomin</identifier>\n  " \
                    "<titles>\n    <title>Comet in Moominland</title>\n  </titles>\n  " \
                    "<creators>\n    <creator>\n      <creatorName>:unav</creatorName>\n    " \
-                   "</creator>\n  </creators>\n  <publisher>:unav</publisher>\n  " \
+                   "</creator>\n  </creators>\n" \
                    "<publicationYear>2017</publicationYear>\n  " \
                    "<resourceType resourceTypeGeneral=\"Text\">Dissertation</resourceType>\n  " \
                    "<version>4.0</version>\n</resource>\n",

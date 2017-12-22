@@ -67,7 +67,7 @@ module Datacite
     # @return [#identifier] the registered metadata record
     # @raise [Datacite::Connection::Error]
     #
-    # @note required fields are: creators, publisher, publicationYear,
+    # @note required fields are: creators, publicationYear,
     #   resourceType, subjects, contributors, dates, language,
     #   alternateIdentifiers, relatedIdentifiers, sizes, formats, version,
     #   rightsList, descriptions, geoLocations; according to HTTP responses.

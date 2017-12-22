@@ -35,8 +35,8 @@ RSpec.describe Mahonia::CitationFormatter do
       expect(formatter.citation).to include etd.date.first
     end
 
-    it 'has the publisher' do
-      expect(formatter.citation).to include 'Scholar Archive'
+    it 'does not have the publisher' do
+      expect(formatter.citation).not_to include 'Scholar Archive'
     end
 
     it 'has the doi' do
@@ -68,10 +68,6 @@ RSpec.describe Mahonia::CitationFormatter do
 
       it 'has the publication year' do
         expect(formatter.citation).to include etd.date.first
-      end
-
-      it 'has the publisher' do
-        expect(formatter.citation).to include 'Scholar Archive'
       end
 
       it 'has the doi' do
