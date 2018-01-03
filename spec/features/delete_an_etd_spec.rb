@@ -24,8 +24,7 @@ RSpec.feature 'Delete an OSHU ETD', js: false do
     scenario 'can delete an OSHU Etd' do
       visit "concern/etds/#{etd.id}"
 
-      click_on('Delete', match: :first)
-
+      expect { click_on('Delete', match: :first) }.to change { Etd.all.size }.by(-1)
       expect(page).to have_content("Deleted #{etd.title.first}")
     end
   end
