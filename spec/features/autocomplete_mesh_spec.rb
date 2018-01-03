@@ -2,11 +2,13 @@
 require 'rails_helper'
 include Warden::Test::Helpers
 
-RSpec.feature 'Autocomplete MeSH terms', :clean, mesh: true, js: true do
+RSpec.feature 'Autocomplete MeSH terms', mesh: true, js: true do
   let(:admin) { FactoryBot.create(:admin) }
   before do
     import_mesh_terms
     login_as admin
+    ActiveFedora::Cleaner.clean!
+    AdminSet.find_or_create_default_admin_set_id
   end
 
   scenario 'autocompleting MeSH terms in the subject field on form' do
@@ -42,5 +44,7 @@ RSpec.feature 'Autocomplete MeSH terms', :clean, mesh: true, js: true do
     expect(page).to have_content 'Sulfamerazine'
     expect(page).to have_content 'MeSH Test'
     expect(page).to have_content 'In Copyright'
+    Etd.where(title_tesim: 'MeSH Test').first.delete
+    expect(Etd.all.size).to eq 0
   end
 end
