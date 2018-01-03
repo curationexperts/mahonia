@@ -35,7 +35,6 @@ RSpec.feature 'Edit an OSHU ETD', :clean, js: true do
       fill_in 'Description', with: etd[:description].first
       # term for license URI set in factory
       select('Creative Commons BY-SA Attribution-ShareAlike 4.0 International', from: 'License')
-      fill_in 'Publisher', with: etd[:publisher].first
       fill_in 'Date Created', with: etd[:date_created].first
       fill_in 'Subject', with: etd[:subject].first
       fill_in 'Language', with: etd[:language].first
