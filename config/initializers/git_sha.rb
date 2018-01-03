@@ -21,7 +21,7 @@ BRANCH =
 LAST_DEPLOYED =
   if Rails.env.production? && File.exist?(revisions_logfile)
     deployed = `tail -1 #{revisions_logfile}`.chomp.split(" ")[7]
-    Date.parse(deployed).strftime("%d %B %Y")
+    DateTime.parse(deployed).strftime("%e %b %Y %H:%M:%S")
   else
     "Not in deployed environment"
   end

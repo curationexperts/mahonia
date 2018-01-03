@@ -2,6 +2,9 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.10.0"
 
+# Restart options
+set :passenger_restart_wait, 60
+
 set :application, "mahonia"
 set :repo_url, "https://github.com/curationexperts/mahonia.git"
 
@@ -24,3 +27,11 @@ append :linked_dirs, "public/assets"
 append :linked_files, "config/database.yml"
 append :linked_files, "config/secrets.yml"
 append :linked_files, ".env.production"
+
+# Passenger is not consistently restarting, but the problem seems to
+# be fixed by making it restart twice.
+task :reenable_deploy_restart do
+  ::Rake.application['passenger:restart'].reenable
+  ::Rake.application['passenger:restart']
+end
+after 'deploy:restart', 'reenable_deploy_restart'
