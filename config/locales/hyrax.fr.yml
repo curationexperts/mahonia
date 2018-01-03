@@ -10,7 +10,6 @@ fr:
           generic_type_sim: Type
           keyword_sim: Mot-clé
           language_sim: La langue
-          publisher_sim: Éditeur
           subject_sim: Assujettir
         index:
           based_near_tesim: Emplacement
@@ -24,7 +23,6 @@ fr:
           identifier_tesim: Identificateur
           keyword_tesim: Mot-clé
           language_tesim: La langue
-          publisher_tesim: Éditeur
           rights_tesim: Droits
           subject_tesim: Assujettir
         show:
@@ -39,7 +37,6 @@ fr:
           identifier_tesim: Identificateur
           keyword_tesim: Mot-clé
           language_tesim: La langue
-          publisher_tesim: Éditeur
           rights_tesim: Droits
           subject_tesim: Assujettir
           title_tesim: Titre

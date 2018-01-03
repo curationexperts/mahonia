@@ -2,7 +2,7 @@
 module Mahonia
   class DataciteRegistrar < IdentifierRegistrar
     IdentifierRecord =
-      Struct.new(:identifier, :creator, :publisher, :publication_year, :title)
+      Struct.new(:identifier, :creator, :publication_year, :title)
 
     ##
     # @!attribute [rw] connection
@@ -23,7 +23,6 @@ module Mahonia
     def record_for(object:)
       IdentifierRecord.new(builder.build(hint: object.id),
                            object.try(:creator),
-                           object.try(:publisher),
                            object.try(:date_uploaded).try(:year),
                            object.try(:title))
     end

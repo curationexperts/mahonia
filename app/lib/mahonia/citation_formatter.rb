@@ -43,7 +43,7 @@ module Mahonia
       Rails::Html::WhiteListSanitizer.new.sanitize(cite, tags: %w[i b br]).html_safe
     rescue CiteProc::Error, TypeError, ArgumentError
       cite = "#{object.creator.join(', ')}. #{object.title.first} " \
-             "(#{(object.date || []).first}). <i>Scholar Archive</i>. " \
+             "(#{(object.date || []).first})." \
              "#{object.id}.#{' ' + doi if doi}\n#{url}"
 
       Rails::Html::WhiteListSanitizer.new.sanitize(cite, tags: %w[i b br]).html_safe
@@ -57,7 +57,6 @@ module Mahonia
                          identifier:        object.id,
                          author:            object.creator,
                          issued:            object.date,
-                         'container-title': 'Scholar Archive',
                          DOI:               doi,
                          internal_url:      url)
     end

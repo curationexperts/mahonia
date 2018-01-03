@@ -9,7 +9,6 @@ en:
           generic_type_sim: Type
           keyword_sim: Keyword
           language_sim: Language
-          publisher_sim: Publisher
           subject_sim: Subject
           degree_sim: Degree Name
           rights_statement_sim: Rights
@@ -26,7 +25,6 @@ en:
           identifier_tesim: Identifier
           keyword_tesim: Keyword
           language_tesim: Language
-          publisher_tesim: Publisher
           rights_tesim: Rights
           subject_tesim: Subject
           degree_tesim: Degree Name
@@ -44,7 +42,6 @@ en:
           identifier_tesim: Identifier
           keyword_tesim: Keyword
           language_tesim: Language
-          publisher_tesim: Publisher
           rights_tesim: Rights
           subject_tesim: Subject
           title_tesim: Title

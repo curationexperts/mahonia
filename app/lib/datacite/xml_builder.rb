@@ -12,7 +12,7 @@ module Datacite
   #
   # @see https://support.datacite.org/v1.1/docs/mds-2p
   class XmlBuilder
-    ATTRIBUTES = [:creators, :identifier, :publisher, :publication_year,
+    ATTRIBUTES = [:creators, :identifier, :publication_year,
                   :titles].freeze
 
     ##
@@ -73,7 +73,6 @@ module Datacite
             end
           end
 
-          xml.publisher maybe(:publisher, status: UNAVAILABLE)
           xml.publicationYear publication_year if publication_year
 
           xml.resourceType RESOURCE_TYPE, resourceTypeGeneral: RESOURCE_TYPE_GENERAL
