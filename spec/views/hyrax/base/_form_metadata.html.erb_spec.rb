@@ -68,7 +68,7 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
       expect(page)
         .to have_multivalued_field(:date)
         .on_model(work.class)
-        .with_label 'EDTF Date'
+        .with_label 'Date'
     end
 
     it 'has date labels' do
