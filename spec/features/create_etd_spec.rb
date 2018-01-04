@@ -21,6 +21,21 @@ RSpec.feature 'Create an OSHU ETD', :clean, js: false do
       AdminSet.find_or_create_default_admin_set_id
     end
 
+    scenario 'the form will not contain unwanted fields', :perform_enqueued, :datacite_api, js: true do
+      ActiveJob::Base.queue_adapter.filter = [DataciteRegisterJob]
+
+      visit("/concern/etds/new")
+
+      expect(page).to have_content 'Add New Etd'
+      fill_in 'Creator', with: etd[:creator].first
+      fill_in 'Keyword', with: etd[:keyword].first
+      # term for rights URI set in factory
+      select('No Known Copyright', from: 'Rights')
+      click_link 'Additional fields'
+
+      expect(page).not_to have_content('Publisher')
+    end
+
     scenario 'can create an Etd', :perform_enqueued, :datacite_api do
       ActiveJob::Base.queue_adapter.filter = [DataciteRegisterJob]
 
@@ -55,7 +70,7 @@ RSpec.feature 'Create an OSHU ETD', :clean, js: false do
       click_link 'Files'
 
       within('#addfiles') do
-        attach_file('files[]', File.absolute_path(file_fixture('pdf-sample.pdf')))
+        attach_file('files[]', "#{fixture_path}/files/pdf-sample.pdf", visible: false, wait: 10)
       end
 
       find('#with_files_submit').click
