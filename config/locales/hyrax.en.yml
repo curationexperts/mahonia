@@ -17,7 +17,6 @@ en:
           based_near_tesim: Location
           contributor_tesim: Contributor
           creator_tesim: Creator
-          date: EDTF Date
           date_created_tesim: Date Created
           date_modified_dtsi: Date Modified
           date_uploaded_dtsi: Date Uploaded
@@ -35,7 +34,6 @@ en:
           based_near_tesim: Location
           contributor_tesim: Contributor
           creator_tesim: Creator
-          date: EDTF Date
           date_created_tesim: Date Created
           date_modified_dtsi: Date Modified
           date_uploaded_dtsi: Date Uploaded
@@ -61,7 +59,6 @@ en:
         orcid_id:         ORCID
         rights_statement: Rights
         description:      Description
-        date:             EDTF Date
   hyrax:
     product_name:           "OHSU Scholar Archive"
     product_twitter_handle: ""
