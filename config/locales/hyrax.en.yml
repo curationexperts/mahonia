@@ -64,15 +64,15 @@ en:
         date:             EDTF Date
   hyrax:
     product_name:           "OHSU Scholar Archive"
-    product_twitter_handle:
+    product_twitter_handle: ""
     institution_name:       "OHSU"
     institution_name_full:  "OHSU"
-    account_name:
+    account_name: ""
     directory:
-      suffix:
+      suffix: ""
     footer:
-      copyright_html:
-      service_html:
+      copyright_html: ""
+      service_html: ""
     admin:
       sidebar:
         sidekiq: "Sidekiq"
