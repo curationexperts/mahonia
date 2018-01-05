@@ -66,7 +66,7 @@ RSpec.feature 'Create an OSHU ETD', :clean, js: false do
       click_link 'Files'
 
       within('#addfiles') do
-        attach_file('files[]', File.absolute_path(file_fixture('pdf-sample.pdf')))
+        attach_file('files[]', "#{fixture_path}/files/pdf-sample.pdf", visible: false, wait: 10)
       end
 
       find('#with_files_submit').click
