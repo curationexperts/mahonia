@@ -21,6 +21,17 @@ RSpec.feature 'Create an OSHU ETD', :clean, js: false do
       AdminSet.find_or_create_default_admin_set_id
     end
 
+    scenario 'the form will not contain unwanted fields', :perform_enqueued, :datacite_api, js: true do
+      ActiveJob::Base.queue_adapter.filter = [DataciteRegisterJob]
+
+      visit("/concern/etds/new")
+
+      expect(page).to have_content 'Add New Etd'
+      click_link 'Additional fields'
+
+      expect(page).not_to have_content('Publisher')
+    end
+
     scenario 'can create an Etd', :perform_enqueued, :datacite_api do
       ActiveJob::Base.queue_adapter.filter = [DataciteRegisterJob]
 
