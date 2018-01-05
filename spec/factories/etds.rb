@@ -4,6 +4,7 @@ FactoryBot.define do
     transient do
       user { FactoryBot.create(:user) }
       pdf  { nil }
+      jpg  { nil }
     end
 
     # give the user edit access
@@ -14,6 +15,12 @@ FactoryBot.define do
         actor = Hyrax::Actors::FileSetActor.new(FileSet.create, evaluator.user)
         actor.create_metadata({})
         actor.create_content(evaluator.pdf)
+        actor.attach_to_work(work)
+      end
+      if evaluator.jpg
+        actor = Hyrax::Actors::FileSetActor.new(FileSet.create, evaluator.user)
+        actor.create_metadata({})
+        actor.create_content(evaluator.jpg)
         actor.attach_to_work(work)
       end
     end
