@@ -4,9 +4,13 @@ require 'rails_helper'
 RSpec.describe Etd, :clean do
   subject(:etd) { FactoryGirl.build(:etd) }
 
-  it_behaves_like 'a model with hyrax basic metadata', except: :keyword
+  it_behaves_like 'a model with hyrax basic metadata', except: [:keyword, :publisher]
   it_behaves_like 'a model with ohsu core metadata'
   it_behaves_like 'a model with ohsu ETD metadata'
+
+  describe 'excluded properties' do
+    it { expect(described_class.properties).not_to include 'publisher' }
+  end
 
   describe 'an attached pdf' do
     let(:actor)  { Hyrax::Actors::FileSetActor.new(FileSet.create, user) }
