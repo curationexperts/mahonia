@@ -1,5 +1,6 @@
 language: ruby
-sudo: false
+# temporary travis-recommended workaround, routes to older (known to work) env
+sudo: required
 cache: bundler
 dist: trusty
 
