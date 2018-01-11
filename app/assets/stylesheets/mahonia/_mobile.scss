@@ -1,0 +1,56 @@
+@media all and (max-width: 760px) {
+  // Mobile view settings
+  .navbar-inverse {
+    .navbar-toggle {
+      background-image: linear-gradient(to bottom, $btn-primary-gradient-end, $btn-primary-gradient-start);
+      border-color: $btn-primary-color;
+      color: $btn-primary-color;
+      .icon-bar {
+        background-color: $btn-primary-color;
+      }
+    }
+  }
+
+  .navbar-collapse {
+    z-index: 1;
+    position: relative;
+  }
+
+  .navbar-nav.navbarright {
+    magrgin: 0;
+  }
+
+  .nav-department {
+    border: 0;
+    margin: 0;
+    height: 0;
+    margin-top: 8px;
+    display: block;
+  }
+
+  .navbar-header {
+    display: block;
+  }
+  
+  .navbar-brand {
+    display: none;
+  }
+
+  .navbar-inverse .navbar-collapse {
+    box-shadow: $box-shadow;
+    border-color: $ohsu-navbar-header-background;
+    background: $ohsu-navbar-header-background;
+  }
+
+  .dropdown-toggle {
+    width: 110%;
+  }
+
+  .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
+    width: 110%;
+  }
+
+  .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
+    background-color: $ohsu-navbar-text-hover;
+  }
+}

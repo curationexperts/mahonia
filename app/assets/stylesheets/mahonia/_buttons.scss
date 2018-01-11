@@ -1,0 +1,9 @@
+@import 'variables';
+
+.btn-primary {
+  background-image: linear-gradient(to bottom, $btn-primary-gradient-start, $btn-primary-gradient-end);
+}
+
+.btn-primary:hover {
+  background-image: linear-gradient(to bottom, $btn-primary-gradient-end, $btn-primary-gradient-start);
+}
