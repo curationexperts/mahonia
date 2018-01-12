@@ -25,7 +25,7 @@ RSpec.feature 'Edit an OSHU ETD', :clean, js: true do
 
       visit("/concern/etds/new")
       expect(page).to have_content 'Add New Etd'
-      click_link 'Files'
+      click_link 'Files', visible: false
       within('#addfiles') do
         attach_file('files[]', "#{fixture_path}/files/pdf-sample.pdf", visible: false, wait: 10)
       end
@@ -89,7 +89,8 @@ RSpec.feature 'Edit an OSHU ETD', :clean, js: true do
       fill_in 'Title', with: "Edited Title"
       # this seems to be a testing bug due to jobs needing to run to completion in order for record to have files associated with it, but the form should be valid when it's loaded.
       # TODO: confirm why files aren't here at this point in testing, possibly fix jobs and remove need to re-add files while editing to get valid form.
-      click_link 'Files'
+      execute_script('window.scrollTo(0, 0)')
+      click_link 'Files', visible: false
 
       within('#addfiles') do
         attach_file('files[]', "#{fixture_path}/files/pdf-sample.pdf", visible: false, wait: 10)
@@ -130,7 +131,7 @@ RSpec.feature 'Edit an OSHU ETD', :clean, js: true do
       visit "concern/etds/#{etd.id}"
       click_link 'Edit'
       sleep(2)
-      click_link 'Files'
+      click_link 'Files', visible: false
 
       within('#addfiles') do
         attach_file('files[]', File.absolute_path(file_fixture('pdf-sample.pdf')), visible: false)
@@ -153,7 +154,8 @@ RSpec.feature 'Edit an OSHU ETD', :clean, js: true do
       )
       visit("/concern/etds/new")
 
-      click_link 'Files'
+      execute_script('window.scrollTo(0, 0)')
+      click_link 'Files', visible: false
       within('span#addfiles') do
         page.attach_file('files[]', "#{fixture_path}/files/pdf-sample.pdf", visible: false, wait: 5)
       end

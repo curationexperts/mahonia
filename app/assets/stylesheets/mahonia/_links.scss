@@ -1,0 +1,44 @@
+// Screen header
+.navbar-inverse .navbar-nav > li > a:focus, a:hover, a:active {
+  color: $ohsu-navbar-text-hover;
+}
+
+
+// Gloabl links
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-inverse .navbar-nav .open .twitter-typeahead .tt-menu > li > a:hover, .twitter-typeahead .navbar-inverse .navbar-nav .open .tt-menu > li > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus, .navbar-inverse .navbar-nav .open .twitter-typeahead .tt-menu > li > a:focus, .twitter-typeahead .navbar-inverse .navbar-nav .open .tt-menu > li > a:focus {
+  color: $ohsu-link-hover;
+}
+
+// Mobile view links 
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a, .navbar-inverse .navbar-nav .open .twitter-typeahead .tt-menu > li > a, .twitter-typeahead .navbar-inverse .navbar-nav .open .tt-menu > li > a {
+	color: $ohsu-link;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+  background-color: $ohsu-navbar;
+  color: $ohsu-navbar-text;
+}
+
+.navbar-inverse .navbar-nav > li > a:focus, a:hover, a:active {
+  color: $ohsu-link;
+}
+
+// Make sure there isn't an underline
+a:hover, a:visited, a:link, a:active
+{
+    text-decoration: none;
+}
+
+
+// Navbar links
+.navbar-default .navbar-nav {
+  li {
+    a {
+      color: $ohsu-navbar-text;
+    }
+    a:hover, a:visited, a:active, a:link, a:focus {
+      color: $ohsu-navbar-text-hover;
+    }
+
+  }
+}

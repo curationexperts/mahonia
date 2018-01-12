@@ -1,0 +1,106 @@
+@import 'variables';
+
+.navbar-header {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#masthead {
+  width: 100%;
+  .container-fluid {
+    margin-left: $global-margin;
+    margin-right: $global-margin;
+  }
+  box-shadow: $box-shadow;
+}
+
+.navbar-brand {
+    background-position: 0 -235px;
+    height: 114px;
+    padding-right: 24px;
+    width: 90px;
+    background-image: url(../assets/sprite-2x.png);
+    background-size: 556px 2042px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.nav-department {
+  border-left: 1px solid #e5e4e4;
+  line-height: 0;
+  margin-left: 86px;
+  padding-left: 24px;
+  display: table-cell;
+  vertical-align: middle;
+  height: 114px;
+  a:hover {
+    text-decoration: none;
+  }
+}
+// Logo text
+.institution_name {
+  color: $ohsu-navbar;
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.125em;
+  vertical-align: middle;
+  a:hover {
+    text-decoration: none;
+  }
+}
+
+// user_util_links -- the English and Login buttons in the header
+.navbar-nav.navbar-right
+{
+  margin-right: 0;
+  li {
+    a { 
+      color: $ohsu-link;
+    }
+    a:hover { 
+      color: $ohsu-link-hover;
+    }
+  }
+}
+
+// Home, About buttons in navbar on front-page
+.navbar-nav > li > a {
+  line-height: 34px;
+}
+
+.navbar-inverse {
+  border: 0;
+}
+
+// Top navbar that contains the user_util_links 
+.navbar-inverse.navbar-static-top {
+  height: 142px;
+  padding: .875em 0;
+  width: 90%;
+  border: 0;
+  background: $ohsu-navbar-header-background;
+  border: 0;
+}
+
+// Navbar that contains the search bar
+.navbar-default.navbar-static-top
+{
+  background: $ohsu-navbar;
+  color: $ohsu-navbar-text;
+  border: 0;
+  padding-left: $global-margin;
+  padding-right: $global-margin;
+}
+
+// Dashbaord header settings
+.dashboard #masthead {
+  border: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.dashboard #content-wrapper {
+  margin-top: 92px;
+}

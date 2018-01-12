@@ -1,0 +1,57 @@
+//== OHSU Custom Colors
+$ohsu-link: #0072FF;
+$ohsu-link-hover: #0E4D8F;
+$ohsu-body-text: #555555;
+$ohsu-alert: #C34D36;
+
+$ohsu-navbar: #0e4d8f;
+$ohsu-navbar-header-background: #fff;
+$ohsu-navbar-text: #fff;
+$ohsu-navbar-text-hover: #eee;
+
+$box-shadow: 0 0px 5px rgba(0,0,0,0.5);
+$global-margin: 15.5%;
+// OHSU uses this font for online identity
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400');
+
+//== Bootstrap overrides
+// Follows this structure: https://github.com/twbs/bootstrap-sass/blob/master/assets/stylesheets/bootstrap/_variables.scss
+
+//== Colors
+$brand-primary: #0072FF;
+
+//== Scaffolding
+$text-color: $ohsu-body-text;
+
+//== Typography
+$font-family-sans-serif: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+$font-size-base: 16px;
+$line-height-base: 1.675;
+
+
+//== Buttons
+//
+//## For each of Bootstrap's buttons, define text, background and border color.
+   
+
+$btn-primary-color:              #805b16;
+$btn-primary-bg:                 #ffd769;
+$btn-primary-border:             #edb519;
+
+$btn-primary-gradient-start:     $btn-primary-bg;
+$btn-primary-gradient-end:       #ffc529;
+
+$btn-info-color:                 $btn-primary-color;
+$btn-info-bg:                    $btn-primary-bg;
+$btn-info-border:                $btn-primary-border;
+
+// Allows for customizing button radius independently from global border radius
+$btn-border-radius-base:         25px;
+$btn-border-radius-large:        25px;
+$btn-border-radius-small:        25px;
+
+
+//** Global textual link color.
+$link-color: $ohsu-link;
+//** Link hover color set via `darken()` function.
+$link-hover-color: $ohsu-link-hover;

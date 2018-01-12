@@ -1,0 +1,14 @@
+@import 'variables';
+
+.navbar.navbar-inverse.site-footer {
+  background: $ohsu-navbar;
+  color: $ohsu-navbar-text;
+  .navbar-text {
+    color: $ohsu-navbar-text;
+  }
+}
+.site-footer {
+  padding:0;
+  padding-left: 15%;
+  padding-right: 15%;
+}
