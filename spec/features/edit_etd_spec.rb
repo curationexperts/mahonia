@@ -95,10 +95,10 @@ RSpec.feature 'Edit an OSHU ETD', :clean, js: true do
         attach_file('files[]', "#{fixture_path}/files/pdf-sample.pdf", visible: false, wait: 10)
       end
 
+      expect(find('#with_files_submit')).not_to be_disabled
       click_on('Save')
-      # wait until we have a record
-      persisted_etd = Etd.where(title: "Edited Title") while persisted_etd.nil?
 
+      sleep(2)
       expect(page).to have_content "Edited Title"
       expect(page).to have_content "Edited Creator"
       expect(page).to have_content "Edited Keyword"
