@@ -105,13 +105,6 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  config.before(:each, type: :feature) do
-    # Note: Make browser huge so that no content is hidden during tests
-    Selenium::WebDriver::Remote::Capabilities.chrome(
-      chromeOptions: { args: %w[window-size=2500,2500] }
-    )
-  end
-
   config.include(ControllerLevelHelpers, type: :view)
   config.before(type: :view) { initialize_controller_helpers(view) }
 
