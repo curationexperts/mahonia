@@ -7,6 +7,9 @@ git_source(:github) do |repo_name|
 end
 
 ruby '~> 2.4.2'
+
+# DCE importer
+gem 'darlingtonia'
 gem 'dotenv-rails'
 gem 'honeybadger', '~> 3.1'
 gem 'hydra-role-management'
