@@ -1,3 +1,7 @@
+<% mesh_term = (Class.new{ include Mahonia::MeshTermService }).new %>
+<% if defined? curation_concern %>
+    <% mesh_term.edit_subject_view(curation_concern) %>
+<% end  %>
 <%= f.input key,
             as: :multi_value,
             input_html: {
