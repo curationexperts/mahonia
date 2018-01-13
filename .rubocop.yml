@@ -10,6 +10,9 @@ Metrics/BlockLength:
     - '**/*.gemspec' # these would normally be inherited from bixby
     - 'config/**/*'
     - '**/*/catalog_controller.rb'
+Metrics/LineLength:
+  Exclude:
+    - 'spec/importer/importer_spec.rb'
 Rails/TimeZone:
   Exclude:
     - 'config/initializers/git_sha.rb'
