@@ -28,6 +28,7 @@ class MahoniaMapper < Darlingtonia::HashMapper
         @metadata[BEPRESS_TERMS_MAP[k.to_sym]] = be_press_hash.delete k
       end
     end
+    MahoniaValidator.new.validate(@metadata)
   end
 
   def method_missing(method_name, *args, &block)
