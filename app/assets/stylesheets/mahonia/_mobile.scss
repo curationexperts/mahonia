@@ -1,3 +1,5 @@
+@import 'variables';
+
 @media all and (max-width: 760px) {
   // Mobile view settings
   .navbar-inverse {
@@ -31,7 +33,7 @@
   .navbar-header {
     display: block;
   }
-  
+
   .navbar-brand {
     display: none;
   }

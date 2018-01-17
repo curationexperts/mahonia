@@ -1,3 +1,5 @@
+@import 'variables';
+
 // Screen header
 .navbar-inverse .navbar-nav > li > a:focus, a:hover, a:active {
   color: $ohsu-navbar-text-hover;
@@ -9,7 +11,7 @@
   color: $ohsu-link-hover;
 }
 
-// Mobile view links 
+// Mobile view links
 .navbar-inverse .navbar-nav .open .dropdown-menu > li > a, .navbar-inverse .navbar-nav .open .twitter-typeahead .tt-menu > li > a, .twitter-typeahead .navbar-inverse .navbar-nav .open .tt-menu > li > a {
 	color: $ohsu-link;
 }
