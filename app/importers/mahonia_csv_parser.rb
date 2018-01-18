@@ -7,7 +7,11 @@ class MahoniaCsvParser < Darlingtonia::CsvParser
     file.rewind
     # use the MahoniaMapper
     CSV.parse(file.read, headers: true).each do |row|
+      next if row.to_h.values.all?(&:nil?)
       yield Darlingtonia::InputRecord.from(metadata: row, mapper: MahoniaMapper.new)
     end
+  rescue CSV::MalformedCSVError
+    # error reporting for this case is handled by validation
+    []
   end
 end
