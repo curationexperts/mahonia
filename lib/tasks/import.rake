@@ -9,11 +9,11 @@ namespace :mahonia do
       Importer.new(parser: parser).import
     end
 
+    desc 'Batch import of bepress formatted csv'
     task :bepress_csv, [:filename] => [:environment] do |_task, args|
       parser = MahoniaCsvParser.new(file: File.open(args[:filename]))
-      parser.validate!
 
-      Importer.new(parser: parser).import
+      Importer.new(parser: parser).import if parser.validate
     end
   end
 end
