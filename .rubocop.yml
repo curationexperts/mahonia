@@ -19,3 +19,6 @@ RSpec/MultipleExpectations:
 RSpec/ExampleLength:
   Exclude:
     - 'spec/features/**/*'
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/tasks/**/*'
