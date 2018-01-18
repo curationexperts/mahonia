@@ -9,7 +9,7 @@ end
 ruby '~> 2.4.2'
 
 # DCE importer
-gem 'darlingtonia', '0.1.1'
+gem 'darlingtonia', '0.2.0'
 gem 'dotenv-rails'
 gem 'honeybadger', '~> 3.1'
 gem 'hydra-role-management'
