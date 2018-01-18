@@ -33,6 +33,10 @@ class MahoniaMapper < Darlingtonia::HashMapper
     Array("#{metadata['author1_fname']} #{metadata['author1_lname']}")
   end
 
+  def representative_file
+    @metadata['file_name']
+  end
+
   def map_field(name)
     return unless BEPRESS_TERMS_MAP.keys.include?(name)
     Array(metadata[BEPRESS_TERMS_MAP[name]])
