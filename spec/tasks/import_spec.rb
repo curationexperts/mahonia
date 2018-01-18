@@ -11,7 +11,7 @@ RSpec.describe 'mahonia:import:bepress_csv' do
 
   it 'outputs info to stdout' do
     expect { task.invoke(csv_path) }
-      .to output(/Record created/)
+      .to output(/^Record created/)
       .to_stdout_from_any_process
   end
 
