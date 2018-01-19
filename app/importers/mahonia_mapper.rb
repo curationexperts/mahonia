@@ -1,41 +1,40 @@
 # frozen_string_literal: true
 class MahoniaMapper < Darlingtonia::HashMapper
   BEPRESS_TERMS_MAP = {
-    publication_date: :date,
-    title: :title,
-    keywords: :keyword,
-    subject: :subject,
-    document_type: :resource_type,
-    degree_name: :degree,
-    institution_name: :institution,
-    school: :school,
-    department: :department,
-    identifier: :identifier,
-    orcid: :orcid_id,
-    language: :language,
-    license: :license,
-    rights: :rights_statement,
-    note: :rights_note,
-    abstract: :description,
-    journal_title: :source
+    date: "publication_date",
+    title: "title",
+    keyword: "keywords",
+    subject: "subject",
+    resource_type: "document_type",
+    degree: "degree_name",
+    institution: "institution_name",
+    school: "school",
+    department: "department",
+    identifier: "identifier",
+    orcid_id: "orcid",
+    language: "language",
+    license: "license",
+    rights_statement: "rights",
+    rights_note: "note",
+    description: "abstract",
+    source: "journal_title",
+    creator: "creator"
   }.freeze
 
-  def metadata=(meta)
-    be_press_hash = meta.to_h
-    @metadata = {}
-    be_press_hash.each_key do |k|
-      if BEPRESS_TERMS_MAP.keys.include? k.to_sym
-        @metadata[BEPRESS_TERMS_MAP[k.to_sym]] = be_press_hash.delete k
-      end
+  def fields
+    BEPRESS_TERMS_MAP.keys.reject do |e|
+      next if e == :creator
+      metadata[BEPRESS_TERMS_MAP[e]].nil?
     end
   end
 
-  def method_missing(method_name, *args, &block)
-    return Array(metadata[method_name]) if fields.include?(method_name)
-    super
+  def creator
+    return if metadata['author1_fname'].nil? && metadata['author1_lname']
+    Array("#{metadata['author1_fname']} #{metadata['author1_lname']}")
   end
 
-  def respond_to_missing?(method_name, include_private = false)
-    field?(method_name) || super
+  def map_field(name)
+    return unless BEPRESS_TERMS_MAP.keys.include?(name)
+    Array(metadata[BEPRESS_TERMS_MAP[name]])
   end
 end
