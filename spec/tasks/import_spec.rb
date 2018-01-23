@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'mahonia:import:bepress_csv' do
+RSpec.describe 'mahonia:import:bepress_csv', :clean do
   include_context 'rake'
 
   subject(:task)  { rake[name] }
