@@ -13,6 +13,7 @@ A far ultraviolet (UV) spectroscopic ellipsometer  system working up to 9 eV has
       description: [description],
       keyword: ["Ellipsometry, Dielectrics -- Optical properties, Ellipsometry; high-K dielectrics; Bandgaps"],
       identifier: ["doi:10.6083/M4QN64NB"],
+      license: ["Creative Commons"],
       department: ["Dept. of Computer Science and Electrical Engineering"],
       title: ["Dielectric functions and optical bandgaps of high-K dielectrics by far ultraviolet spectroscopic ellipsometry"],
       creator: ["Marie Curie"] }
@@ -32,6 +33,7 @@ A far ultraviolet (UV) spectroscopic ellipsometer  system working up to 9 eV has
         "keywords" => "Ellipsometry, Dielectrics -- Optical properties, Ellipsometry; high-K dielectrics; Bandgaps",
         "identifier" => "doi:10.6083/M4QN64NB",
         "department" => "Dept. of Computer Science and Electrical Engineering",
+        "distribution_license" => "Creative Commons",
         "title" => "Dielectric functions and optical bandgaps of high-K dielectrics by far ultraviolet spectroscopic ellipsometry",
         "author1_fname" => "Marie",
         "author1_lname" => "Curie" }
@@ -72,6 +74,34 @@ A far ultraviolet (UV) spectroscopic ellipsometer  system working up to 9 eV has
     it 'maps from file_name' do
       mapper.metadata = { "file_name" => "research.pdf" }
       expect(mapper.representative_file).to eq 'research.pdf'
+    end
+  end
+
+  context "handles multi-value fields" do
+    let(:input_record) { Darlingtonia::InputRecord.from(metadata: bepress_metadata, mapper: described_class.new) }
+    let(:bepress_metadata) do
+      { "author1_fname" => "Marie",
+        "author1_lname" => "Curie",
+        "author2_fname" => "Helene",
+        "author2_lname" => "Cixous" }
+    end
+
+    it "handles the author fields correctly" do
+      mapper.metadata = bepress_metadata
+
+      expect(input_record.attributes.eql?(creator: ["Marie Curie"])).to be_truthy
+    end
+
+    it "returns all values for multi-valued fields" do
+      mapper.metadata = { "title1" => "One", "title2" => "Two", "title3" => "Three" }
+
+      expect(mapper.map_field(:title)).to eq(["One", "Two", "Three"])
+    end
+
+    it "returns a value for multi-valued fields with one value" do
+      mapper.metadata = { "title1" => "One" }
+
+      expect(mapper.map_field(:title)).to eq(["One"])
     end
   end
 end

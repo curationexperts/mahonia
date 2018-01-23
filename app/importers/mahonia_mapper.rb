@@ -13,7 +13,7 @@ class MahoniaMapper < Darlingtonia::HashMapper
     identifier: "identifier",
     orcid_id: "orcid",
     language: "language",
-    license: "license",
+    license: "distribution_license",
     rights_statement: "rights",
     rights_note: "note",
     description: "abstract",
@@ -39,6 +39,13 @@ class MahoniaMapper < Darlingtonia::HashMapper
 
   def map_field(name)
     return unless BEPRESS_TERMS_MAP.keys.include?(name)
-    Array(metadata[BEPRESS_TERMS_MAP[name]])
+    # Multivalue fields can be present in rows.
+    # When they occur, they have integers appended to
+    # them: name1, name2. We check for multiple occurances
+    # of the name and integers (optionally), and return the
+    # values in an array
+    metadata.select do |k, val|
+      val if k.match?(/^#{BEPRESS_TERMS_MAP[name]}[0-9]*$/)
+    end.values
   end
 end
