@@ -21,17 +21,6 @@ RSpec.feature 'Create an OSHU ETD', :clean, js: true do
       AdminSet.find_or_create_default_admin_set_id
     end
 
-    scenario 'the form will not contain unwanted fields', :perform_enqueued, :datacite_api, js: true do
-      ActiveJob::Base.queue_adapter.filter = [DataciteRegisterJob]
-
-      visit("/concern/etds/new")
-
-      expect(page).to have_content 'Add New Etd'
-      click_link 'Additional fields'
-
-      expect(page).not_to have_content('Publisher')
-    end
-
     scenario 'can create an Etd', :perform_enqueued, :datacite_api do
       ActiveJob::Base.queue_adapter.filter = [DataciteRegisterJob, AttachFilesToWorkJob]
 
@@ -54,6 +43,7 @@ RSpec.feature 'Create an OSHU ETD', :clean, js: true do
       fill_in 'Description', with: etd[:description].first
       # term for license URI set in factory
       select('Creative Commons BY-SA Attribution-ShareAlike 4.0 International', from: 'License')
+      fill_in 'Publisher', with: etd[:publisher].first
       fill_in 'Date Created', with: etd[:date_created].first
       fill_in 'Subject', with: etd[:subject].first
       fill_in 'Language', with: etd[:language].first
@@ -84,6 +74,7 @@ RSpec.feature 'Create an OSHU ETD', :clean, js: true do
       expect(page).to have_content etd[:description].first
       # license
       expect(page).to have_content 'Creative Commons BY-SA Attribution-ShareAlike 4.0 International'
+      expect(page).to have_content etd[:publisher].first
       expect(page).to have_content etd[:subject].first
       expect(page).to have_content etd[:language].first
       # Identifier sets DOI

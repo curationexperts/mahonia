@@ -47,6 +47,7 @@
         <names variable="translator"/>
         <choose>
           <if type="report">
+            <text variable="publisher"/>
             <text macro="title"/>
           </if>
           <else>
@@ -64,6 +65,7 @@
         <names variable="translator"/>
         <choose>
           <if type="report">
+            <text variable="publisher"/>
             <text variable="title" form="short" font-style="italic"/>
           </if>
           <else-if type="bill book graphic legal_case legislation motion_picture song" match="any">
@@ -152,6 +154,39 @@
       </else-if>
       <else>
         <text variable="title"/>
+      </else>
+    </choose>
+  </macro>
+  <macro name="publisher">
+    <choose>
+      <if type="report" match="any">
+        <group delimiter=": ">
+          <text variable="publisher-place"/>
+          <text variable="publisher"/>
+        </group>
+      </if>
+      <else-if type="thesis" match="any">
+        <group delimiter=", ">
+          <text variable="publisher"/>
+          <text variable="publisher-place"/>
+        </group>
+      </else-if>
+      <else>
+        <group delimiter=", ">
+          <choose>
+            <if variable="event" match="none">
+              <text variable="genre"/>
+            </if>
+          </choose>
+          <choose>
+            <if type="article-journal article-magazine" match="none">
+              <group delimiter=": ">
+                <text variable="publisher-place"/>
+                <text variable="publisher"/>
+              </group>
+            </if>
+          </choose>
+        </group>
       </else>
     </choose>
   </macro>
@@ -386,6 +421,7 @@
         <text macro="locators"/>
         <group delimiter=", " prefix=". ">
           <text macro="event"/>
+          <text macro="publisher"/>
         </group>
       </group>
       <text macro="access" prefix=" "/>

@@ -9,7 +9,7 @@ RSpec.describe EtdIndexer do
     it 'has facetable fields' do
       expect(indexer.rdf_service.stored_and_facetable_fields)
         .to include(:date, :date_created, :date_label, :creator, :contributor,
-                    :keyword, :subject, :language, :rights_statement)
+                    :keyword, :subject, :language, :publisher, :rights_statement)
     end
   end
 end

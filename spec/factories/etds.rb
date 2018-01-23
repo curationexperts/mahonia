@@ -53,6 +53,7 @@ FactoryBot.define do
       title            ['Moomintroll']
       creator          ['Moomin', 'Hemulen']
       date             ['199?']
+      publisher        ['A Publisher']
       date_created     [Date.parse('2016-12-25')]
       date_label       ['Winter in Moomin Valley']
       date_modified    DateTime.current

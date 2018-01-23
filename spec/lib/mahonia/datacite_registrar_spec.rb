@@ -13,6 +13,7 @@ RSpec.describe Mahonia::DataciteRegistrar do
   let(:mapped_hash) do
     { identifier:       doi,
       creator:          model.creator,
+      publisher:        model.publisher,
       publication_year: model.date_uploaded.year,
       title:            model.title }
   end
