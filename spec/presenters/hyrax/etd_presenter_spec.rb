@@ -31,6 +31,10 @@ RSpec.describe Hyrax::EtdPresenter, type: :presenter do
       expect(presenter.export_as_ttl).to include(*predicates)
     end
 
+    it 'has an ETDF date with datatype' do
+      expect(presenter.export_as_ttl).to include('<http://id.loc.gov/datatypes/edtf/EDTF>')
+    end
+
     context 'with an embargo' do
       let(:etd) { FactoryGirl.create(:embargoed_etd) }
 

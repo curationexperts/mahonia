@@ -115,7 +115,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("license", :stored_searchable)
 
     # Core show fields
-    config.add_show_field solr_name('date',        :stored_searchable)
+    config.add_show_field solr_name('date', :stored_searchable)
 
     # ETD show fields
     config.add_show_field solr_name('date_label',  :stored_searchable)

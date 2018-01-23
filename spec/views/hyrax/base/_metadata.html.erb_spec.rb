@@ -15,7 +15,7 @@ RSpec.describe 'hyrax/base/_metadata.html.erb', type: :view do
   it { is_expected.to have_show_field(:creator).with_values(*work.creator).and_label('Creator') }
   # underspecify date values (they aren't necessarily sensible for all Date/DateTime values)
   it { is_expected.to have_show_field(:date_created).with_label('Date created') }
-  it { is_expected.to have_show_field(:date).with_values(*work.date).and_label('EDTF Date') }
+  it { is_expected.to have_show_field(:date).with_values(*work.date.map(&:to_s)).and_label('EDTF Date') }
   it { is_expected.to have_show_field(:date_label).with_values(*work.date_label).and_label('Date label') }
   it { is_expected.to have_show_field(:degree).with_values(*work.degree).and_label('Degree Name') }
   it { is_expected.to have_show_field(:department).with_values(*work.department).and_label('Department') }

@@ -52,7 +52,7 @@ FactoryBot.define do
     factory :moomins_thesis do
       title            ['Moomintroll']
       creator          ['Moomin', 'Hemulen']
-      date             ['199?']
+      date             [Mahonia::EdtfLiteral.new('199x')]
       publisher        ['A Publisher']
       date_created     [Date.parse('2016-12-25')]
       date_label       ['Winter in Moomin Valley']
