@@ -43,6 +43,7 @@ RSpec.feature 'Edit an OSHU ETD', :clean, js: true do
       fill_in 'Description', with: etd[:description].first
       # term for license URI set in factory
       select('Creative Commons BY-SA Attribution-ShareAlike 4.0 International', from: 'License')
+      fill_in 'EDTF Date', with: etd[:date].first
       fill_in 'Date Created', with: etd[:date_created].first
       fill_in 'Subject', with: etd[:subject].first
       fill_in 'Language', with: etd[:language].first
@@ -73,6 +74,7 @@ RSpec.feature 'Edit an OSHU ETD', :clean, js: true do
       fill_in 'Description', with: "Edited Description"
       # term for license URI set in factory
       select('Creative Commons BY-SA Attribution-ShareAlike 4.0 International', from: 'License')
+      fill_in 'EDTF Date', with: 'Edited Date'
       fill_in 'Subject', with: "Edited Subject"
       fill_in 'Language', with: "Edited Language"
       fill_in 'Identifier', with: "Edited Identifier"
@@ -105,6 +107,7 @@ RSpec.feature 'Edit an OSHU ETD', :clean, js: true do
       expect(page).to have_content "Edited Keyword"
       expect(page).to have_content "In Copyright"
       expect(page).to have_content "Edited Description"
+      expect(page).to have_content "Edited Date"
       expect(page).to have_content "Edited Subject"
       expect(page).to have_content "Edited Language"
       expect(page).to have_content "Edited Identifier"

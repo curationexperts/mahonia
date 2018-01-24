@@ -43,6 +43,7 @@ RSpec.feature 'Create an OSHU ETD', :clean, js: true do
       fill_in 'Description', with: etd[:description].first
       # term for license URI set in factory
       select('Creative Commons BY-SA Attribution-ShareAlike 4.0 International', from: 'License')
+      fill_in 'EDTF Date', with: etd[:date].first
       fill_in 'Publisher', with: etd[:publisher].first
       fill_in 'Date Created', with: etd[:date_created].first
       fill_in 'Subject', with: etd[:subject].first
@@ -66,6 +67,10 @@ RSpec.feature 'Create an OSHU ETD', :clean, js: true do
       # wait until we have a record
       persisted_etd = Etd.where(title: etd[:title].first) while persisted_etd.nil?
 
+      # ensure the EDTF date is typed
+      expect(persisted_etd.first)
+        .to have_attributes(date: contain_exactly(*etd[:date].map(&:object)))
+
       expect(page).to have_content etd[:title].first
       expect(page).to have_content etd[:creator].first
       expect(page).to have_content etd[:keyword].first
@@ -75,6 +80,7 @@ RSpec.feature 'Create an OSHU ETD', :clean, js: true do
       # license
       expect(page).to have_content 'Creative Commons BY-SA Attribution-ShareAlike 4.0 International'
       expect(page).to have_content etd[:publisher].first
+      expect(page).to have_content etd[:date].first
       expect(page).to have_content etd[:subject].first
       expect(page).to have_content etd[:language].first
       # Identifier sets DOI
