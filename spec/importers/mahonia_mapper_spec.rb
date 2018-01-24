@@ -64,10 +64,10 @@ A far ultraviolet (UV) spectroscopic ellipsometer  system working up to 9 eV has
     expect(mapper.creator).to eq(["Marie "])
   end
 
-  it "doesn't provide a field for terms not found in BEPRESS_TERMS_MAP" do
+  it 'maps publisher to "OHSU Scholar Archive"' do
     mapper.metadata = { "title" => "War and Peace" }
 
-    expect(mapper).not_to respond_to(:publisher)
+    expect(mapper.publisher).to contain_exactly "OHSU Scholar Archive"
   end
 
   describe '#representative_file' do
