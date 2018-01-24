@@ -18,7 +18,8 @@ class MahoniaMapper < Darlingtonia::HashMapper
     rights_note: "note",
     description: "abstract",
     source: "journal_title",
-    creator: "creator"
+    creator: "creator",
+    embargo_release_date: "embargo_date"
   }.freeze
 
   def fields
@@ -26,6 +27,16 @@ class MahoniaMapper < Darlingtonia::HashMapper
       next if e == :creator
       metadata[BEPRESS_TERMS_MAP[e]].nil?
     end
+  end
+
+  def embargo_release_date
+    return if metadata['embargo_date'].nil?
+    Array(Date.strptime(metadata['embargo_date']).to_s)
+  end
+
+  def date
+    return if metadata['publication_date'].nil?
+    Array(Mahonia::EdtfLiteral.new(metadata['publication_date']))
   end
 
   def creator_name(first_name: first, last_name: last)
