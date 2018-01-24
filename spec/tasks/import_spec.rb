@@ -35,4 +35,19 @@ RSpec.describe 'mahonia:import:bepress_csv', :clean do
         .not_to change { Etd.count }
     end
   end
+
+  context 'with a missing filenames' do
+    let(:csv_path) { "#{fixture_path}/missing_file.csv" }
+
+    it 'outputs validation failures to stdout' do
+      expect { task.invoke(csv_path) }
+        .to output(/^missing_file.*^missing_file.*^file_not_readable.*/m)
+        .to_stdout_from_any_process
+    end
+
+    it 'does not create items' do
+      expect { task.invoke(csv_path) }
+        .not_to change { Etd.count }
+    end
+  end
 end

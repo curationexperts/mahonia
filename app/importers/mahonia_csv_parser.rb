@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class MahoniaCsvParser < Darlingtonia::CsvParser
-  DEFAULT_VALIDATORS = [Darlingtonia::CsvFormatValidator.new, Darlingtonia::TitleValidator.new].freeze
+  DEFAULT_VALIDATORS = [Darlingtonia::CsvFormatValidator.new,
+                        Darlingtonia::TitleValidator.new,
+                        RepresentativeFileValidator.new].freeze
+
   def records
     return enum_for(:records) unless block_given?
 
