@@ -29,7 +29,7 @@ class MahoniaMapper < Darlingtonia::HashMapper
   end
 
   def creator
-    return if metadata['author1_fname'].nil? && metadata['author1_lname']
+    return if metadata['author1_fname'].nil? && metadata['author1_lname'].nil?
     Array("#{metadata['author1_fname']} #{metadata['author1_lname']}")
   end
 
