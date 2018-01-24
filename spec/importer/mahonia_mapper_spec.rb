@@ -50,6 +50,18 @@ A far ultraviolet (UV) spectroscopic ellipsometer  system working up to 9 eV has
     expect(mapper.creator).to eq(["Marie Curie"])
   end
 
+  it "won't map creator if author1_fname and author1_lname are both nil" do
+    mapper.metadata = { "author1_fname" => nil, "author1_lname" => nil }
+
+    expect(mapper.creator.nil?).to be_truthy
+  end
+
+  it "will map creator if only author1_lname is nil" do
+    mapper.metadata = { "author1_fname" => "Marie", "author1_lname" => nil }
+
+    expect(mapper.creator).to eq(["Marie "])
+  end
+
   it "doesn't provide a field for terms not found in BEPRESS_TERMS_MAP" do
     mapper.metadata = { "title" => "War and Peace" }
 
