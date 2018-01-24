@@ -31,24 +31,21 @@ module Mahonia
     #   and <br> tags.
     #
     # @return [ActiveSupport::SafeBuffer] an html safe citation for the object
-    #
-    # rubocop:disable Rails/OutputSafety
     def citation
       cite = CiteProc::Processor
              .new(style: 'ohsu-apa', format: 'html')
              .import(item)
              .render(:bibliography, id: :item)
              .first
-
-      Rails::Html::WhiteListSanitizer.new.sanitize(cite, tags: %w[i b br]).html_safe
-    rescue CiteProc::Error, TypeError, ArgumentError
+      sanitize(citation: cite)
+    rescue CiteProc::Error, TypeError, ArgumentError => e
+      Rails.logger.warn("Failed to generate citation with CiteProc; falling " \
+                        "back on a hard coded citation\n\t#{e.message}")
       cite = "#{object.creator.join(', ')}. #{object.title.first} " \
-             "(#{(object.date || []).first}). <i>Scholar Archive</i>. " \
+             "(#{(object.date || []).first}). <i>OHSU Scholar Archive</i>. " \
              "#{object.id}.#{' ' + doi if doi}\n#{url}"
-
-      Rails::Html::WhiteListSanitizer.new.sanitize(cite, tags: %w[i b br]).html_safe
+      sanitize(citation: cite)
     end
-    # rubocop:enable Rails/OutputSafety
 
     def item
       CiteProc::Item.new(id:               :item,
@@ -57,7 +54,7 @@ module Mahonia
                          identifier:        object.id,
                          author:            object.creator,
                          issued:            object.date,
-                         'container-title': 'Scholar Archive',
+                         'container-title': 'OHSU Scholar Archive',
                          DOI:               doi,
                          internal_url:      url)
     end
@@ -70,5 +67,13 @@ module Mahonia
       return unless (id = object.id)
       Etd.application_url(id: id)
     end
+
+    private
+
+      # rubocop:disable Rails/OutputSafety
+      def sanitize(citation:)
+        Rails::Html::WhiteListSanitizer
+          .new.sanitize(citation, tags: %w[i b br]).html_safe
+      end # rubocop:enable Rails/OutputSafety
   end
 end
