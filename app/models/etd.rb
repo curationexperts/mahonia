@@ -2,8 +2,6 @@
 class Etd < ActiveFedora::Base
   include ::Hyrax::WorkBehavior
 
-  EXCLUDED_TERMS = [:publisher].freeze
-
   self.indexer = EtdIndexer
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
@@ -17,10 +15,6 @@ class Etd < ActiveFedora::Base
 
   apply_schema Schemas::CoreMetadata, Schemas::GeneratedResourceSchemaStrategy.new
   apply_schema Schemas::EtdMetadata,  Schemas::GeneratedResourceSchemaStrategy.new
-
-  EXCLUDED_TERMS.each do |term|
-    Schemas::GeneratedResourceSchemaStrategy.new.delete(self, term)
-  end
 
   ##
   # @param id [String]

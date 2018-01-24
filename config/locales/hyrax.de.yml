@@ -10,6 +10,7 @@ de:
           generic_type_sim: Art
           keyword_sim: Stichwort
           language_sim: Sprache
+          publisher_sim: Herausgeber
           subject_sim: Fach
         index:
           based_near_tesim: Ort
@@ -23,6 +24,7 @@ de:
           identifier_tesim: Identifikator
           keyword_tesim: Stichwort
           language_tesim: Sprache
+          publisher_tesim: Herausgeber
           rights_tesim: Rechte
           subject_tesim: Fach
         show:
@@ -37,6 +39,7 @@ de:
           identifier_tesim: Identifikator
           keyword_tesim: Stichwort
           language_tesim: Sprache
+          publisher_tesim: Herausgeber
           rights_tesim: Rechte
           subject_tesim: Fach
           title_tesim: Titel

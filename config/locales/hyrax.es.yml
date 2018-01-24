@@ -10,6 +10,7 @@ es:
           generic_type_sim: Tipo
           keyword_sim: Palabra clave
           language_sim: Idioma
+          publisher_sim: Editor
           subject_sim: Tema
         index:
           based_near_tesim: Ubicación
@@ -23,6 +24,7 @@ es:
           identifier_tesim: Identificador
           keyword_tesim: Palabra clave
           language_tesim: Idioma
+          publisher_tesim: Editor
           rights_tesim: Derechos
           subject_tesim: Tema
         show:
@@ -37,6 +39,7 @@ es:
           identifier_tesim: Identificador
           keyword_tesim: Palabra clave
           language_tesim: Idioma
+          publisher_tesim: Editor
           rights_tesim: Derechos
           subject_tesim: Tema
           title_tesim: Título
