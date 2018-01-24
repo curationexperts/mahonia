@@ -192,5 +192,9 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
         .on_model(work.class)
         .with_label 'Subject'
     end
+
+    it 'does not have publisher' do
+      expect(page).not_to have_form_field(:publisher).on_model(work.class)
+    end
   end
 end
