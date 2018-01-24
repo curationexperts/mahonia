@@ -861,7 +861,7 @@ DEPENDENCIES
   csl-styles
   darlingtonia (= 0.3.0)
   database_cleaner
-  devise
+  devise (~> 4.4, >= 4.4.1)
   devise-guests (~> 0.6)
   dotenv-rails
   edtf (~> 3.0)

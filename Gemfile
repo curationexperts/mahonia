@@ -73,7 +73,7 @@ end
 
 gem 'citeproc-ruby', '~> 1.0', '>= 1.0.6'
 gem 'csl-styles'
-gem 'devise'
+gem 'devise', '~> 4.4', '>= 4.4.1'
 gem 'devise-guests', '~> 0.6'
 gem 'edtf', '~> 3.0'
 gem 'okcomputer', '~> 1.17', '>= 1.17.1'
