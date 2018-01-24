@@ -12,15 +12,15 @@ ruby '~> 2.4.2'
 gem 'darlingtonia', '0.3.0'
 gem 'dotenv-rails'
 gem 'honeybadger', '~> 3.1'
-gem 'hydra-role-management'
-gem 'pg'
+gem 'hydra-role-management', '~> 1.0'
+gem 'pg', '~>0.21'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.6'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-gem 'sidekiq'
+gem 'sidekiq', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -29,7 +29,7 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
-gem 'jquery-rails'
+gem 'jquery-rails', '~> 4.3'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -73,7 +73,7 @@ end
 
 gem 'citeproc-ruby', '~> 1.0', '>= 1.0.6'
 gem 'csl-styles'
-gem 'devise'
+gem 'devise', '~> 4.4', '>= 4.4.1'
 gem 'devise-guests', '~> 0.6'
 gem 'edtf', '~> 3.0'
 gem 'okcomputer', '~> 1.17', '>= 1.17.1'
@@ -83,8 +83,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'fcrepo_wrapper'
   gem 'ffaker'
-  # gem 'hyrax-spec', '~> 0.1.0'
-  gem 'hyrax-spec', github: 'curationexperts/hyrax-spec', branch: 'master'
+  gem 'hyrax-spec', '~> 0.3.0'
   gem 'rspec-rails'
   gem 'webmock', '~> 3.1', '>= 3.1.1'
 end
