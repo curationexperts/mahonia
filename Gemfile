@@ -13,7 +13,7 @@ gem 'darlingtonia', '0.3.0'
 gem 'dotenv-rails'
 gem 'honeybadger', '~> 3.1'
 gem 'hydra-role-management'
-gem 'pg'
+gem 'pg', '~>0.21'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.6'
 # Use Puma as the app server
