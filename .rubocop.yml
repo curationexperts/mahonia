@@ -16,6 +16,7 @@ Rails/TimeZone:
 RSpec/MultipleExpectations:
   Exclude:
     - 'spec/features/**/*'
+    - 'spec/models/user_spec.rb'
 RSpec/ExampleLength:
   Exclude:
     - 'spec/features/**/*'
