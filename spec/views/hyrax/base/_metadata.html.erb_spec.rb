@@ -30,6 +30,7 @@ RSpec.describe 'hyrax/base/_metadata.html.erb', type: :view do
   it { is_expected.to have_show_field(:subject).with_values(*work.subject).and_label('Subject') }
 
   it { is_expected.not_to have_show_field(:rights_note) }
+  it { is_expected.not_to have_show_field(:publisher) }
 
   it 'has a license' do
     expect(page)

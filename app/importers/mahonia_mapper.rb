@@ -33,6 +33,10 @@ class MahoniaMapper < Darlingtonia::HashMapper
     Array("#{metadata['author1_fname']} #{metadata['author1_lname']}")
   end
 
+  def publisher
+    ["OHSU Scholar Archive"]
+  end
+
   def representative_file
     @metadata['file_name']
   end

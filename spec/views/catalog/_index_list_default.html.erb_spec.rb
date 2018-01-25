@@ -21,7 +21,7 @@ RSpec.describe 'catalog/_index_list_default', type: :view do
   it 'does not display undesired fields' do
     is_expected.not_to list_index_fields('Title', 'Date', 'Language', 'Source',
                                          'Identifier', 'Rights Note', 'Rights',
-                                         'License')
+                                         'License', 'Publisher')
   end
 
   it 'displays desired fields' do
