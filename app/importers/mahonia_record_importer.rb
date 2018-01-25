@@ -15,8 +15,8 @@ class MahoniaRecordImporter < Darlingtonia::RecordImporter
   # @param file_path [String]
   # @param creator   [User]
   def initialize(**opts)
-    self.creator   = opts.delete(:creator)   { User.first_or_create!(email: 'import_user@example.com', password: 'password') }
-    self.file_path = opts.delete(:file_path) { 'spec/fixtures/' }
+    self.creator   = opts.delete(:creator)   || raise(ArgumentError)
+    self.file_path = opts.delete(:file_path) || raise(ArgumentError)
     super
   end
 

@@ -1,0 +1,15 @@
+---
+development:
+  username:  <%= ENV['IMPORTER_USER'] %>
+  password:  <%= ENV['IMPORTER_USER_PASS'] %>
+  file_path: <%= ENV['IMPORTER_FILE_PATH'] %>
+
+test:
+  username:  <%= ENV['IMPORTER_USER'] %>
+  password:  <%= ENV['IMPORTER_USER_PASS'] %>
+  file_path: <%= ENV['IMPORTER_FILE_PATH'] %>
+
+production:
+  username:  <%= ENV['IMPORTER_USER'] %>
+  password:  <%= ENV['IMPORTER_USER_PASS'] %>
+  file_path: <%= ENV['IMPORTER_FILE_PATH'] %>
