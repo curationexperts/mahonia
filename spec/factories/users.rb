@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 FactoryBot.define do
   factory :user do
+    sequence :uid do |n|
+      "#{FFaker::Internet.user_name}#{n}"
+    end
     sequence :email do |n|
       "test_user_#{n}@example.com"
     end

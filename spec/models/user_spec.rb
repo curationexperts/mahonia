@@ -17,7 +17,7 @@ RSpec.describe User do
   end
 
   describe 'roles' do
-    it 'is emplty for a new user' do
+    it 'is empty for a new user' do
       expect(plain_user.roles).to be_empty
     end
 
@@ -52,6 +52,15 @@ RSpec.describe User do
 
     it 'is true when a user has the "admin" role' do
       expect(admin_user).to be_admin
+    end
+  end
+
+  describe 'omniauthable user' do
+    it "has a uid field" do
+      expect(user.uid).not_to be_empty
+    end
+    it "has a provider" do
+      expect(described_class.new.respond_to?(:provider)).to eq true
     end
   end
 end
