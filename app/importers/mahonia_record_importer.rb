@@ -4,6 +4,22 @@
 # A `Darlingtonia::RecordImporter` that processes files and passes new works
 # through the Actor Stack for creation.
 class MahoniaRecordImporter < Darlingtonia::RecordImporter
+  ##
+  # @!attribute [rw] creator
+  #   @return [User]
+  # @!attribute [rw] file_path
+  #   @return [String]
+  attr_accessor :creator, :file_path
+
+  ##
+  # @param file_path [String]
+  # @param creator   [User]
+  def initialize(**opts)
+    self.creator   = opts.delete(:creator)   || raise(ArgumentError)
+    self.file_path = opts.delete(:file_path) || raise(ArgumentError)
+    super
+  end
+
   private
 
     ##
@@ -29,23 +45,8 @@ class MahoniaRecordImporter < Darlingtonia::RecordImporter
       error_stream << e.message
     end
 
-    ##
-    # @todo what creator should we really use for ingested content
-    def creator
-      @creator ||=
-        User.first_or_create!(email: 'import_user@example.com',
-                              password: 'password')
-    end
-
     def file_for(filename)
       Hyrax::UploadedFile
         .create(file: File.open(file_path + filename), user: creator)
-    end
-
-    ##
-    # @todo make this configurable! Point somewhere other than fixtures in
-    #   development/production envs.
-    def file_path
-      'spec/fixtures/'
     end
 end

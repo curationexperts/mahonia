@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require 'rails_helper'
+
 RSpec.describe Importer do
   subject(:importer) { described_class.new(parser: parser) }
   let(:file) { File.open('spec/fixtures/example.csv') }
@@ -25,6 +26,22 @@ RSpec.describe Importer do
     importer.import
 
     expect(Etd.where(title: "Unicode Description").count).to eq 1
+  end
+
+  describe '.config' do
+    it 'has configuration attributes' do
+      expect(described_class.config).to include('username'  => an_instance_of(String),
+                                                'password'  => an_instance_of(String),
+                                                'file_path' => an_instance_of(String))
+    end
+  end
+
+  describe '#config' do
+    it 'has configuration attributes' do
+      expect(importer.config).to include('username'  => an_instance_of(String),
+                                         'password'  => an_instance_of(String),
+                                         'file_path' => an_instance_of(String))
+    end
   end
 
   context "With a BePress exported csv", :clean do
