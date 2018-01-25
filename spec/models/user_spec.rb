@@ -96,4 +96,15 @@ RSpec.describe User do
       end
     end
   end
+
+  context "in a world without passwords" do
+    before do
+      described_class.delete_all
+    end
+    it "system users are created without error" do
+      allow(AuthConfig).to receive(:use_database_auth?).and_return(false)
+      u = ::User.find_or_create_system_user("batch_user")
+      expect(u).to be_instance_of(::User)
+    end
+  end
 end

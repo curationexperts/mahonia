@@ -53,3 +53,19 @@ class User < ApplicationRecord
     user
   end
 end
+
+# Override a Hyrax class that expects to create system users with passwords.
+# Since in production we're using shibboleth, and this removes the password
+# methods from the User model, we need to override it.
+module Hyrax::User
+  module ClassMethods
+    def find_or_create_system_user(user_key)
+      u = ::User.find_or_create_by(uid: user_key)
+      u.display_name = user_key
+      u.email = "#{user_key}@example.com"
+      u.password = ('a'..'z').to_a.shuffle(random: Random.new).join if AuthConfig.use_database_auth?
+      u.save
+      u
+    end
+  end
+end
