@@ -44,52 +44,49 @@ A far ultraviolet (UV) spectroscopic ellipsometer  system working up to 9 eV has
 
       expect(input_record.attributes.eql?(hyrax_metadata)).to be_truthy
     end
-  end
 
-  it "provides a creator field that returns first and last author name" do
-    mapper.metadata = { "author1_fname" => "Marie", "author1_lname" => "Curie" }
+    it 'maps publisher to "OHSU Scholar Archive"' do
+      mapper.metadata = { "title" => "War and Peace" }
 
-    expect(mapper.creator).to eq(["Marie Curie"])
-  end
+      expect(mapper.publisher).to contain_exactly "OHSU Scholar Archive"
+    end
 
-  it "won't map creator if author1_fname and author1_lname are both nil" do
-    mapper.metadata = { "author1_fname" => nil, "author1_lname" => nil }
-
-    expect(mapper.creator.nil?).to be_truthy
-  end
-
-  it "will map creator if only author1_lname is nil" do
-    mapper.metadata = { "author1_fname" => "Marie", "author1_lname" => nil }
-
-    expect(mapper.creator).to eq(["Marie "])
-  end
-
-  it 'maps publisher to "OHSU Scholar Archive"' do
-    mapper.metadata = { "title" => "War and Peace" }
-
-    expect(mapper.publisher).to contain_exactly "OHSU Scholar Archive"
-  end
-
-  describe '#representative_file' do
-    it 'maps from file_name' do
-      mapper.metadata = { "file_name" => "research.pdf" }
-      expect(mapper.representative_file).to eq 'research.pdf'
+    describe '#representative_file' do
+      it 'maps from file_name' do
+        mapper.metadata = { "file_name" => "research.pdf" }
+        expect(mapper.representative_file).to eq 'research.pdf'
+      end
     end
   end
 
   context "handles multi-value fields" do
     let(:input_record) { Darlingtonia::InputRecord.from(metadata: bepress_metadata, mapper: described_class.new) }
-    let(:bepress_metadata) do
-      { "author1_fname" => "Marie",
-        "author1_lname" => "Curie",
-        "author2_fname" => "Helene",
-        "author2_lname" => "Cixous" }
+
+    let(:ten_creators) do
+      ["Marie Curie", "Albert Einstein", "Richard Feynman", "Hedy Lamarr", "Nina Byers", "Gabriela Gonzales", "Deborah Jin", "Lise Meitner", "Ursula LeGuin", "Rebecca Solnit"]
     end
 
-    it "handles the author fields correctly" do
-      mapper.metadata = bepress_metadata
-
-      expect(input_record.attributes.eql?(creator: ["Marie Curie"])).to be_truthy
+    let(:authors) do
+      { "author1_fname" => "Marie",
+        "author1_lname" => "Curie",
+        "author2_fname" => "Albert",
+        "author2_lname" => "Einstein",
+        "author3_fname" => "Richard",
+        "author3_lname" => "Feynman",
+        "author4_fname" => "Hedy",
+        "author4_lname" => "Lamarr",
+        "author5_fname" => "Nina",
+        "author5_lname" => "Byers",
+        "author6_fname" => "Gabriela",
+        "author6_lname" => "Gonzales",
+        "author7_fname" => "Deborah",
+        "author7_lname" => "Jin",
+        "author8_fname" => "Lise",
+        "author8_lname" => "Meitner",
+        "author9_fname" => "Ursula",
+        "author9_lname" => "LeGuin",
+        "author10_fname" => "Rebecca",
+        "author10_lname" => "Solnit" }
     end
 
     it "returns all values for multi-valued fields" do
@@ -102,6 +99,36 @@ A far ultraviolet (UV) spectroscopic ellipsometer  system working up to 9 eV has
       mapper.metadata = { "title1" => "One" }
 
       expect(mapper.map_field(:title)).to eq(["One"])
+    end
+
+    it "provides a creator field that returns first and last author name" do
+      mapper.metadata = { "author1_fname" => "Marie", "author1_lname" => "Curie" }
+
+      expect(mapper.creator).to eq(["Marie Curie"])
+    end
+
+    it "won't map creator if first and last name are both nil" do
+      mapper.metadata = { "author1_fname" => nil, "author1_lname" => nil }
+
+      expect(mapper.creator.nil?).to be_truthy
+    end
+
+    it "will map creator with first name if last name is nil" do
+      mapper.metadata = { "author1_fname" => "Marie", "author1_lname" => nil }
+
+      expect(mapper.creator).to eq(["Marie"])
+    end
+
+    it "will map creator with last name if first name is nil" do
+      mapper.metadata = { "author1_fname" => nil, "author1_lname" => "Curie" }
+
+      expect(mapper.creator).to eq(["Curie"])
+    end
+
+    it "provides 10 creators from 10 author first and last name pairs" do
+      mapper.metadata = authors
+
+      expect(mapper.creator).to match_array(ten_creators)
     end
   end
 end

@@ -28,9 +28,27 @@ class MahoniaMapper < Darlingtonia::HashMapper
     end
   end
 
+  def creator_name(first_name: first, last_name: last)
+    "#{first_name} #{last_name}".strip
+  end
+
+  # return first and last names of 1-n authors
+
   def creator
-    return if metadata['author1_fname'].nil? && metadata['author1_lname'].nil?
-    Array("#{metadata['author1_fname']} #{metadata['author1_lname']}")
+    creators = []
+
+    number_of_authors = metadata.keys.select do |k|
+      k.match?(/^author[0-9]*_lname$/)
+    end.count
+
+    (1..number_of_authors).each do |i|
+      unless metadata["author#{i}_fname"].nil? && metadata["author#{i}_lname"].nil?
+        creators << creator_name(first_name: metadata["author#{i}_fname"], last_name: metadata["author#{i}_lname"])
+      end
+    end
+
+    return nil if creators.empty?
+    creators
   end
 
   def publisher
