@@ -1,2 +1,13 @@
 # frozen_string_literal: true
-ClamAV.instance.loaddb if defined? ClamAV
+Hydra::Works.default_system_virus_scanner = Mahonia::VirusScanner
+
+if Rails.env.production?
+  Clamby.configure(
+    check:  false, # only used for development environment
+    daemonize: true,
+    error_clamscan_missing: true,
+    error_file_missing: true,
+    error_file_virus: true,
+    fdpass: true
+  )
+end

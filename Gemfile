@@ -72,6 +72,7 @@ group :development, :test do
 end
 
 gem 'citeproc-ruby', '~> 1.0', '>= 1.0.6'
+gem 'clamby', '~> 1.2.5'
 gem 'csl-styles'
 gem 'devise', '~> 4.4', '>= 4.4.1'
 gem 'devise-guests', '~> 0.6'

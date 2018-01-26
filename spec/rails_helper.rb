@@ -41,6 +41,15 @@ FactoryBot.allow_class_lookup = false
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+# We use an EICAR-STANDARD-ANTIVIRUS-TEST-FILE, but when stubbing virus checks
+# we can just check the filename.
+RSpec::Matchers.define :a_virus_test_file do
+  match do |actual|
+    path = actual.respond_to?(:path) ? actual.path : actual
+    File.basename(path) == 'virus_check.txt'
+  end
+end
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -93,6 +102,9 @@ RSpec.configure do |config|
       DatabaseCleaner.strategy = :transaction
       DatabaseCleaner.start
     end
+
+    class_double("Clamby").as_stubbed_const
+    allow(Clamby).to receive(:virus?).and_return(false)
   end
 
   config.append_after(:each, type: :feature) do
@@ -107,6 +119,10 @@ RSpec.configure do |config|
 
   config.include(ControllerLevelHelpers, type: :view)
   config.before(type: :view) { initialize_controller_helpers(view) }
+
+  config.before(virus_scan: true) do
+    allow(Clamby).to receive(:virus?).with(a_virus_test_file).and_return(true)
+  end
 
   config.before(datacite_api: true) do
     @datacite_requests = {}
