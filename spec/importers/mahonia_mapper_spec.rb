@@ -57,6 +57,23 @@ A far ultraviolet (UV) spectroscopic ellipsometer  system working up to 9 eV has
         expect(mapper.representative_file).to eq 'research.pdf'
       end
     end
+
+    it "provides an embargo date field with a valid value" do
+      mapper.metadata = { "embargo_date" => "1997-02-01 00:00" }
+
+      expect(mapper.embargo_release_date.first).to eq("1997-02-01")
+    end
+
+    it "provides a date field as a Mahonia::EdtfLiteral" do
+      mapper.metadata = { "publication_date" => "1998-03-01 00:00" }
+      expect(mapper.date.first).to be_an_instance_of(Mahonia::EdtfLiteral)
+    end
+
+    it "provides a date field with a valid value" do
+      mapper.metadata = { "publication_date" => "1998-03-01 00:00" }
+
+      expect(mapper.date.first.value).to eq("1998-03-01 00:00")
+    end
   end
 
   context "handles multi-value fields" do

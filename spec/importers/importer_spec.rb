@@ -77,5 +77,80 @@ RSpec.describe Importer do
       expect(created_etd.representative)
         .to have_attributes(title: contain_exactly('200603.cicerrella.elizabeth.pdf'))
     end
+
+    context "With a valid embargo_release_date" do
+      let(:parser) { MahoniaCsvParser.new(file: file) }
+      let(:file) { File.open('spec/fixtures/embargo.csv') }
+
+      it "sets the Etd's embargo", :clean, :perform_enqueued do
+        ActiveJob::Base.queue_adapter.filter = [AttachFilesToWorkJob, IngestJob]
+
+        importer.import
+        etd = Etd.where(title: ["Fake Embargoed Item"])
+
+        expect(etd.first.embargo.present?).to be_truthy
+      end
+
+      it "sets Hydra::AccessControls to VISIBILITY_TEXT_VALUE_PRIVATE", :clean, :perform_enqueued do
+        ActiveJob::Base.queue_adapter.filter = [AttachFilesToWorkJob, IngestJob]
+
+        importer.import
+        etd = Etd.where(title: ["Fake Embargoed Item"])
+        expect(etd.first.visibility).to eq(Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE)
+      end
+
+      pending
+      it "sets the controls to open after embargo_release_date", :clean, :perform_enqueued do
+        ActiveJob::Base.queue_adapter.filter = [AttachFilesToWorkJob, IngestJob]
+
+        importer.import
+        # etd = Etd.where(title: ["Fake Embargoed Item"])
+      end
+
+      context "with an indefinitely embargoed record" do
+        let(:file) { File.open('spec/fixtures/indefinite_embargo.csv') }
+
+        it "sets Hydra::AccessControls to private", :clean, :perform_enqueued do
+          ActiveJob::Base.queue_adapter.filter = [AttachFilesToWorkJob, IngestJob]
+
+          importer.import
+          etd = Etd.where(title: ["Fake Embargoed Item"])
+
+          expect(etd.first.visibility).to eq(Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE)
+        end
+
+        it "does not create an embargo", :clean, :perform_enqueued do
+          ActiveJob::Base.queue_adapter.filter = [AttachFilesToWorkJob, IngestJob]
+
+          importer.import
+          etd = Etd.where(title: ["Fake Embargoed Item"])
+
+          expect(etd.respond_to?(:embargo)).to be_falsey
+        end
+      end
+    end
+
+    context "Without an embargo_release_date" do
+      let(:parser) { MahoniaCsvParser.new(file: file) }
+      let(:file) { File.open('spec/fixtures/example.csv') }
+
+      it "does not set an embargo on the Etd", :clean, :perform_enqueued do
+        ActiveJob::Base.queue_adapter.filter = [AttachFilesToWorkJob, IngestJob]
+
+        importer.import
+        etd = Etd.where(title: ["Fake Item"])
+
+        expect(etd.first.embargo.present?).to be_falsey
+      end
+
+      it "sets Hydra::AccessControls::AccessRight to VISIBILITY_TEXT_VALUE_PUBLIC)" do
+        ActiveJob::Base.queue_adapter.filter = [AttachFilesToWorkJob, IngestJob]
+
+        importer.import
+        etd = Etd.where(title: ["Fake Item"])
+
+        expect(etd.first.visibility).to eq(Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC)
+      end
+    end
   end
 end
