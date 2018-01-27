@@ -25,7 +25,7 @@ RSpec.feature 'Autocomplete MeSH terms', mesh: true, js: true do
     click_on 'Additional fields'
 
     # Check that we get the correct autocompletion from QA
-    find('#etd_subject').send_keys 'sulfameraz'
+    find('#etd_subject').send_keys 'SuLFamerAZ'
     expect(page).to have_content('Sulfamerazine')
 
     # Fill out the rest of the form
