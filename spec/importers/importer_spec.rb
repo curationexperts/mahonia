@@ -30,17 +30,14 @@ RSpec.describe Importer do
 
   describe '.config' do
     it 'has configuration attributes' do
-      expect(described_class.config).to include('username'  => an_instance_of(String),
-                                                'password'  => an_instance_of(String),
+      expect(described_class.config).to include('user_key'  => an_instance_of(String),
                                                 'file_path' => an_instance_of(String))
     end
   end
 
   describe '#config' do
-    it 'has configuration attributes' do
-      expect(importer.config).to include('username'  => an_instance_of(String),
-                                         'password'  => an_instance_of(String),
-                                         'file_path' => an_instance_of(String))
+    it 'has configuration attributes from class' do
+      expect(importer.config).to eq described_class.config
     end
   end
 

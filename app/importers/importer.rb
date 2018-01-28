@@ -17,8 +17,7 @@ class Importer < Darlingtonia::Importer
   private
 
     def default_creator
-      User
-        .first_or_create!(email: config['username'], password: config['password'])
+      User.find_or_create_system_user(config['user_key'])
     end
 
     def default_record_importer
