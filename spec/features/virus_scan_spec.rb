@@ -4,8 +4,13 @@ include Warden::Test::Helpers
 
 RSpec.feature 'Virus Scanning', :clean, :js, :virus_scan do
   let(:admin) { FactoryBot.create(:admin) }
-  before { login_as admin }
-  after  { logout }
+
+  before do
+    login_as admin
+    AdminSet.find_or_create_default_admin_set_id
+  end
+
+  after { logout }
 
   let(:safe_path)  { "#{fixture_path}/files/pdf-sample.pdf" }
   let(:virus_path) { "#{fixture_path}/virus_check.txt" }
