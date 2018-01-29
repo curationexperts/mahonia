@@ -134,8 +134,8 @@ RSpec.describe 'hyrax/base/_form_metadata.html.erb', type: :view do
     end
 
     it 'has licenses' do
-      expect(page).to have_form_field(:license)
-        .as_single_valued
+      expect(page)
+        .to have_multivalued_field(:license)
         .on_model(work.class)
         .with_label('License')
         .and_options(*license_uris)
