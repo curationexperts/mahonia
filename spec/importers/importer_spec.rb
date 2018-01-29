@@ -96,12 +96,23 @@ RSpec.describe Importer do
         expect(etd.first.visibility).to eq(Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE)
       end
 
-      pending
-      it "sets the controls to open after embargo_release_date", :clean, :perform_enqueued do
+      it "sets the visibility to 'open' after the release date", :clean, :perform_enqueued do
         ActiveJob::Base.queue_adapter.filter = [AttachFilesToWorkJob, IngestJob]
 
         importer.import
-        # etd = Etd.where(title: ["Fake Embargoed Item"])
+        etd = Etd.where(title: ["Fake Embargoed Item"]).first
+
+        expect(etd.to_solr['visibility_after_embargo_ssim']).to eq('open')
+      end
+
+      it "sets the correct release date", :clean, :perform_enqueued do
+        ActiveJob::Base.queue_adapter.filter = [AttachFilesToWorkJob, IngestJob]
+
+        csv_release_date = '2020-03-01 00:00'
+        importer.import
+        etd = Etd.where(title: ["Fake Embargoed Item"]).first
+
+        expect(Date.parse(csv_release_date)).to eq(Date.parse(etd.embargo_release_date.to_s))
       end
 
       context "with an indefinitely embargoed record" do
