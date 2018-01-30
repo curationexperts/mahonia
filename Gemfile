@@ -86,7 +86,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'fcrepo_wrapper'
   gem 'ffaker'
-  gem 'hyrax-spec', '~> 0.3.0'
+  gem 'hyrax-spec', "~> 0.3.2"
   gem 'rspec-rails'
   gem 'webmock', '~> 3.1', '>= 3.1.1'
 end
