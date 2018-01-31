@@ -93,6 +93,13 @@ RSpec.feature 'Create an OSHU ETD', :clean, js: true do
       expect(page).to have_content %r{#{etd[:resource_type].first}}i
       expect(page).to have_content etd[:school].first
     end
+
+    scenario "admins should not see share your work button" do
+      expect(admin.admin?).to eq(true)
+      visit '/'
+
+      expect(page).not_to have_content('Share Your Work')
+    end
   end
 
   # Non admin users should not be able to create a new work
@@ -109,6 +116,13 @@ RSpec.feature 'Create an OSHU ETD', :clean, js: true do
       expect(page).not_to have_content('Add new work')
       visit '/concern/etds/new'
       expect(page).to have_content('You are not authorized to access this page.')
+    end
+
+    scenario "users should not see share your work button" do
+      expect(user.admin?).to eq(false)
+      visit '/'
+
+      expect(page).not_to have_content('Share Your Work')
     end
   end
 end
