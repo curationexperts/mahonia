@@ -1,7 +1,7 @@
 default: &default
   adapter:  postgresql
   encoding: unicode
-  pool:     5
+  pool:     25
   timeout:  5000
 
 development:
@@ -15,8 +15,10 @@ test:
   <<: *default
   database: mahonia_test
 
+# Note: production credentials are stored in .env.production file
+# on the server, originally configured by ansible
 production:
   <<: *default
-  database: mahonia_production
-  username: mahonia
-  password: password1
+  database: <%= ENV['DATABASE_NAME'] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
