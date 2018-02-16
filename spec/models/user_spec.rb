@@ -17,7 +17,7 @@ RSpec.describe User do
   end
 
   describe 'roles' do
-    it 'is emplty for a new user' do
+    it 'is empty for a new user' do
       expect(plain_user.roles).to be_empty
     end
 
@@ -52,6 +52,59 @@ RSpec.describe User do
 
     it 'is true when a user has the "admin" role' do
       expect(admin_user).to be_admin
+    end
+  end
+
+  describe 'omniauthable user' do
+    it "has a uid field" do
+      expect(user.uid).not_to be_empty
+    end
+    it "has a provider" do
+      expect(described_class.new.respond_to?(:provider)).to eq true
+    end
+  end
+
+  context "shibboleth integration" do
+    let(:auth_hash) do
+      OmniAuth::AuthHash.new(
+        provider: 'shibboleth',
+        uid: 'jane',
+        info: {
+          display_name: "Jane Tennison",
+          uid: 'jane',
+          mail: 'jane@example.com'
+        }
+      )
+    end
+    let(:user) { described_class.from_omniauth(auth_hash) }
+
+    before do
+      described_class.delete_all
+    end
+
+    context "shibboleth" do
+      it "has a shibboleth provided name" do
+        expect(user.display_name).to eq auth_hash.info.display_name
+      end
+      it "has a shibboleth provided uid which is not nil" do
+        expect(user.uid).to eq auth_hash.info.uid
+        expect(user.uid).not_to eq nil
+      end
+      it "has a shibboleth provided email which is not nil" do
+        expect(user.email).to eq auth_hash.info.mail
+        expect(user.email).not_to eq nil
+      end
+    end
+  end
+
+  context "in a world without passwords" do
+    before do
+      described_class.delete_all
+    end
+    it "system users are created without error" do
+      allow(AuthConfig).to receive(:use_database_auth?).and_return(false)
+      u = ::User.find_or_create_system_user("batch_user")
+      expect(u).to be_instance_of(::User)
     end
   end
 end
